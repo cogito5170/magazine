@@ -117,3 +117,19 @@ https://pubmed.ncbi.nlm.nih.gov/7996122/ · https://www.staff.uni-mainz.de/oberf
 Typography trends we could source from practitioner reports (2026): variable weight and width axes, kinetic stepping, and the revival of high-contrast serifs.
 We found no sourced study for stretched or ransom-note type. These are conventions only.
 The Lautréamont "chance meeting" line is not cited because its source was not verified.
+
+## Final — round III refined (`edas/mood/final.py`, `examples/match_final.py`)
+
+All four spreads now share one frame:
+- 56 px margins.
+- Running head at top left, figure index at top right, process line at bottom left, folio at bottom right.
+- Inter Display weights 100–900 used as expression; Pretendard (OFL 1.1, `scripts/fetch_fonts.sh`) for Korean; JetBrains Mono for metadata.
+- Process lines mix Mono and Pretendard on one baseline because the mono face has no Hangul.
+
+Contemporary readings:
+- **I:** out-of-square Hangul. Anchor: 안상수체, 1985, 탈네모꼴 (verified via press coverage). Also progressive blur.
+- **II:** a fixed-point Droste recursion. The framed inset is re-mapped with the conformal spiral z ↦ z^β, β = 1 − i·ln(1/s)/2π, after Lenstra & de Smit's analysis of Escher's *Print Gallery*.
+- **III:** cut-out collage with cast shadows; a Golconda lattice with depth-of-field blur.
+- **IV:** ransom-note title, and a sentence set in seven Pretendard weights.
+
+The user's approval to finalise is recorded in `output/match/final/final_spec.json`. The presentation PDF ends with a notes page that lists every photo operation and its limits: low-res source, unvalidated mood claims, practitioner trend sources.

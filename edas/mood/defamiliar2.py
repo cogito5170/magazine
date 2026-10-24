@@ -205,7 +205,7 @@ def nocturne2(crops, texts):
 
 
 # ------------------------------------------------------------------ LINEUP · body
-def lineup2(crops, texts, vertical_copy=True):
+def lineup2(crops, texts, vertical_copy=True, furniture=True):
     ink = (238, 236, 230)
     page = Image.new("RGB", (W, H), (6, 6, 6))
     pw = W // 4
@@ -252,6 +252,8 @@ def lineup2(crops, texts, vertical_copy=True):
         rotated_text(page, (3 * pw - 44, 640), texts["body_ko"][1], fnt("ko", 17), ink + (255,), angle=90, tracking=0.6)
     page = scrim(page, (0, H - 120, W, H), 0.5)
     d = ImageDraw.Draw(page)
+    if not furniture:
+        return grain(page, 0.04, 23, size=1.6), {"name": "LINEUP II — 몸 (bare)"}
     tracked(d, (26, H - 44), f"{texts['kicker']}   JITTER 18PX · SQUASH 0.72 · DROSTE 1/3, 1/9 · MIRROR · "
             f"OFFSETS {offs[0]}/{offs[1]}/{offs[2]}/{offs[3]}", fnt("mono", 12), ink, 1)
     tracked(d, (W - 60, H - 44), texts["folio"], fnt("mono", 12), ink, 1)
@@ -323,7 +325,7 @@ def wild2(crops, texts):
 
 
 # ------------------------------------------------------------------ FABRIC · textile
-def fabric2(crops, texts, photos):
+def fabric2(crops, texts, photos, bare=False):
     ink = (240, 238, 232)
     byk = {p.key: p for p in photos}
     fields = {}
@@ -358,6 +360,8 @@ def fabric2(crops, texts, photos):
         a = ImageChops.multiply(a, region)
         mo_.putalpha(a)
         page.paste(mo_, (0, 0), mo_)
+    if bare:
+        return page, {"name": "FABRIC II — 직물 (bare weave)"}
     a = np.asarray(page, float)
     a[360:690, :W - 160] *= 0.38                                         # dark ground cloth for the stitches
     page = Image.fromarray(a.astype("uint8"))

@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "edas"
+version = "0.1.0"
+description = "Mathematical Editorial Design Analysis System: quantitative magazine & portfolio PDF evaluation engine"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy>=1.24",
+  "pydantic>=2",
+  "pypdfium2>=4.30",
+  "pillow>=10",
+  "pyyaml>=6",
+  "reportlab>=4",
+]
+
+[project.optional-dependencies]
+dashboard = ["streamlit>=1.30", "plotly>=5"]
+embedding = ["onnxruntime>=1.16"]
+test = ["pytest>=7"]
+
+[project.scripts]
+edas = "edas.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["edas*"]
+
+[tool.setuptools.package-data]
+edas = ["default_config.yaml"]

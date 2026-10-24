@@ -56,3 +56,35 @@ class TestMoodCli(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestReadAndPrint(unittest.TestCase):
+    def test_read_cues_and_print_boxes(self):
+        import tempfile
+        import pypdf
+        from PIL import Image
+        from edas.mood.read import measure, print_pdf
+        night = measure(Image.new("RGB", (100, 80), (12, 14, 20)))
+        self.assertIn("dark/night", night["cues"])
+        day = measure(Image.new("RGB", (100, 80), (235, 230, 220)))
+        self.assertIn("bright/day", day["cues"])
+        with tempfile.TemporaryDirectory() as tmp:
+            png = os.path.join(tmp, "p.png")
+            Image.new("RGB", (2551, 3579), (200, 190, 180)).save(png)
+            rep = print_pdf([png], os.path.join(tmp, "o.pdf"), (210, 297), 3)
+            self.assertFalse(rep["pages"][0]["below_convention"])
+            page = pypdf.PdfReader(os.path.join(tmp, "o.pdf")).pages[0]
+            self.assertAlmostEqual(float(page.trimbox.width) * 25.4 / 72, 210, places=1)
+            self.assertAlmostEqual(float(page.mediabox.width) * 25.4 / 72, 216, places=1)
+
+    def test_pdf_extract(self):
+        import tempfile
+        from edas.mood.read import extract_pdf, read_pdf
+        from edas.synth import make_test_pdf
+        with tempfile.TemporaryDirectory() as tmp:
+            pdf = os.path.join(tmp, "t.pdf")
+            make_test_pdf(pdf, pages=2)
+            man = extract_pdf(pdf, os.path.join(tmp, "x"))
+            self.assertEqual(len(man["pages"]), 2)
+            self.assertTrue(all(i.get("effective_ppi") for p in man["pages"] for i in p["images"]))
+            self.assertEqual(len(read_pdf(pdf)), 2)

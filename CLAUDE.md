@@ -1,6 +1,7 @@
 # EDAS — editorial design analysis + mood spreads
 
-- **Mood work**: when the user gives an image and a feeling ("이 느낌으로 만들어줘"), follow `.claude/skills/mood/SKILL.md` exactly (`/mood`).
+- **Magazine / mood work — automatic**: whenever the user supplies photos, a page image, slides or a PDF and asks for a magazine page, a mood or feeling, "알아서", or a sellable / print-ready edition, load and follow the `magazine` skill (`.claude/skills/magazine/SKILL.md`) without waiting for a slash command.
+  - If no mood is given, read each page's atmosphere and choose one, using `edas mood read` and `docs/mood_library.md`.
 - **Approved results reproduce pixel-for-pixel**:
   - `edas mood list`
   - `edas mood render <name> --image sources/<file>` must report "identical to the approved file".

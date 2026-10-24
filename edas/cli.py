@@ -14,6 +14,9 @@
   edas mood new SLUG --image SRC --mood "무드"      start a job folder (original copy + brief.json)
   edas mood grid SRC [--region X0 Y0 X1 Y1] [--zoom 3] -o OUT.png    read coordinates off a source
   edas mood fonts [--install]                      check / install Pretendard and Noto Serif KR (OFL)
+  edas mood read INPUT [-o report.json]            measure the atmosphere of each page / slide / photo
+  edas mood pdf-extract FILE.pdf -o DIR            page previews + embedded images at native size (+ ppi)
+  edas mood print-pdf PAGE.png ... --trim 210x297 [--bleed 3] -o OUT.pdf   print PDF with trim/bleed boxes
 """
 from __future__ import annotations
 
@@ -220,6 +223,41 @@ def _mood_fonts(a):
         print(f"{k:12s} {'ok' if ok else 'missing'}")
 
 
+def _mood_read(a):
+    from .mood.read import read_any
+    rows = read_any(a.input)
+    for r in rows:
+        tag = f"p{r['page']}" if "page" in r else r["file"]
+        txt = (r.get("text") or "").replace("\n", " ")[:60]
+        print(f"{tag:>10s}  L*{r['lightness_mean']:5.1f}  C*{r['chroma_mean']:5.1f}  "
+              f"{', '.join(r['cues'])}" + (f"  | {txt}" if txt else ""))
+    if a.out:
+        with open(a.out, "w") as fh:
+            json.dump(rows, fh, ensure_ascii=False, indent=2)
+        print(a.out)
+
+
+def _mood_pdf_extract(a):
+    from .mood.read import extract_pdf
+    man = extract_pdf(a.file, a.out)
+    with open(os.path.join(a.out, "manifest.json"), "w") as fh:
+        json.dump(man, fh, ensure_ascii=False, indent=2)
+    for p in man["pages"]:
+        imgs = ", ".join(f"{i['px'][0]}×{i['px'][1]} @{i['effective_ppi']}ppi" for i in p["images"] if "px" in i)
+        print(f"page {p['page']}: {len(p['images'])} images  {imgs}")
+    print(os.path.join(a.out, "manifest.json"))
+
+
+def _mood_print_pdf(a):
+    from .mood.read import print_pdf
+    tw, th = (float(v) for v in a.trim.lower().replace("mm", "").split("x"))
+    rep = print_pdf(a.pages, a.out, (tw, th), a.bleed)
+    for p in rep["pages"]:
+        flag = "  (below 300 ppi convention)" if p["below_convention"] else ""
+        print(f"{p['page']}: {p['effective_ppi']} ppi{flag}")
+    print(rep["out"])
+
+
 def _add_mood(sub):
     m = sub.add_parser("mood", help="mood spreads: list, render, new job, coordinate grid, fonts")
     ms = m.add_subparsers(dest="mood_cmd", required=True)
@@ -245,6 +283,20 @@ def _add_mood(sub):
     s = ms.add_parser("fonts")
     s.add_argument("--install", action="store_true")
     s.set_defaults(fn=_mood_fonts)
+    s = ms.add_parser("read")
+    s.add_argument("input")
+    s.add_argument("-o", "--out")
+    s.set_defaults(fn=_mood_read)
+    s = ms.add_parser("pdf-extract")
+    s.add_argument("file")
+    s.add_argument("-o", "--out", required=True)
+    s.set_defaults(fn=_mood_pdf_extract)
+    s = ms.add_parser("print-pdf")
+    s.add_argument("pages", nargs="+")
+    s.add_argument("--trim", required=True, help="WIDTHxHEIGHT in mm, e.g. 210x297")
+    s.add_argument("--bleed", type=float, default=3.0)
+    s.add_argument("-o", "--out", required=True)
+    s.set_defaults(fn=_mood_print_pdf)
 
 
 def main(argv=None):

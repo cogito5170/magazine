@@ -64,16 +64,17 @@ edas mood list                         # 승인된 시안 목록
 edas mood render match-dandy --image sources/match_spread.png   # 승인본 재현 → "identical to the approved file"
 ```
 
-새 작업은 이 저장소에서 `claude`를 실행하고 이렇게 말하면 됩니다.
+새 작업은 이 저장소에서 `claude`를 실행하고 그냥 말하면 됩니다. 슬래시 명령은 필요 없습니다.
 
-> /mood 이 사진(경로 또는 첨부) ○○한 느낌으로 만들어줘
+> 이 사진으로 이렇게 잡지 만들어줘 (사진 첨부)
+> 이 사진 부드러운 댄디 느낌으로
+> 이 PDF 넣고 실제 판매 가능하게 만들어줘
+> 이 슬라이드들 분위기 알아서 잡아줘
 
-Claude는 `.claude/skills/mood/SKILL.md`의 절차를 그대로 따릅니다.
-1. `edas mood new`로 작업 폴더를 만듭니다.
-2. `edas mood grid`로 좌표를 읽고, 카피를 원문 그대로 옮깁니다.
-3. 무드의 근거와 현대 예술 기법을 조사합니다.
-4. 시안을 렌더링합니다.
-5. 승인작(`docs/approved/`)과 나란히 놓고 수준을 확인합니다.
-6. 시안 한 장을 전달합니다.
+Claude는 `CLAUDE.md`의 지시에 따라 `.claude/skills/magazine/SKILL.md`를 자동으로 불러옵니다.
+- **무드를 주면** 그 무드로 만듭니다.
+- **무드가 없으면** `edas mood read`로 페이지마다 분위기를 측정합니다. 그다음 카피와 사진 내용, `docs/mood_library.md`를 보고 무드를 직접 고릅니다.
+- **PDF가 오면** `edas mood pdf-extract`로 원본 해상도 이미지를 꺼냅니다.
+- **판매용이면** `edas mood print-pdf`로 판형과 도련(재단 여유분)이 들어간 인쇄 PDF를 만들고, 이미지 해상도를 점검해 보고합니다.
 
 승인된 시안은 `tests/test_mood_approved.py`가 원본에서 다시 렌더링해 픽셀 단위로 같은지 검사합니다. 하나라도 달라지면 테스트가 실패합니다.

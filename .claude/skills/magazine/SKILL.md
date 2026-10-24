@@ -1,16 +1,26 @@
 ---
-name: mood
-description: 사용자가 지면·스프레드·사진 이미지를 주고 "어떤 느낌(무드)으로 만들어줘"라고 하면, 이 저장소에서 승인된 방식(MATCH 부드러운 댄디, STOP 라포) 그대로 감각적인 시안 1장을 만든다. Use whenever the user supplies a page/spread/photo image plus a mood or feeling word (댄디, 라포, 부드러운, 고요 …) and wants it made in that mood.
+name: magazine
+description: 사진·지면 이미지·PDF·슬라이드를 주고 "이렇게 잡지 만들어줘", "이 느낌(댄디·라포·고요…)으로 만들어줘", "알아서 분위기 잡아줘", "PDF 넣고 실제 판매 가능하게 만들어줘" 같은 요청을 받으면 자동으로 쓴다. 무드가 주어지면 그 무드로, 없으면 페이지마다 분위기를 스스로 읽고 고른다. 이 저장소에서 승인된 방식(MATCH 부드러운 댄디, STOP 라포) 그대로 만든다. Use for any request to design, restyle, or produce a sellable or print-ready magazine page, spread, portfolio, slide deck or PDF from supplied photos or pages, with or without a stated mood.
 ---
 
-# /mood — 사진 + 느낌 → 시안 한 장
+# 잡지·지면 만들기: 사진, PDF, 슬라이드 → 무드가 살아 있는 지면
 
-사용자가 사진과 느낌(무드)을 주면 아래 순서를 **그대로** 따른다. 승인된 두 결과의 방식이다.
+사용자는 슬래시 명령 없이 그냥 말한다. 예: "사진 넣고 이렇게 잡지 만들어줘", "이 PDF 판매 가능하게".
+이런 요청이면 이 절차를 **그대로** 따른다. 승인된 결과의 방식이다.
 - **MATCH 부드러운 댄디**: `edas/mood/contemporary.py:nocturne_dandy`
 - **STOP 라포**: `edas/mood/rapport.py:rapport_spread`
 
-막히지 않는 한 사용자에게 되묻지 않는다. 해석이 갈리면 한 줄로 해석을 밝히고 진행한다.
-예: "라포틱" → 라포(rapport)로 해석하고 바로 진행.
+막히지 않는 한 되묻지 않는다. 해석이 갈리면 한 줄로 밝히고 진행한다.
+예: "라포틱" → 라포(rapport)로 해석.
+
+## 경로 고르기
+
+| 들어온 것 | 경로 |
+|---|---|
+| 이미지 1장 + 무드 | **A**: 1~8절 |
+| 이미지(들), 무드 없음 / "알아서" | **B**: 2절 뒤에 **B절**(무드 스스로 고르기), 그다음 3~8절 |
+| PDF·슬라이드·여러 페이지 | **C**: **C절**로 페이지를 꺼내고, 페이지마다 B절로 무드를 계획한 뒤, 3~8절을 페이지별로 반복 |
+| "판매 가능하게 / 인쇄용 / 실제 출간" | C 경로에 **D절**(생산)을 더한다 |
 
 ## 0. 지켜야 할 것
 
@@ -38,7 +48,7 @@ description: 사용자가 지면·스프레드·사진 이미지를 주고 "어�
 
 ```sh
 edas mood fonts            # pretendard / notoserifkr 둘 다 ok 여야 한다. 아니면 --install
-edas mood new <slug> --image <원본경로> --mood "<무드>"
+edas mood new <slug> --image <원본경로> --mood "<무드 또는 auto>"
 ```
 
 - 이미지가 대화에 붙어 왔으면 업로드 경로(`~/.claude/uploads/...`)를 `--image`에 넘긴다.
@@ -58,6 +68,53 @@ edas mood new <slug> --image <원본경로> --mood "<무드>"
 - **데이터 파일**: 위 내용을 `edas/mood/spreads/<slug>.py`에 적는다.
   - 형식은 `match.py`(Photo 목록) 또는 `stop.py`(CELLS)를 따른다.
   - 측정 방법은 docstring에 쓴다.
+
+## B. 무드를 스스로 고르기 (무드가 주어지지 않았거나 여러 페이지일 때)
+
+1. **사진 영역별로 읽는다**: `edas mood read <crop 폴더 또는 이미지>`
+   - 지면 전체를 읽으면 배경색이 측정을 지배한다. 사진을 crop해서 읽는다.
+   - 여기서 나오는 단서(cues)는 측정값과 관행 임계값이다. 감정 점수가 아니다.
+2. **내용을 본다**: 카피 주제를 한 줄로 요약하고, 주인공(사람, 장소, 사물), 시간대, 행동을 적는다.
+3. **`docs/mood_library.md`와 맞춰 본다**: 무드를 고르고 근거를 한 줄로 쓴다.
+   - 맞는 것이 없으면 새 무드를 정하고 3절에서 조사한다.
+4. **여러 페이지일 때**:
+   - 시리즈 DNA는 공통으로 넣는다.
+   - 무드 레이어만 페이지마다 바꾼다.
+   - 강약 리듬을 짠다. 표지는 가장 강하게, 텍스트가 많은 페이지는 읽히게.
+5. **계획표를 먼저 보여 주고 바로 만든다.** 형식: 페이지 | 단서 | 카피 주제 | 무드 | 이유.
+
+## C. PDF·슬라이드·여러 페이지
+
+```sh
+edas mood pdf-extract FILE.pdf -o output/<slug>/pages   # 페이지 미리보기 + 원본 해상도 이미지 + ppi
+edas mood read FILE.pdf                                 # 페이지별 단서와 텍스트
+edas analyze FILE.pdf -o output/<slug>/analysis         # (필요하면) 레이아웃·타이포 측정
+```
+
+- **원본 이미지**: PDF에서 꺼낸 원본 이미지를 쓴다. 스크린샷보다 훨씬 선명하다.
+- **카피**: 텍스트는 PDF 텍스트 레이어에서 가져온다. 텍스트 레이어가 없으면 확대해서 전사한다.
+- **보호 페이지**: 기존 포트폴리오 PDF라면 `docs/postmortems/vmd-redesign-failure.md`를 따른다.
+  - 원본 PDF는 수정하지 않는다.
+  - 보호 페이지는 바꾸지 않는다.
+  - 승인 전에는 "최종"이라고 부르지 않는다.
+
+## D. 판매 가능한 생산본 (인쇄용)
+
+- **판형(trim)**
+  - PDF가 있으면 PDF 페이지 크기를 쓴다.
+  - 없고 사용자도 정하지 않았으면 판형만 한 번 묻는다. 출판물마다 다르다.
+- **도련(bleed)**: 기본 3mm. 관행이다.
+- **렌더 크기**: 페이지를 (판형 + 도련 2개) × 300ppi 크기로 그린다. 300ppi도 관행이다.
+  - 새 함수는 캔버스 W, H를 인자로 받는다. 2000px로 만든 좌표는 W/2000 비율로 늘린다.
+- **조립**: `edas mood print-pdf page_*.png --trim WxH --bleed 3 -o output/<slug>/print.pdf`
+  - TrimBox와 BleedBox가 들어간다.
+- **점검 결과**를 답변에 표로 보고한다:
+  - 이미지별 유효 ppi(300 미만은 표시)
+  - 텍스트가 래스터라는 점(벡터 텍스트가 필요하면 조판 프로그램에서 다시 짜야 함)
+  - RGB 출력이라 CMYK 변환은 인쇄소 몫이라는 점
+  - 서체 라이선스: Pretendard, Noto Serif KR는 OFL이라 상업 사용 가능
+  - 사진 권리는 사용자 확인 사항
+- **"판매 가능"을 장담하지 않는다.** 위 점검 항목이 충족됐는지만 보고한다.
 
 ## 3. 무드 해석과 조사 (검색 2~4회, 한 번에 병렬로)
 
@@ -124,7 +181,8 @@ edas mood new <slug> --image <원본경로> --mood "<무드>"
 
 ### 캔버스
 
-원본 비율을 따르고 폭은 2000px로 한다. 여백 40~56px.
+- 시안은 원본 비율을 따르고 폭 2000px로 한다. 여백 40~56px.
+- 생산본은 D절을 따른다.
 
 ## 5. 만들기
 
@@ -153,7 +211,8 @@ edas mood new <slug> --image <원본경로> --mood "<무드>"
 
 ## 7. 전달
 
-- **시안은 한 장.** 변형은 요청할 때만 만든다.
+- **시안 수**: 페이지당 시안 한 장. 변형은 요청할 때만 만든다.
+- **여러 페이지일 때**: 페이지별 PNG, 합본 PDF, 전체 컨택트 시트 한 장을 보낸다.
 - **파일**: `SendUserFile`로 PNG와 PDF를 보낸다.
 - **답변(한국어)**:
   1. 해석 한 줄

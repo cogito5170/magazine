@@ -36,6 +36,11 @@ CRITERIA: dict[str, dict] = {
                          "experiments": ["bilingual", "B_page"]},
     "mood_stillness": {"ko": "어느 쪽이 더 고요하게 느껴지는가?", "en": "Which feels stiller / calmer?",
                        "experiments": ["mood"]},
+    "concept_fit": {"ko": "어느 쪽이 글의 의도(장소에 옷의 톤을 맞춘다)를 더 잘 전달하는가?",
+                    "en": "Which conveys the stated idea (matching outfit tone to place) better?",
+                    "experiments": ["mood"]},
+    "photo_visibility": {"ko": "어느 쪽에서 사진이 더 잘 보이는가?", "en": "In which are the photographs easier to see?",
+                         "experiments": ["mood"]},
     "mood_preference": {"ko": "어느 쪽이 더 마음에 드는가? (고요함과 별개로)", "en": "Which do you like more (independent of stillness)?",
                         "experiments": ["mood"]},
 }

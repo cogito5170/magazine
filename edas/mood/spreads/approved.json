@@ -1,0 +1,35 @@
+{
+  "match-dandy": {
+    "pixels_sha256": "05a2a84b81f846bb2e278b4afa42fa9b9f2ea1b1a7921b278c1208f2f5f838fd",
+    "source_sha256": "3b0cf269377f43e665d01a078ad2ebe9d15a99babfd736827f0e4b2dde6c2776",
+    "rendered_with": {
+      "pillow": "12.3.0",
+      "numpy": "2.5.3",
+      "python": "3.13.17"
+    },
+    "source": "sources/match_spread.png",
+    "reference": "docs/approved/match-dandy.jpg"
+  },
+  "match-contemporary": {
+    "pixels_sha256": "bfb4f4e0522d9e39cdc3ce135a63c3db178eeb99d7dcd95ba24343ed3155c13e",
+    "source_sha256": "3b0cf269377f43e665d01a078ad2ebe9d15a99babfd736827f0e4b2dde6c2776",
+    "rendered_with": {
+      "pillow": "12.3.0",
+      "numpy": "2.5.3",
+      "python": "3.13.17"
+    },
+    "source": "sources/match_spread.png",
+    "reference": "docs/approved/match-contemporary.jpg"
+  },
+  "stop-rapport": {
+    "pixels_sha256": "bd2f81b0fa69baacc86a6c4c4eb08ba564e4292adba160ab338de2087ce21ea3",
+    "source_sha256": "a48ed3b312434c9b2b4ad5208c87fbb5ce72d2bd8242c6ed8a896c159d35d9b1",
+    "rendered_with": {
+      "pillow": "12.3.0",
+      "numpy": "2.5.3",
+      "python": "3.13.17"
+    },
+    "source": "sources/stop_spread.jpg",
+    "reference": "docs/approved/stop-rapport.jpg"
+  }
+}

@@ -1,0 +1,125 @@
+# EDAS default configuration.
+#
+# Everything here is an *algorithmic* setting (resolution, grouping
+# tolerances, discretisation rules) or an *externally sourced* technical
+# threshold (with its source).  No aesthetic score or weight is defined here.
+# Objective weights `lambda` are explicitly flagged as unvalidated.
+
+render:
+  dpi: 120                       # analysis rendering resolution (px per inch)
+
+extraction:
+  raster_fallback: auto          # auto | always | never   (spec §12)
+  full_page_image_fraction: 0.95 # 'flattened document' detection
+
+text:
+  line_baseline_tol: 0.35        # |Δbaseline| <= tol * size  -> same line
+  line_gap_tol: 3.0              # horizontal gap <= tol * size -> same line
+  block_leading_tol: 1.2         # vertical gap between lines <= tol * size -> same block
+  block_size_ratio: 1.25         # max size ratio inside a block
+
+layout:
+  background_area_fraction: 0.95 # filled path covering >= this share of page = background
+  bleed_tolerance_pt: 1.0        # object within this distance of the edge = bleed
+  vector_min_area_fraction: 0.0005
+  vector_group_gap: 0.004        # x page diagonal
+  grid:
+    max_columns: 12
+    gutter_step_pt: 0.5
+    max_gutter_fraction: 0.08    # gutter <= fraction of content width
+    max_rows: 12
+  align_tolerance_fraction: 0.005  # A02 inlier / A14/A15/D9 shared line: |Δ| <= tol * page dimension
+  whitespace_cells: [8, 8]       # A17 partition (nx, ny)
+  cluster_link_fraction: 0.03    # D13 graph edge if d_ij <= fraction * diagonal
+
+typography:
+  glyph_raster_px: 96
+  max_glyphs_per_font: 40
+  stroke_quantiles: [0.10, 0.90]   # B5 w_min / w_max as quantiles of local stroke width
+  curvature_corner_deg: 30
+  body_size_round: 0.1             # pt, for the body-size mode
+  bilingual:
+    hangul_per_stratum: 10         # most frequent syllables per shape type (1..6)
+    latin_per_class: 15
+    roles:                         # BK09 role assignment rule (labelling only, not quality)
+      title_ratio: 1.5             # size >= ratio * body size -> title
+      caption_distance: 3.0        # x size: max distance to an image for a caption
+  aesthetic:
+    specimen_px_per_em: 160        # Experiment A rasterisation
+    specimen_height_metric: cap    # cap | x : equalised visual height in Experiment A
+    draft_dpi: 120                 # Experiment B rendering
+
+photography:
+  min_area_fraction: 0.01        # raster images below this share of page are not "photographs"
+  color_bins: 8                  # C8 joint RGB histogram bins per channel
+  canny: {sigma: 1.0, low: 0.05, high: 0.15}
+  horizon_max_tilt_deg: 20
+  horizon_min_support: 0.5       # line votes / image width
+  subject_threshold_k: 3.0       # Hou&Zhang: subject = saliency > k * mean
+  max_side_px: 512
+
+composition:
+  saliency_work_width: 64
+  focal_radius_fraction: 0.05
+  focal_threshold_rel: 0.5       # local maxima >= rel * max saliency
+  repetition: {size_rel: 0.10, aspect_rel: 0.10, delta_e: 10.0}
+
+rhythm:
+  state_bins: [0.0, 0.3333333, 0.6666667, 1.0000001]   # E13 tertile edges for D_image and D_text
+  min_pages_for_period: 6
+  min_pages_for_sign_changes: 5
+
+raster:
+  work_max_side: 1000
+  fg_delta_e: 12.0
+  glyph_max_height: 0.06
+  glyph_max_aspect: 24
+  line_join: 1.0
+  block_join: 1.2
+  min_glyphs_per_line: 3
+  image_min_area: 0.01
+  image_min_fill: 0.6
+
+technical_targets:
+  # externally sourced constraints only
+  text_contrast_min:
+    value: 4.5
+    large_text_value: 3.0
+    large_text_pt: 18.0
+    tolerance: 0.5
+    source: "WCAG 2.x success criterion 1.4.3 (contrast minimum)"
+  effective_ppi_min:
+    value: 300
+    tolerance: 50
+    source: "commercial offset print convention (300 ppi at final size)"
+  text_outside_page_max:
+    value: 0
+    tolerance: 1
+    source: "logical constraint: text must not be clipped by the page edge"
+
+objective:
+  validated: false   # weights below are NOT validated; L is not an objective quality score
+  lambda: {}         # e.g. {A03: 1.0, A05: 1.0}; terms missing here get default_lambda
+  default_lambda: 1.0
+
+optimization:
+  max_shift_fraction: 0.05       # max object translation per axis (x page dimension)
+  locked_ids: []
+
+embedding:
+  provider: handcrafted          # handcrafted | onnx
+  onnx_model_path: null
+  onnx_input_size: 224
+  onnx_mean: [0.48145466, 0.4578275, 0.40821073]
+  onnx_std: [0.26862954, 0.26130258, 0.27577711]
+
+websearch:
+  providers: [openverse]         # openverse | brave | google_cse | wikimedia | urls
+  per_query: 20
+  timeout_s: 20
+  max_image_bytes: 15000000
+  user_agent: "EDAS-reference-research/0.1 (+https://github.com/cogito5170/magazine)"
+  similarity:
+    epsilon: 1.0e-6
+    default_weight: 1.0          # w_i default, unvalidated (spec feature request §5.1)
+    min_coverage: 0.5            # results below this observed-feature share get low confidence

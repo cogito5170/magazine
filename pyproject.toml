@@ -29,4 +29,4 @@ edas = "edas.cli:main"
 include = ["edas*"]
 
 [tool.setuptools.package-data]
-edas = ["default_config.yaml"]
+edas = ["default_config.yaml", "mood/spreads/approved.json"]

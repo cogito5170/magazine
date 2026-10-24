@@ -52,3 +52,28 @@ python -m unittest discover -s tests -t .
 
 See `docs/status.md`. `PORTFOLIO 5.pdf` is not in this repository, so the first-target analysis has not
 been run. All tests use synthetic PDFs with known answers.
+
+## 무드 시안 작업 (CLI)
+
+사진과 느낌을 주면 같은 방식으로 시안 한 장을 만드는 흐름입니다.
+
+```sh
+pip install -e .                       # edas 명령 설치
+edas mood fonts --install              # Pretendard, Noto Serif KR (OFL)
+edas mood list                         # 승인된 시안 목록
+edas mood render match-dandy --image sources/match_spread.png   # 승인본 재현 → "identical to the approved file"
+```
+
+새 작업은 이 저장소에서 `claude`를 실행하고 이렇게 말하면 됩니다.
+
+> /mood 이 사진(경로 또는 첨부) ○○한 느낌으로 만들어줘
+
+Claude는 `.claude/skills/mood/SKILL.md`의 절차를 그대로 따릅니다.
+1. `edas mood new`로 작업 폴더를 만듭니다.
+2. `edas mood grid`로 좌표를 읽고, 카피를 원문 그대로 옮깁니다.
+3. 무드의 근거와 현대 예술 기법을 조사합니다.
+4. 시안을 렌더링합니다.
+5. 승인작(`docs/approved/`)과 나란히 놓고 수준을 확인합니다.
+6. 시안 한 장을 전달합니다.
+
+승인된 시안은 `tests/test_mood_approved.py`가 원본에서 다시 렌더링해 픽셀 단위로 같은지 검사합니다. 하나라도 달라지면 테스트가 실패합니다.

@@ -9,6 +9,11 @@
   edas prefs-report --store judgments.jsonl [--original FONT]
   edas regress ORIGINAL.pdf CANDIDATE.pdf --protect 2
   edas approve PROPOSALS.json --id ID --decision approved|rejected --approver NAME
+  edas mood list                                   finished spreads that reproduce exactly
+  edas mood render NAME --image SRC [-o DIR]       re-render a finished spread from its source image
+  edas mood new SLUG --image SRC --mood "무드"      start a job folder (original copy + brief.json)
+  edas mood grid SRC [--region X0 Y0 X1 Y1] [--zoom 3] -o OUT.png    read coordinates off a source
+  edas mood fonts [--install]                      check / install Pretendard and Noto Serif KR (OFL)
 """
 from __future__ import annotations
 
@@ -152,6 +157,96 @@ def _approve(a):
     print(f"{a.id}: {a.decision} by {a.approver}")
 
 
+def _mood_list(a):
+    from .mood.spreads import WORKS
+    for k, v in WORKS.items():
+        print(f"{k:20s} {v['mood']:28s} {v['source']}  [{v['module']}]")
+
+
+def _mood_render(a):
+    from .mood import fonts
+    from .mood.spreads import WORKS, render
+    missing = [k for k, ok in fonts.status().items() if not ok]
+    if missing:
+        print(f"warning: fonts not installed ({', '.join(missing)}); run `edas mood fonts --install` "
+              f"or the render will use fallback faces and will not match the approved file", file=sys.stderr)
+    page, spec = render(a.name, a.image)
+    out = a.out or os.path.join("output", "works", a.name)
+    os.makedirs(out, exist_ok=True)
+    stem = os.path.join(out, WORKS[a.name]["file"])
+    page.save(stem + ".png", optimize=True)
+    page.save(stem + ".pdf", "PDF", resolution=144.0)
+    from .mood.spreads import verify
+    check = verify(a.name, a.image, page)
+    print(f"approved-file check: {check['verdict']}", file=sys.stderr)
+    spec.update(work=a.name, source_image=os.path.abspath(a.image), fonts=fonts.status(), approved_check=check)
+    with open(stem + ".json", "w") as fh:
+        json.dump(spec, fh, ensure_ascii=False, indent=2, default=list)
+    print("\n".join([stem + ".png", stem + ".pdf", stem + ".json"]))
+
+
+def _mood_new(a):
+    import datetime as dt
+    import shutil
+    from PIL import Image
+    out = os.path.join("output", a.slug)
+    os.makedirs(out, exist_ok=True)
+    ext = os.path.splitext(a.image)[1].lower() or ".png"
+    dst = os.path.join(out, "original" + ext)
+    shutil.copy2(a.image, dst)
+    w, h = Image.open(dst).size
+    brief = {"slug": a.slug, "mood": a.mood, "source": os.path.abspath(a.image), "copy": dst,
+             "size": [w, h], "created": dt.datetime.now(dt.timezone.utc).isoformat(),
+             "workflow": ".claude/skills/mood-spread/SKILL.md"}
+    with open(os.path.join(out, "brief.json"), "w") as fh:
+        json.dump(brief, fh, ensure_ascii=False, indent=2)
+    print(os.path.join(out, "brief.json"))
+
+
+def _mood_grid(a):
+    from PIL import Image
+    from .mood.grid import grid_zoom
+    img = Image.open(a.image)
+    grid_zoom(img, tuple(a.region) if a.region else None, a.zoom, a.step).save(a.out)
+    print(a.out)
+
+
+def _mood_fonts(a):
+    from .mood import fonts
+    if a.install:
+        for p in fonts.install():
+            print("installed", p)
+    for k, ok in fonts.status().items():
+        print(f"{k:12s} {'ok' if ok else 'missing'}")
+
+
+def _add_mood(sub):
+    m = sub.add_parser("mood", help="mood spreads: list, render, new job, coordinate grid, fonts")
+    ms = m.add_subparsers(dest="mood_cmd", required=True)
+    s = ms.add_parser("list")
+    s.set_defaults(fn=_mood_list)
+    s = ms.add_parser("render")
+    s.add_argument("name")
+    s.add_argument("--image", required=True)
+    s.add_argument("-o", "--out")
+    s.set_defaults(fn=_mood_render)
+    s = ms.add_parser("new")
+    s.add_argument("slug")
+    s.add_argument("--image", required=True)
+    s.add_argument("--mood", required=True)
+    s.set_defaults(fn=_mood_new)
+    s = ms.add_parser("grid")
+    s.add_argument("image")
+    s.add_argument("--region", type=int, nargs=4)
+    s.add_argument("--zoom", type=int, default=3)
+    s.add_argument("--step", type=int, default=10)
+    s.add_argument("-o", "--out", required=True)
+    s.set_defaults(fn=_mood_grid)
+    s = ms.add_parser("fonts")
+    s.add_argument("--install", action="store_true")
+    s.set_defaults(fn=_mood_fonts)
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(prog="edas")
     ap.add_argument("--config", default=None)
@@ -208,6 +303,7 @@ def main(argv=None):
     s.add_argument("--approver", required=True)
     s.add_argument("--note")
     s.set_defaults(fn=_approve)
+    _add_mood(sub)
     a = ap.parse_args(argv)
     a.fn(a)
 

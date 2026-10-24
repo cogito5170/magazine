@@ -12,6 +12,7 @@ import numpy as np
 from PIL import Image
 from reportlab.lib.utils import ImageReader
 from reportlab.pdfgen import canvas
+from .fontpaths import find
 
 LOREM = ("Design measures space rhythm and proportion across the spread while typography "
          "sets the voice of every page in the issue ").split()
@@ -109,9 +110,9 @@ def make_flattened_pdf(path: str, src_rgb: np.ndarray, W: float = 600, H: float 
     c.save()
 
 
-KOREAN_FONT = ("/usr/share/fonts/truetype/wqy/wqy-zenhei.ttc", 0)
-LATIN_FONT = "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf"
-LATIN_BOLD = "/usr/share/fonts/truetype/liberation/LiberationSerif-Bold.ttf"
+KOREAN_FONT = (find("wqy-zenhei.ttc"), 0)
+LATIN_FONT = find("LiberationSans-Regular.ttf")
+LATIN_BOLD = find("LiberationSerif-Bold.ttf")
 
 KO_TEXT = ("관찰은 디자인의 시작이다 공간과 빛을 읽는 방법 사진과 글자가 함께 만드는 리듬 "
            "한글과 영문이 섞인 문장에서 시각적 크기는 서로 다르다").split()

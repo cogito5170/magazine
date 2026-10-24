@@ -47,7 +47,7 @@ description: 사진·지면 이미지·PDF·슬라이드를 주고 "이렇게 �
 ## 1. 접수
 
 ```sh
-edas mood fonts            # pretendard / notoserifkr 둘 다 ok 여야 한다. 아니면 --install
+edas mood fonts            # pretendard / notoserifkr 둘 다 ok 여야 한다 (edas/fontfiles에 번들됨)
 edas mood new <slug> --image <원본경로> --mood "<무드 또는 auto>"
 ```
 
@@ -181,6 +181,7 @@ edas analyze FILE.pdf -o output/<slug>/analysis         # (필요하면) 레이�
 ### 타이포
 
 - 한글은 Pretendard(`final.kr`) 또는 Noto Serif KR(`contemporary.serif_kr`)만 쓴다.
+- 서체 파일 경로는 `edas.fontpaths.find("파일명")`으로만 얻는다. `/usr/share/fonts` 같은 시스템 경로를 쓰지 않는다(Mac에서 깨진다).
 - JetBrains Mono에는 한글이 없다. 섞어 써야 하면 `final.mixed`를 쓴다.
 - 지면에 분석용 숫자를 늘어놓지 않는다. 공정 설명은 한두 줄로 작게 쓴다.
 
@@ -229,6 +230,7 @@ edas analyze FILE.pdf -o output/<slug>/analysis         # (필요하면) 레이�
   - `docs/mood_techniques.md`에 한 단락 추가한다.
   - 테스트를 실행한다(`python3 -m unittest discover -s tests -t .`).
   - 승인 해시가 그대로인지 확인한다(`edas mood render ...`).
+  - 동작 방식이 바뀌었으면 `intent.md`도 고친다.
   - 현재 브랜치에 커밋하고 push한다.
 
 ## 8. 피드백 받기

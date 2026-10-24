@@ -15,21 +15,22 @@ from typing import Callable
 import numpy as np
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
+from ..fontpaths import find
 from ..mathcore.color import contrast_ratio, dominant_colors, relative_luminance, rgb_to_lab
 from .photo_led import Photo, lab_hex, sample_tones, tracked, width
 
 F = {
-    "thin": "/usr/share/fonts/opentype/inter/InterDisplay-Thin.otf",
-    "xlight": "/usr/share/fonts/opentype/inter/InterDisplay-ExtraLight.otf",
-    "light": "/usr/share/fonts/opentype/inter/InterDisplay-Light.otf",
-    "regular": "/usr/share/fonts/opentype/inter/InterDisplay-Regular.otf",
-    "black": "/usr/share/fonts/opentype/inter/InterDisplay-Black.otf",
-    "bold": "/usr/share/fonts/opentype/inter/InterDisplay-Bold.otf",
-    "serif": "/usr/share/fonts/truetype/crosextra/Caladea-Regular.ttf",
-    "serif_it": "/usr/share/fonts/truetype/crosextra/Caladea-Italic.ttf",
-    "serif_b": "/usr/share/fonts/truetype/crosextra/Caladea-Bold.ttf",
-    "mono": "/usr/share/fonts/truetype/jetbrains-mono/JetBrainsMono-Light.ttf",
-    "ko": "/usr/share/fonts/truetype/wqy/wqy-zenhei.ttc",
+    "thin": find("InterDisplay-Thin.otf"),
+    "xlight": find("InterDisplay-ExtraLight.otf"),
+    "light": find("InterDisplay-Light.otf"),
+    "regular": find("InterDisplay-Regular.otf"),
+    "black": find("InterDisplay-Black.otf"),
+    "bold": find("InterDisplay-Bold.otf"),
+    "serif": find("Caladea-Regular.ttf"),
+    "serif_it": find("Caladea-Italic.ttf"),
+    "serif_b": find("Caladea-Bold.ttf"),
+    "mono": find("JetBrainsMono-Light.ttf"),
+    "ko": find("wqy-zenhei.ttc"),
 }
 W, H, GUT = 2000, 1231, 1000
 

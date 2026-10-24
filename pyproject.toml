@@ -27,6 +27,7 @@ edas = "edas.cli:main"
 
 [tool.setuptools.packages.find]
 include = ["edas*"]
+exclude = ["edas.fontfiles*"]
 
 [tool.setuptools.package-data]
-edas = ["default_config.yaml", "mood/spreads/approved.json"]
+edas = ["default_config.yaml", "mood/spreads/approved.json", "fontfiles/*.*", "fontfiles/*/*"]

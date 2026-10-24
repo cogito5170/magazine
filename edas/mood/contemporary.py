@@ -19,6 +19,7 @@ import os
 import numpy as np
 from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageFont
 
+from ..fontpaths import find
 from .artdirect import cover, grain
 from .defamiliar import crop_marks, misregister, reg_mark, rotated_text, slit_scan, text_mask, vertical_ko
 from .final import kr
@@ -110,12 +111,11 @@ def nocturne_contemporary(crops, texts):
 
 
 # ======================================================================= soft dandy
-SERIF_KR_DIR = os.path.expanduser("~/.local/share/fonts/notoserifkr")
 
 
 def serif_kr(weight: str, size: int):
     """Noto Serif KR (OFL 1.1); falls back to Caladea / WenQuanYi when not installed."""
-    path = os.path.join(SERIF_KR_DIR, f"NotoSerifKR-{weight}.otf")
+    path = find(f"NotoSerifKR-{weight}.otf", "notoserifkr")
     if os.path.exists(path):
         return ImageFont.truetype(path, size=size)
     return fnt("serif", size)

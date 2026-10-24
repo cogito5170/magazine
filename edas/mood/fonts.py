@@ -1,5 +1,6 @@
-"""Fonts used by the mood spreads, all under the SIL Open Font License 1.1.  Missing fonts fall back silently
-in rendering (Pretendard → WenQuanYi, Noto Serif KR → Caladea), so check before a final render."""
+"""Fonts used by the mood spreads, all under the SIL Open Font License 1.1.  Both families are bundled in
+edas/fontfiles, so ``install`` is only needed when that folder was removed; missing fonts would fall back
+silently in rendering (Pretendard → WenQuanYi, Noto Serif KR → Caladea)."""
 from __future__ import annotations
 
 import os
@@ -7,6 +8,8 @@ import shutil
 import subprocess
 import tempfile
 import zipfile
+
+from ..fontpaths import family_dir
 
 ROOT = os.path.expanduser("~/.local/share/fonts")
 FONTS = {
@@ -25,7 +28,7 @@ FONTS = {
 
 
 def status() -> dict[str, bool]:
-    return {k: os.path.exists(os.path.join(ROOT, k, v["probe"])) for k, v in FONTS.items()}
+    return {k: family_dir(k, v["probe"]) is not None for k, v in FONTS.items()}
 
 
 def install(names=None) -> list[str]:

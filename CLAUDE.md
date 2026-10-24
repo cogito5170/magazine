@@ -15,5 +15,6 @@
   - Aesthetic and mood claims are hypotheses.
   - See also `docs/postmortems/vmd-redesign-failure.md`.
 - **Tests**: `python3 -m unittest discover -s tests -t .`
-- **Fonts** (OFL): `edas mood fonts --install` installs Pretendard and Noto Serif KR into `~/.local/share/fonts`.
+- **Fonts**: every font the spreads use is bundled in `edas/fontfiles/` and found through `edas/fontpaths.py` (`find`). Never hard-code a system font path; this must run on macOS and Linux. Licences: `edas/fontfiles/README.md`.
+- **How plain requests are handled**: `intent.md` (keep it in sync when the workflow changes).
 - **Language**: reply to the user in Korean.

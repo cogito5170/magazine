@@ -21,14 +21,15 @@ from typing import Optional
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
+from ..fontpaths import find
 from ..mathcore.color import contrast_ratio, dominant_colors, hsv_saturation, relative_luminance, rgb_to_lab, ciede2000
 
 F = {
-    "thin": "/usr/share/fonts/opentype/inter/InterDisplay-Thin.otf",
-    "xlight": "/usr/share/fonts/opentype/inter/InterDisplay-ExtraLight.otf",
-    "light": "/usr/share/fonts/opentype/inter/InterDisplay-Light.otf",
-    "regular": "/usr/share/fonts/opentype/inter/InterDisplay-Regular.otf",
-    "ko": "/usr/share/fonts/truetype/wqy/wqy-zenhei.ttc",
+    "thin": find("InterDisplay-Thin.otf"),
+    "xlight": find("InterDisplay-ExtraLight.otf"),
+    "light": find("InterDisplay-Light.otf"),
+    "regular": find("InterDisplay-Regular.otf"),
+    "ko": find("wqy-zenhei.ttc"),
 }
 
 

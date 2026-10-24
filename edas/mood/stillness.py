@@ -33,6 +33,7 @@ from typing import Optional
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
+from ..fontpaths import find
 from ..mathcore.color import contrast_ratio, relative_luminance
 from ..mathcore.fractal import box_counting_dimension, midpoint_profile
 from ..mathcore.imaging import gaussian_blur, local_maxima, resize, resize_max
@@ -41,11 +42,11 @@ from ..mathcore.stats import shannon_entropy
 
 W, H = 1800, 2400
 FONTS = {
-    "thin": "/usr/share/fonts/opentype/inter/InterDisplay-Thin.otf",
-    "xlight": "/usr/share/fonts/opentype/inter/InterDisplay-ExtraLight.otf",
-    "light": "/usr/share/fonts/opentype/inter/InterDisplay-Light.otf",
-    "serif_it": "/usr/share/fonts/truetype/crosextra/Caladea-Italic.ttf",
-    "ko": "/usr/share/fonts/truetype/wqy/wqy-zenhei.ttc",
+    "thin": find("InterDisplay-Thin.otf"),
+    "xlight": find("InterDisplay-ExtraLight.otf"),
+    "light": find("InterDisplay-Light.otf"),
+    "serif_it": find("Caladea-Italic.ttf"),
+    "ko": find("wqy-zenhei.ttc"),
 }
 SRC = {
     "russell": "Russell 1980, J. Pers. Soc. Psychol. 39(6):1161–1178 (verified bibliographic record)",

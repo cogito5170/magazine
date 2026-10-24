@@ -25,6 +25,7 @@ import os
 import numpy as np
 from PIL import Image, ImageDraw, ImageFilter, ImageOps
 
+from ..fontpaths import family_dir
 from .artdirect import cover, grain, scrim
 from .defamiliar import slit_scan
 from .defamiliar2 import fabric2, lineup2, pixel_stretch
@@ -33,16 +34,12 @@ from .variants import F, fnt, width
 from .rhetoric import pureo, weight_ramp, RANSOM
 
 W, H, GUT, M = 2000, 1231, 1000, 56
-PRETENDARD_DIRS = [os.path.expanduser("~/.local/share/fonts/pretendard"), "/usr/share/fonts/opentype/pretendard"]
 KR_WEIGHTS = {"thin": "Thin", "xlight": "ExtraLight", "light": "Light", "regular": "Regular", "medium": "Medium",
               "bold": "Bold", "black": "Black"}
 
 
 def pretendard_dir():
-    for d in PRETENDARD_DIRS:
-        if os.path.exists(os.path.join(d, "Pretendard-Regular.otf")):
-            return d
-    return None
+    return family_dir("pretendard", "Pretendard-Regular.otf")
 
 
 def kr(weight: str, size: int):

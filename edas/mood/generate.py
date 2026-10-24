@@ -32,6 +32,7 @@ from typing import Optional
 import numpy as np
 from PIL import Image
 
+from ..fontpaths import find
 from ..mathcore.color import contrast_ratio, relative_luminance
 
 VM = np.array([[0.69, 0.22], [-0.31, 0.60]])   # rows: pleasure, arousal ; cols: B, S (standardised)
@@ -112,8 +113,8 @@ def generate(out_dir: str, name: str = "고요함 / Stillness", angle_deg: float
     ct = colour_targets(mp["valence"], mp["arousal"])
     pal = palette(ct)
     W, H = 600.0, 800.0
-    pdfmetrics.registerFont(TTFont("MoodSerif", "/usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf"))
-    pdfmetrics.registerFont(TTFont("MoodKo", "/usr/share/fonts/truetype/wqy/wqy-zenhei.ttc", subfontIndex=0))
+    pdfmetrics.registerFont(TTFont("MoodSerif", find("LiberationSerif-Regular.ttf")))
+    pdfmetrics.registerFont(TTFont("MoodKo", find("wqy-zenhei.ttc"), subfontIndex=0))
     pdf_path = os.path.join(out_dir, "mood_draft.pdf")
     c = canvas.Canvas(pdf_path, pagesize=(W, H))
     c.setFillColorRGB(*pal["paper"])

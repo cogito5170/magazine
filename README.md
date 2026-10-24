@@ -57,12 +57,21 @@ been run. All tests use synthetic PDFs with known answers.
 
 사진과 느낌을 주면 같은 방식으로 시안 한 장을 만드는 흐름입니다.
 
+서체는 저장소에 들어 있어서 따로 설치하지 않습니다(Mac, Linux 동일). 설치와 확인:
+
 ```sh
-pip install -e .                       # edas 명령 설치
-edas mood fonts --install              # Pretendard, Noto Serif KR (OFL)
-edas mood list                         # 승인된 시안 목록
-edas mood render match-dandy --image sources/match_spread.png   # 승인본 재현 → "identical to the approved file"
+git clone https://github.com/cogito5170/magazine
+cd magazine
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements-approved.txt
+pip install -e .
+edas mood list
+edas mood render match-dandy --image sources/match_spread.png
 ```
+
+마지막 줄이 `approved-file check: identical to the approved file`을 출력하면 정상입니다.
+Claude가 요청을 어떻게 받아 처리하는지는 [`intent.md`](intent.md)에 정리했습니다.
 
 새 작업은 이 저장소에서 `claude`를 실행하고 그냥 말하면 됩니다. 슬래시 명령은 필요 없습니다.
 

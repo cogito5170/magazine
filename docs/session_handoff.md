@@ -44,6 +44,6 @@
 
 ## 4. 이전 세션이 끝날 때 남은 일
 
-- **Mac 폰트 오류 수정**: 폰트를 저장소에 번들(`edas/fontfiles`)하고 OS 무관 경로 탐색(`edas/fontpaths.py`)으로 교체. 이전 세션에서 작업 중이었으나 push되지 않아 이 스레드에서 다시 한다.
-- **인수인계 md**(`intent.md`): 평범한 요청에 Claude가 어떻게 반응하는지 CLI에서 읽을 수 있게.
+- **Mac 폰트 오류 수정** → 완료(이 스레드): 서체를 `edas/fontfiles`에 번들, `edas/fontpaths.py`로 경로 탐색. 승인작 세 장 픽셀 동일 확인.
+- **인수인계 md** → 완료: `intent.md`.
 - 손대지 않은 것(사용자 지시 없이는 시작하지 않음): 웹 레퍼런스 검색 구현, `PORTFOLIO 5.pdf` 분석(파일 미제공), Streamlit 대시보드.

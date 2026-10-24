@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import base64
 import html
+import io
 import json
 import os
 import random
@@ -17,7 +18,7 @@ from .schema import CRITERIA
 
 
 def build_ab_page(manifest_path: str, out_html: str, page_id: str = "", project_id: str = "",
-                  target_style: str = "", seed: int = 0) -> str:
+                  target_style: str = "", seed: int = 0, max_px: int = 1100) -> str:
     with open(manifest_path, encoding="utf-8") as fh:
         man = json.load(fh)
     base = os.path.dirname(manifest_path)
@@ -25,16 +26,27 @@ def build_ab_page(manifest_path: str, out_html: str, page_id: str = "", project_
     crit = [c for c, v in CRITERIA.items() if exp in v["experiments"]]
     stim = {s["stimulus_id"]: s for s in man["stimuli"]}
     rng = random.Random(seed)
+    images = {}
+
+    def embed(sid):
+        if sid not in images:   # each stimulus embedded once, downscaled for screen display
+            from PIL import Image
+            im = Image.open(os.path.join(base, stim[sid]["file"])).convert("RGB")
+            im.thumbnail((max_px, max_px), Image.LANCZOS)
+            bio = io.BytesIO()
+            im.save(bio, "JPEG", quality=92)
+            images[sid] = base64.b64encode(bio.getvalue()).decode()
+        return sid
+
     pairs = []
     for p in man["pairs"]:
         a, b = stim[p["a"]], stim[p["b"]]
-        with open(os.path.join(base, a["file"]), "rb") as fa, open(os.path.join(base, b["file"]), "rb") as fb:
-            ia, ib = base64.b64encode(fa.read()).decode(), base64.b64encode(fb.read()).decode()
-        pairs.append({"a": a["stimulus_id"], "b": b["stimulus_id"], "font_a": a["font"], "font_b": b["font"],
-                      "img_a": ia, "img_b": ib, "left": rng.choice(["A", "B"])})
+        pairs.append({"a": embed(a["stimulus_id"]), "b": embed(b["stimulus_id"]), "font_a": a["font"],
+                      "font_b": b["font"], "left": rng.choice(["A", "B"])})
     meta = {"experiment": exp, "page_id": page_id, "project_id": project_id, "target_style": target_style,
             "rendering": man.get("conditions", {}), "criteria": {c: CRITERIA[c] for c in crit}}
-    doc = TEMPLATE.replace("__PAIRS__", json.dumps(pairs)).replace("__META__", json.dumps(meta, ensure_ascii=False))
+    doc = (TEMPLATE.replace("__PAIRS__", json.dumps(pairs)).replace("__IMAGES__", json.dumps(images))
+           .replace("__META__", json.dumps(meta, ensure_ascii=False)))
     doc = doc.replace("__TITLE__", html.escape(f"A/B {exp} — {man.get('word') or man.get('text', '')}"))
     with open(out_html, "w", encoding="utf-8") as fh:
         fh.write(doc)
@@ -61,22 +73,23 @@ button{font:inherit;padding:6px 12px;border:1px solid var(--line);background:tra
 @media (max-width:640px){.imgs{grid-template-columns:1fr}.q span{min-width:0;width:100%}}
 </style></head><body><main>
 <h1>__TITLE__</h1>
-<p class="note">Fonts are hidden. Left/right order is randomised. Answer each question independently;
-"tie" and "cannot judge" are valid answers. 서체명은 숨겨져 있으며 좌우 배치는 무작위입니다.</p>
+<p class="note">Names (fonts, drafts) are hidden. Left/right order is randomised. Answer each question independently;
+"tie" and "cannot judge" are valid answers. 서체명·시안명은 숨겨져 있으며 좌우 배치는 무작위입니다.</p>
 <label>Rater ID / 평가자 ID <input id="rater" required></label>
 <div id="pairs"></div>
 <p><button id="export">Export JSON</button> <span class="note" id="status"></span></p>
 </main><div id="zoom"><img alt=""></div>
 <script>
-const PAIRS=__PAIRS__, META=__META__;
+const PAIRS=__PAIRS__, IMAGES=__IMAGES__, META=__META__;
 const key="edas-ab-"+META.experiment+"-"+META.page_id;
 let saved={};try{saved=JSON.parse(localStorage.getItem(key)||"{}")}catch(e){}
 const root=document.getElementById("pairs"), t0={};
 PAIRS.forEach((p,i)=>{
-  const L=p.left==="A"?["A",p.img_a]:["B",p.img_b], Rr=p.left==="A"?["B",p.img_b]:["A",p.img_a];
+  const ia=IMAGES[p.a], ib=IMAGES[p.b];
+  const L=p.left==="A"?["A",ia]:["B",ib], Rr=p.left==="A"?["B",ib]:["A",ia];
   const d=document.createElement("section");d.className="pair";
-  d.innerHTML=`<div class="imgs"><figure><figcaption>Left</figcaption><img src="data:image/png;base64,${L[1]}" alt="left stimulus"></figure>
-  <figure><figcaption>Right</figcaption><img src="data:image/png;base64,${Rr[1]}" alt="right stimulus"></figure></div>`;
+  d.innerHTML=`<div class="imgs"><figure><figcaption>Left</figcaption><img src="data:image/jpeg;base64,${L[1]}" alt="left stimulus"></figure>
+  <figure><figcaption>Right</figcaption><img src="data:image/jpeg;base64,${Rr[1]}" alt="right stimulus"></figure></div>`;
   Object.entries(META.criteria).forEach(([c,v])=>{
     const q=document.createElement("div");q.className="q";
     q.innerHTML=`<span>${v.ko}<br><small class="note">${v.en}</small></span>`+

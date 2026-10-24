@@ -34,8 +34,12 @@ CRITERIA: dict[str, dict] = {
                         "experiments": ["bilingual", "B_page"]},
     "target_style_fit": {"ko": "목표 스타일에 더 가까운 쪽은?", "en": "Which is closer to the target style?",
                          "experiments": ["bilingual", "B_page"]},
+    "mood_stillness": {"ko": "어느 쪽이 더 고요하게 느껴지는가?", "en": "Which feels stiller / calmer?",
+                       "experiments": ["mood"]},
+    "mood_preference": {"ko": "어느 쪽이 더 마음에 드는가? (고요함과 별개로)", "en": "Which do you like more (independent of stillness)?",
+                        "experiments": ["mood"]},
 }
-EXPERIMENTS = ("A_typeface", "B_page", "bilingual")
+EXPERIMENTS = ("A_typeface", "B_page", "bilingual", "mood")
 Choice = Literal["A", "B", "tie", "cannot_judge"]
 
 

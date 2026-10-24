@@ -133,3 +133,25 @@ Contemporary readings:
 - **IV:** ransom-note title, and a sentence set in seven Pretendard weights.
 
 The user's approval to finalise is recorded in `output/match/final/final_spec.json`. The presentation PDF ends with a notes page that lists every photo operation and its limits: low-res source, unvalidated mood claims, practitioner trend sources.
+
+## The one final spread: NOCTURNE, soft dandy (`edas/mood/contemporary.py`, `examples/match_final_dandy.py`)
+
+The user directed this in four steps:
+1. Round-I intensity is the right level ("이정도가 가장 적당해").
+2. Bold, while following contemporary-art methods.
+3. Change the mood to dandy.
+4. Soft dandy ("부드러움 댄디").
+
+NOCTURNE was rebuilt with three art methods (sources verified this session):
+- **Divided, mirrored, repeated stripes** after Gerhard Richter (*Strip* works; *Patterns*, 2012). Here a column of the knit in the rock photo becomes the title's soft suiting stripe.
+- **Maximal JPEG compression** after Thomas Ruff (*jpegs*, from 2002). Here it is the shadow print under each of the three places.
+- **The poor image** after Hito Steyerl ("In Defense of the Poor Image", e-flux 2009). The real source size and enlargement are stated on the page.
+
+The mood layer:
+- Ivory paper with warm charcoal ink.
+- Noto Serif KR (OFL) and Caladea Italic.
+- A matte print (raised black point) with halation on the night photo.
+- A softer slit-scan.
+
+`nocturne_contemporary` is the same structure in a black, hard-edged version.
+The mood is a design intention. No validated measurement backs it.

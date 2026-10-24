@@ -14,13 +14,13 @@ from ..pdf.model import PageModel
 from ..schema import ErrorKind, MeasurementType, ParameterSpec
 
 
-def spec(pid: str, name: str, module: str, *, unit: str, formula: str, definition: str,
+def spec(pid: str, name: str, module: str, *, unit: str, formula: str, definition: str = "",
          mtype: MeasurementType = MeasurementType.DIRECT, domain: str = "R", scope: str = "page",
          error: ErrorKind = ErrorKind.NONE, normalization: str = "none",
          target: str = "reference_profile (quantiles) when available; otherwise none",
          confidence: str = "deterministic given extraction", validation: str = "synthetic PDF with known answer",
          missing: str = "null when inputs are absent", notes: Optional[list[str]] = None) -> ParameterSpec:
-    return ParameterSpec(parameter_id=pid, name=name, module=module, definition=definition, unit=unit,
+    return ParameterSpec(parameter_id=pid, name=name, module=module, definition=definition or formula, unit=unit,
                          formula=formula, normalization=normalization, target=target, error_kind=error,
                          confidence=confidence, validation=validation, measurement_type=mtype,
                          domain=domain, missing=missing, scope=scope, notes=notes or [])

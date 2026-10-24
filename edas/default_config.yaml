@@ -38,6 +38,16 @@ typography:
   stroke_quantiles: [0.10, 0.90]   # B5 w_min / w_max as quantiles of local stroke width
   curvature_corner_deg: 30
   body_size_round: 0.1             # pt, for the body-size mode
+  bilingual:
+    hangul_per_stratum: 10         # most frequent syllables per shape type (1..6)
+    latin_per_class: 15
+    roles:                         # BK09 role assignment rule (labelling only, not quality)
+      title_ratio: 1.5             # size >= ratio * body size -> title
+      caption_distance: 3.0        # x size: max distance to an image for a caption
+  aesthetic:
+    specimen_px_per_em: 160        # Experiment A rasterisation
+    specimen_height_metric: cap    # cap | x : equalised visual height in Experiment A
+    draft_dpi: 120                 # Experiment B rendering
 
 photography:
   min_area_fraction: 0.01        # raster images below this share of page are not "photographs"

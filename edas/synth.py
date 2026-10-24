@@ -107,3 +107,47 @@ def make_flattened_pdf(path: str, src_rgb: np.ndarray, W: float = 600, H: float 
     c.drawImage(ImageReader(Image.fromarray((src_rgb * 255).astype("uint8"))), 0, 0, width=W, height=H)
     c.showPage()
     c.save()
+
+
+KOREAN_FONT = ("/usr/share/fonts/truetype/wqy/wqy-zenhei.ttc", 0)
+LATIN_FONT = "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf"
+LATIN_BOLD = "/usr/share/fonts/truetype/liberation/LiberationSerif-Bold.ttf"
+
+KO_TEXT = ("관찰은 디자인의 시작이다 공간과 빛을 읽는 방법 사진과 글자가 함께 만드는 리듬 "
+           "한글과 영문이 섞인 문장에서 시각적 크기는 서로 다르다").split()
+EN_TEXT = "Observe the Light in Space and Form Editorial Portfolio".split()
+
+
+def make_bilingual_pdf(path: str, W: float = 600.0, H: float = 800.0, title: str = "Observe") -> dict:
+    """Korean–Latin mixed page with known fonts (requires the system fonts above)."""
+    from reportlab.pdfbase import pdfmetrics
+    from reportlab.pdfbase.ttfonts import TTFont
+    pdfmetrics.registerFont(TTFont("KoSans", KOREAN_FONT[0], subfontIndex=KOREAN_FONT[1]))
+    pdfmetrics.registerFont(TTFont("EnSans", LATIN_FONT))
+    pdfmetrics.registerFont(TTFont("EnSerifBold", LATIN_BOLD))
+    c = canvas.Canvas(path, pagesize=(W, H))
+    c.drawImage(ImageReader(_photo(800, 500, 3, "subject")), 50, H - 460, width=500, height=300)
+    c.setFont("EnSerifBold", 61)
+    c.drawString(50, H - 110, title)
+    rng = np.random.default_rng(1)
+    y = 500.0
+    for i in range(12):
+        x = 50.0
+        words = list(KO_TEXT)
+        rng.shuffle(words)
+        for k, wd in enumerate(words[:6]):
+            font = "KoSans"
+            if k % 3 == 2:
+                wd, font = EN_TEXT[(i + k) % len(EN_TEXT)], "EnSans"
+            c.setFont(font, 10)
+            wpt = c.stringWidth(wd + " ", font, 10)
+            if x + wpt > 300:
+                break
+            c.drawString(x, H - y, wd + " ")
+            x += wpt
+        y += 15
+    c.setFont("EnSans", 7)
+    c.drawString(50, H - 470, "Photograph: Studio Archive 2026 사진 아카이브")
+    c.showPage()
+    c.save()
+    return {"title": title, "title_size": 61.0, "korean_font": "KoSans", "latin_fonts": ["EnSans", "EnSerifBold"]}

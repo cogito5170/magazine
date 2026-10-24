@@ -105,7 +105,7 @@ def build_layout_objects(pm: PageModel, cfg: dict) -> None:
         if area(im.box) <= 0:
             continue
         objs.append(LayoutObject(id=f"p{pm.index}-i{i}", kind="image", box=im.box, bleed=bleed(im.box),
-                                 meta={"px_size": im.px_size, "ppi": im.effective_ppi}))
+                                 meta={"px_size": im.px_size, "ppi": im.effective_ppi, "image_index": i}))
     vec = [v for v in pm.vectors if not v.is_background]
     min_frac = float(cfg["layout"]["vector_min_area_fraction"])
     gap = float(cfg["layout"]["vector_group_gap"]) * diag

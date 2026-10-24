@@ -168,6 +168,11 @@ def raster_glyph_summary(pm, cfg) -> Optional[dict]:
 
 
 def _line_contrast(pm, line, text_rgb, cfg) -> Optional[float]:
+    d = line_contrast_detail(pm, line, text_rgb, cfg)
+    return d["ratio"] if d else None
+
+
+def line_contrast_detail(pm, line, text_rgb, cfg) -> Optional[dict]:
     pad = 1.0
     b = (line.box[0] - pad, line.box[1] - pad, line.box[2] + pad, line.box[3] + pad)
     crop = pm.crop(b)
@@ -190,7 +195,8 @@ def _line_contrast(pm, line, text_rgb, cfg) -> Optional[float]:
         if far.sum() < 5:
             return None
         bg = np.median(px[far], axis=0)
-    return contrast_ratio(float(relative_luminance(np.asarray(text_rgb))), float(relative_luminance(bg)))
+    lt, lb = float(relative_luminance(np.asarray(text_rgb))), float(relative_luminance(bg))
+    return {"ratio": contrast_ratio(lt, lb), "text_luminance": lt, "background_luminance": lb}
 
 
 def analyze_page(ctx: PageContext, dctx: DocContext) -> list[ParameterResult]:
@@ -218,11 +224,11 @@ def analyze_page(ctx: PageContext, dctx: DocContext) -> list[ParameterResult]:
                 R(pid, None, notes=["no text lines detected"])
         rg = raster_glyph_summary(pm, cfg)
         if rg:
-            R("B04", {"raster": rg["T_s"]}, details=rg)
-            R("B05", {"raster": rg["C_stroke"]})
-            R("B06", {"raster": rg["aspect"]})
-            R("B07", {"raster": rg["D_ink"]})
-            R("B08", {"raster": rg["complexity"]}, notes=["Crofton perimeter of raster components"])
+            R("B04", {"page_mean": rg["T_s"]}, details=rg)
+            R("B05", {"page_mean": rg["C_stroke"]})
+            R("B06", {"page_mean": rg["aspect"]})
+            R("B07", {"page_mean": rg["D_ink"]})
+            R("B08", {"page_mean": rg["complexity"]}, notes=["Crofton perimeter of raster components"])
         else:
             for pid in ("B04", "B05", "B06", "B07", "B08"):
                 R(pid, None, notes=["no glyph components"])
@@ -264,11 +270,14 @@ def analyze_page(ctx: PageContext, dctx: DocContext) -> list[ParameterResult]:
             per_font = {fk: font_glyph_summary(dctx, fk, _font_chars(ink, fk, k)) for fk in fonts if fk}
             for pid, key in (("B04", "T_s"), ("B05", "C_stroke"), ("B06", "aspect"), ("B07", "D_ink"),
                              ("B08", "outline_complexity")):
-                R(pid, {fk: v.get(key) for fk, v in per_font.items()},
+                bf = {fk: v.get(key) for fk, v in per_font.items()}
+                num = [(bf[fk], fonts[fk]) for fk in bf if bf[fk] is not None]
+                pmean = float(sum(v * n for v, n in num) / sum(n for _, n in num)) if num else None
+                R(pid, {"by_font": bf, "page_mean": pmean},
                   details={"glyphs": {fk: v.get("n_glyphs") for fk, v in per_font.items()},
                            "missing_glyphs": {fk: v.get("missing_glyphs") for fk, v in per_font.items()}},
                   source="pdf_objects")
-            R("B09", {fk: v.get("curvature") for fk, v in per_font.items()}, source="pdf_objects")
+            R("B09", {"by_font": {fk: v.get("curvature") for fk, v in per_font.items()}}, source="pdf_objects")
             # letter spacing within words
             gaps, loose = [], []
             for l in pm.lines:

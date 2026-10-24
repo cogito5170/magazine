@@ -159,7 +159,7 @@ def segment_page(pm: PageModel, cfg: dict) -> None:
                                  source="raster", meta={"size_est": b.size, "lines": len(b.lines)}))
     for i, im in enumerate(pm.images):
         objs.append(LayoutObject(id=f"p{pm.index}-i{i}", kind="image", box=im.box, bleed=bleed(im.box),
-                                 source="raster"))
+                                 source="raster", meta={"image_index": i}))
     for i, v in enumerate(seg["vectors"]):
         b = pt(v["box"])
         if (b[2] - b[0]) * (b[3] - b[1]) < float(cfg["layout"]["vector_min_area_fraction"]) * W * H:

@@ -132,45 +132,47 @@ def rasterize(polys: list[np.ndarray], bbox, height_px: int = 96, pad: int = 2) 
     return mask
 
 
-def _runs_along(mask: np.ndarray) -> np.ndarray:
-    """For every True pixel, length of the horizontal run containing it."""
+def _runs_rows(mask: np.ndarray) -> np.ndarray:
+    """For every True pixel, length of the horizontal run containing it (vectorised)."""
     H, W = mask.shape
-    out = np.zeros((H, W), dtype=float)
-    m = mask.astype(np.int8)
-    for y in range(H):
-        d = np.diff(np.concatenate([[0], m[y], [0]]))
-        st = np.flatnonzero(d == 1)
-        en = np.flatnonzero(d == -1)
-        for s, e in zip(st, en):
-            out[y, s:e] = e - s
+    m = np.concatenate([mask, np.zeros((H, 1), dtype=bool)], axis=1).ravel()
+    prev = np.concatenate([[False], m[:-1]])
+    starts = m & ~prev
+    rid = np.cumsum(starts) * m
+    lengths = np.bincount(rid)
+    lengths[0] = 0
+    return lengths[rid].reshape(H, W + 1)[:, :W].astype(float)
+
+
+def _shear(mask: np.ndarray) -> np.ndarray:
+    """Row y shifted right by y: anti-diagonals (x+y const) of mask become columns... (x - y const)."""
+    H, W = mask.shape
+    out = np.zeros((H, W + H), dtype=mask.dtype)
+    idx = np.arange(W)[None, :] + np.arange(H)[:, None]
+    out[np.arange(H)[:, None], idx] = mask
     return out
 
 
+def _unshear(a: np.ndarray, W: int) -> np.ndarray:
+    H = a.shape[0]
+    idx = np.arange(W)[None, :] + np.arange(H)[:, None]
+    return a[np.arange(H)[:, None], idx]
+
+
 def _diag_runs(mask: np.ndarray, anti: bool) -> np.ndarray:
-    H, W = mask.shape
     m = mask[:, ::-1] if anti else mask
-    out = np.zeros((H, W), dtype=float)
-    for k in range(-H + 1, W):
-        idx_y = np.arange(max(0, -k), min(H, W - k))
-        idx_x = idx_y + k
-        line = m[idx_y, idx_x].astype(np.int8)
-        if not line.any():
-            continue
-        d = np.diff(np.concatenate([[0], line, [0]]))
-        st = np.flatnonzero(d == 1)
-        en = np.flatnonzero(d == -1)
-        vals = np.zeros(line.size)
-        for s, e in zip(st, en):
-            vals[s:e] = (e - s) * np.sqrt(2)
-        out[idx_y, idx_x] = vals
+    H, W = m.shape
+    sh = _shear(m)                         # pixel (y, x) -> (y, x + y): main diagonals become columns
+    runs = _runs_rows(sh.T).T * np.sqrt(2)
+    out = _unshear(runs, W)
     return out[:, ::-1] if anti else out
 
 
 def local_stroke_width(mask: np.ndarray) -> np.ndarray:
     """Per-ink-pixel stroke width estimate: minimum run length over the 4
     directions 0°, 90°, 45°, 135° (diagonal runs scaled by √2).  Pixels."""
-    h = _runs_along(mask)
-    v = _runs_along(mask.T).T
+    h = _runs_rows(mask)
+    v = _runs_rows(mask.T).T
     d1 = _diag_runs(mask, anti=False)
     d2 = _diag_runs(mask, anti=True)
     st = np.stack([h, v, d1, d2])

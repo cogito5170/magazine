@@ -205,7 +205,7 @@ def nocturne2(crops, texts):
 
 
 # ------------------------------------------------------------------ LINEUP · body
-def lineup2(crops, texts):
+def lineup2(crops, texts, vertical_copy=True):
     ink = (238, 236, 230)
     page = Image.new("RGB", (W, H), (6, 6, 6))
     pw = W // 4
@@ -247,8 +247,9 @@ def lineup2(crops, texts):
         # offset bar: a measurement drawn as rhythm
         bh = abs(offs[i]) * 2 + 4
         d.rectangle([i * pw + pw - 26, 600 - bh // 2, i * pw + pw - 18, 600 + bh // 2], fill=ink)
-    rotated_text(page, (pw - 44, 700), texts["body_ko"][0], fnt("ko", 17), ink + (255,), angle=90, tracking=0.6)
-    rotated_text(page, (3 * pw - 44, 640), texts["body_ko"][1], fnt("ko", 17), ink + (255,), angle=90, tracking=0.6)
+    if vertical_copy:
+        rotated_text(page, (pw - 44, 700), texts["body_ko"][0], fnt("ko", 17), ink + (255,), angle=90, tracking=0.6)
+        rotated_text(page, (3 * pw - 44, 640), texts["body_ko"][1], fnt("ko", 17), ink + (255,), angle=90, tracking=0.6)
     page = scrim(page, (0, H - 120, W, H), 0.5)
     d = ImageDraw.Draw(page)
     tracked(d, (26, H - 44), f"{texts['kicker']}   JITTER 18PX · SQUASH 0.72 · DROSTE 1/3, 1/9 · MIRROR · "

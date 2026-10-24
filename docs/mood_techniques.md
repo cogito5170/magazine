@@ -155,3 +155,19 @@ The mood layer:
 
 `nocturne_contemporary` is the same structure in a black, hard-edged version.
 The mood is a design intention. No validated measurement backs it.
+
+## WHERE PEOPLE STOP ? — rapport (`edas/mood/rapport.py`, `examples/stop_rapport.py`)
+
+The user asked for this spread to be made too, with the mood "라포틱하게". We read that as rapport: a warm relationship of trust.
+
+Tickle-Degnen & Rosenthal (1990) define rapport by three components: mutual attentiveness, positivity and coordination. They describe people interacting with each other, so mapping them onto a page is a design analogy and has not been tested:
+
+| Component | On the page |
+|---|---|
+| Attentiveness | Each person inside the source's dashed box stays sharp. Everything outside the box gets horizontal motion blur. |
+| Positivity | Warm light: cream paper, warm-brown ink, halation, a warm matte. The terracotta accent follows the hue of the source's labels, lightened to work on paper. |
+| Coordination | The six person-centres sit evenly on one eye line, and the photos stand shoulder to shoulder at close distance (after Hall 1966, proxemics). |
+
+The title is filled with stripes taken from the smoothie stall's light, divided, mirrored and repeated (after Richter).
+
+Copy is verbatim. In the source, the body under (5.5) NEXT duplicates the body under (5.4) WHY?, so it is set once and the duplication was reported.

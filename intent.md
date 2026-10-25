@@ -45,6 +45,7 @@
 
 - 무드를 바꾸면 레이아웃·서체·처리·색까지 지면 전체를 새로 짭니다. 고정되는 것은 승인작 3장의 픽셀 동일뿐입니다.
 - 무드 작가 스레드가 무드마다 배치(`structure`)까지 써서 `mood-relay`에 넣고, 편집이 구조별 렌더러(`edas/mood/kinds/`)로 그려 심판(`edas/mood/judge.py`)으로 판정합니다: `python3 scripts/mood_editor.py`.
+- 불변조건을 통과한 지면은 PENDING 이 되고, 정전 비평 앙상블(Claude와 GPT, 가장 가까운 정전 3장·확대 크롭·측정값과 함께)이 최종 ACCEPT/REJECT 를 냅니다: `python3 scripts/mood_critic.py`. 심판의 판정은 최종입니다. 기준은 `docs/canon/aesthetic_criteria.md`, 절차는 `docs/mood_relay.md`.
 - 통과한 후보들을 한 장에 모아 보여 주고, 사용자가 고른 것을 다듬습니다.
 
 ### "이 슬라이드들 분위기 알아서 잡아줘" (여러 장)

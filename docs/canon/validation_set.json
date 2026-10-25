@@ -1,0 +1,104 @@
+[
+ {
+  "id": "round1_A_vessel",
+  "file": "docs/canon/validation/round1_A_vessel.jpg",
+  "label": 0,
+  "why": "Contain 제목 기법 1차: \"구려\", 패션지 같지 않음"
+ },
+ {
+  "id": "round1_B_hold",
+  "file": "docs/canon/validation/round1_B_hold.jpg",
+  "label": 0,
+  "why": "Contain 제목 기법 1차: \"구려\", 패션지 같지 않음"
+ },
+ {
+  "id": "round1_C_embrace",
+  "file": "docs/canon/validation/round1_C_embrace.jpg",
+  "label": 0,
+  "why": "Contain 제목 기법 1차: \"구려\", 패션지 같지 않음"
+ },
+ {
+  "id": "round1_D_floor",
+  "file": "docs/canon/validation/round1_D_floor.jpg",
+  "label": 0,
+  "why": "Contain 제목 기법 1차: \"구려\", 패션지 같지 않음"
+ },
+ {
+  "id": "round1_E_span",
+  "file": "docs/canon/validation/round1_E_span.jpg",
+  "label": 0,
+  "why": "Contain 제목 기법 1차: \"구려\", 패션지 같지 않음"
+ },
+ {
+  "id": "round1_F_viewfinder",
+  "file": "docs/canon/validation/round1_F_viewfinder.jpg",
+  "label": 0,
+  "why": "Contain 제목 기법 1차: \"구려\", 패션지 같지 않음"
+ },
+ {
+  "id": "round2-contemporary_A_squeegee",
+  "file": "docs/canon/validation/round2-contemporary_A_squeegee.jpg",
+  "label": 0,
+  "why": "Contain 제목 기법 2차: \"구려\""
+ },
+ {
+  "id": "round2-contemporary_B_curtain",
+  "file": "docs/canon/validation/round2-contemporary_B_curtain.jpg",
+  "label": 0,
+  "why": "Contain 제목 기법 2차: \"구려\""
+ },
+ {
+  "id": "round2-contemporary_C_squeeze",
+  "file": "docs/canon/validation/round2-contemporary_C_squeeze.jpg",
+  "label": 0,
+  "why": "Contain 제목 기법 2차: \"구려\""
+ },
+ {
+  "id": "round2-contemporary_D_dissolve",
+  "file": "docs/canon/validation/round2-contemporary_D_dissolve.jpg",
+  "label": 0,
+  "why": "Contain 제목 기법 2차: \"구려\""
+ },
+ {
+  "id": "round2-contemporary_E_focus",
+  "file": "docs/canon/validation/round2-contemporary_E_focus.jpg",
+  "label": 0,
+  "why": "Contain 제목 기법 2차: \"구려\""
+ },
+ {
+  "id": "round2-contemporary_F_slit",
+  "file": "docs/canon/validation/round2-contemporary_F_slit.jpg",
+  "label": 0,
+  "why": "Contain 제목 기법 2차: \"구려\""
+ },
+ {
+  "id": "match-wabi_MATCH_spread_wabi",
+  "file": "docs/canon/validation/match-wabi_MATCH_spread_wabi.jpg",
+  "label": 0,
+  "why": "와비사비: \"댄디랑 똑같다\""
+ },
+ {
+  "id": "match-attune_MATCH_attune_spread",
+  "file": "docs/canon/validation/match-attune_MATCH_attune_spread.jpg",
+  "label": 0,
+  "why": "attune: 승인 레시피 무시로 반려"
+ },
+ {
+  "id": "approved_match-dandy",
+  "file": "docs/approved/match-dandy.jpg",
+  "label": 1,
+  "why": "윤경 승인작"
+ },
+ {
+  "id": "approved_match-contemporary",
+  "file": "docs/approved/match-contemporary.jpg",
+  "label": 1,
+  "why": "윤경 승인작"
+ },
+ {
+  "id": "approved_stop-rapport",
+  "file": "docs/approved/stop-rapport.jpg",
+  "label": 1,
+  "why": "윤경 승인작"
+ }
+]

@@ -48,4 +48,14 @@ splice · jogakbo · joiner · panel · stencil_title · dots · nogrid · bars.
 - J: 승인 무드(댄디·검정·라포)와의 지면 평균 색차 최소값 ≥ 20 (사용자가 "댄디랑 똑같다"고 한 와비사비 = 4.2, 승인작끼리 최소 33.4),
   팔레트 말고 바꾼 레버 ≥ 2
 - 거절된 이유를 읽고 다음 제안에서 같은 실수를 반복하지 않는다. 원장: 저장소 `docs/mood_ledger.jsonl`.
-- ACCEPT 는 "볼 만한 후보"라는 뜻일 뿐이다. 최종 취향 판단은 사용자가 한다.
+- 불변조건을 통과한 지면은 ACCEPT 가 아니라 **PENDING** 이다. 정전 비평 앙상블이 최종 판정한다 (아래).
+
+### 정전 비평 앙상블 (심판의 최종 판정, 2026-10-25)
+윤경 님 규칙: "무조건 지금 심판의 말을 따른다. 대신 심판의 박사급 시각디자이너 이론을 적용하도록 한다." 그래서 심판의 마지막 단계는 코드가 못 하는 미적 판정을 정전과 이론으로 한다.
+- 기준: `docs/canon/aesthetic_criteria.md` (정전 37건, 이미지 67장에서 뽑은 주도 장치 7유형과 절제 규칙). 보드: `docs/canon/board.json`.
+- 묶음(`<제안>/critic/`): 시안, 색·배치 기술자로 찾은 가장 가까운 정전 3장, 제목과 거터의 2배 확대 크롭, 측정값(네거티브 스페이스 비율, 시선 경쟁 영역 수, 팔레트 수)과 정전 분포, 기준, `prompt.md`.
+- 비평가는 서로 독립이다: Claude 세션(`critique_claude.json`), GPT(`scripts/gpt_critic.py` 로 effiency relay 경유, `critique_gpt.json`). 축마다 절대 등급이고, 기계끼리 둘 중 하나를 고르게 하지 않는다.
+- 판정(`python3 scripts/mood_critic.py --record <제안>`): 유효한 비평 2개 이상, 과반이 pass, 주도 장치 합의, 핵심 축(주도 장치 명료성·절제·익숙함·안정) 중앙값이 보통 이상, 핵심 축에서 비평가 차이 1단계 이하. 하나라도 어기면 REJECT.
+- 검증(`python3 scripts/validate_critic.py --build`, `--report`): 정전(자기 자신은 참고에서 제외)과 승인작 3장은 양성, 윤경 님이 반려한 시안 14장은 음성. 균형 정확도, ROC AUC, 비평가 간 가중 카파를 `docs/canon/validation_report.json` 에 남긴다. 검증을 통과하기 전에는 비평가 기준을 확정하지 않는다.
+- 작가 카드에 `dominant_device` 를 적으면 정전 장치 목록(`edas/mood/canon.py` `DEVICES`) 안에 있어야 한다.
+- 윤경 님이 고른 결과는 `python3 scripts/editor_pick.py` 로 `docs/judgement_ledger.jsonl` 에 승자·패자 쌍으로 남긴다. 비평가 보정용 근거 데이터다.

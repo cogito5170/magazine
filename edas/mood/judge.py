@@ -20,7 +20,13 @@ J -- distinctness from every approved mood (the user's complaint "댄디랑 똑�
                  the minimum over the approved pages is the score
     levers       mood levers changed beyond palette (type face, title rendering, photo technique family,
                  shadow type, caption face, furniture)
+    dominant-device  (a writer's card that names one) the device is one observed on the canon pages
+                 (edas/mood/canon.py DEVICES, docs/canon/aesthetic_criteria.md)
 ACCEPT <=> V ∧ page_de_min >= PAGE_DE ∧ levers >= LEVERS.
+The judge's verdict is final (윤경, 2026-10-25), so it carries design theory, not only invariants: when the
+invariants hold the editor marks the page PENDING and the canon critic (edas/mood/canon.py, scripts/mood_critic.py)
+judges it beside the nearest canonical pages, on zoomed crops and measures, against docs/canon/aesthetic_criteria.md;
+its pass or fail becomes the final ACCEPT or REJECT.
 PAGE_DE and LEVERS are calibrated on the one measured rejection: the wabi-sabi draft (user: too close to dandy).
 """
 from __future__ import annotations
@@ -33,6 +39,7 @@ import numpy as np
 from PIL import Image
 
 from ..mathcore.color import contrast_ratio, relative_luminance, rgb_to_lab
+from .canon import device_check
 from .moodmachine import DANDY, H, Layer
 
 APPROVED = ("docs/approved/match-dandy.jpg", "docs/approved/match-contemporary.jpg", "docs/approved/stop-rapport.jpg")
@@ -78,8 +85,10 @@ def _solid(page, box, fill, tol=8.0):
     return float(np.sqrt(((rgb_to_lab(ring) - ref) ** 2).sum(-1)).mean()) <= tol
 
 
-def judge(page: Image.Image, spec: dict, L: Layer, machine_ok: bool, copy_expected=None) -> dict:
+def judge(page: Image.Image, spec: dict, L: Layer, machine_ok: bool, copy_expected=None, card=None) -> dict:
     v = {"approved": bool(machine_ok)}
+    if card is not None and device_check(card) is not None:
+        v["dominant-device"] = device_check(card)
     w, h = page.size
     if "copy_bottom" in spec:
         v["copy-fits"] = spec["copy_bottom"] <= H - 80 and spec["copy_left"] >= 1705

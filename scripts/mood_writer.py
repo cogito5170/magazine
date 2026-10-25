@@ -336,6 +336,24 @@ DECLARE_CARDS = [
          layer=dict(BW, paper=[240, 238, 232], ink=[14, 14, 14], camel=[206, 28, 32])),
 ]
 
+# Round 3 fixes after the judge (023 copy-fits, 024 bold/ΔE/layout, 026 panels-solid); the composers were fixed,
+# 024 moves the still to the right page on a white leader with larger cards.
+def _v2(slug, **kw):
+    c = dict(next(x for x in DECLARE_CARDS if x["slug"] == slug))
+    c.update(slug=slug + "-v2", **kw)
+    return c
+
+
+DECLARE_CARDS += [
+    _v2("klein-field"),
+    _v2("godard-cards", structure={"kind": "intertitle", "still": "right", "card_size": 330, "frame_h": 140,
+                                   "copy_size": 21, "first": [40, 86, 230], "second": [226, 34, 40]},
+        familiar_strange="익숙함: 영화 스틸과 자막. 낯섦: 단어가 두 장의 자막 카드로 끊겨 프레임 사이에 끼어든다",
+        bold_stable="과감함: 지면 높이를 채우는 파랑·빨강 두 단어. 안정: 흰 리더, 가운데 정렬 한 축",
+        layer=dict(BW, paper=[246, 246, 244], ink=[16, 16, 16], camel=[16, 16, 16])),
+    _v2("rodchenko-wedge"),
+]
+
 DROPPED = {"pixel sort (Asendorf)": "looks like the dandy's slit-scan streaks"}
 
 SIGNATURE = {"title_mode": "strip", "shadow": "soft_jpeg"}   # the dandy's own levers; a card may not use them

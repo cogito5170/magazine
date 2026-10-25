@@ -35,7 +35,7 @@ def render(crops, texts, L, persons, H=1231):
     panels += [{"box": (x0 - 10, y0 - 26, G, pb[3]), "fill": blue, "text": white},
                {"box": pb, "fill": white, "text": blue}]
     tb = (b1[0], b1[1], b2[2], b2[3])
-    tboxes.append(tb)
+    tboxes += [b1, b2]                      # each half lies on its own solid ground (blue field | white panel)
     R.title_boxes.append(tb)
     done.append(texts["title"])
     R.defamiliar = "the title cut by the gutter: white on the blue field, blue on white over the photograph " \

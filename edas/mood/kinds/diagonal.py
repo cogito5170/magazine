@@ -33,9 +33,9 @@ def render(crops, texts, L, persons, H=1231):
     m = R.ramp_mask(texts["title"], 210, tracking=4)
     m = m.crop(m.getbbox())
     tb = strip_paste(R, page, m, (56, 86), _grade(img, L), WHITE)
-    tboxes.append(tb)
+    tboxes.append((tb[0] - 24, tb[1] - 24, tb[2] + 24, tb[3] + 24))
     R.title_boxes.append(tb)
-    panels.append({"box": tb, "fill": red, "text": WHITE})
+    panels.append({"box": (tb[0] - 24, tb[1] - 24, tb[2] + 24, tb[3] + 24), "fill": red, "text": WHITE})
     done.append(texts["title"])
     # prints inside the wedge, under the title, framed white
     ih, x, yi = 150, 60, tb[3] + 50

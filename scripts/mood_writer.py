@@ -11,10 +11,11 @@ Rules the cards keep (from docs/mood_library.md and the user's rejections):
   * not palette-only: every card moves at least two non-palette levers (photo technique, title, shadow, faces)
   * none of the dandy signature: no Richter strip title, no slit-scan amplitude, no soft JPEG shadow
   * no colour chips, no ΔE numbers on the page, no rational grid, no generated or inpainted photo
+  * a mood redesigns the whole page (user, 2026-10-25: "지난 세션에서는 무드 바꾸면 다 바꿨는데"): every new
+    card carries a `structure` block -- layout, title, photo placement -- not only colour and levers
   * each card names one art technique and a source that was opened and read in this session (`quote`)
 
-Ideas that need a structure change (the levers cannot express them) are kept in STRUCTURE and are not
-sent: the approved structure is fixed until the user opens it.
+Round 2 cards (STRUCTURE_CARDS) also change the layout; they carry a `structure` block for new editor functions.
 """
 from __future__ import annotations
 
@@ -177,41 +178,109 @@ CARDS = [
                 "shadow": "ruff", "halation": OFF, "slit_amp": 0, "grain": [0.02, 1.2]}),
 ]
 
-# Ideas the levers cannot express. Kept as a list for the user; never sent while the structure is fixed.
-STRUCTURE = [
-    dict(name="Baldessari 가격표 점", idea="얼굴 자리에 원색 원형 점, 장소마다 점 색을 옷 톤에 맞춤",
-         needs="사진 위 그래픽 오버레이(사진 픽셀은 그대로). 규칙 해석 필요",
-         source="https://www.kcur.org/2013-03-12/for-john-baldessari-conceptual-art-means-serious-mischief",
-         quote="In 1985, in a fit of pique, Baldessari covered the faces with colored dots."),
-    dict(name="Hockney 조이너", idea="한 장면을 겹친 조각 수십 장으로 다시 모은 큐비즘 모자이크",
-         needs="주인공 풀블리드 대신 조각 배치. 원본은 한 장이라 '한 장을 타일로 자른 근사'라고 밝혀야 함",
-         source="https://www.h2g2.com/edited_entry/A520840",
-         quote="a series of photographs taken from different viewpoints, arranged (overlapping) to form a single piece"),
-    dict(name="Stezaker 스플라이스", idea="네 장소의 같은 사람을 반씩 잘라 이어 한 몸이 두 장소를 입게",
-         needs="주인공 자리를 두 사진의 이음으로. 카피 '장소가 틀이라면, 옷은 그 틀을 채우는 조합'과 가장 직접 맞음",
-         source="https://www.npg.org.uk/whatson/display/2019/john-stezaker-portrait",
-         quote="cutting out, slicing and splicing images"),
-    dict(name="Sophie Calle 기록", idea="흑백 액자 사진 + 타자 원고 패널, 날짜·장소 기록처럼",
-         needs="세로 제목 대신 텍스트 패널",
-         source="https://en.wikipedia.org/wiki/Sophie_Calle",
-         quote="photographic work often includes panels of text of her own writing"),
-    dict(name="Christopher Wool 스텐실", idea="거대한 검정 스텐실 MATCH. 를 줄 끊어 'MAT / CH.'",
-         needs="제목이 오른쪽 면 전체, 프린트는 작게",
-         source="https://en.wikipedia.org/wiki/Christopher_Wool",
-         quote="paintings of large, black, stenciled letters on white canvases"),
-    dict(name="조각보", idea="네 장소 사진을 조각으로 잘라 솔기로 이어 양면이 한 장의 조각보",
-         needs="양면 전체를 조각 배치로",
-         source="https://www.vam.ac.uk/articles/jogakbo-traditional-korean-patchwork",
-         quote="the left-over fabrics were not discarded, but would be used to create a jogakbo"),
-    dict(name="David Carson 레이건", idea="카피가 사진 위로 겹치고 자간이 극단으로 벌어지는 무그리드",
-         needs="그리드 해제. 강도는 카피 한 벌은 반드시 정상 판독",
-         source="https://www.aiga.org/membership-community/aiga-awards/2014-aiga-medalist-david-carson",
-         quote="endlessly contorting type, layout and grid into new configurations"),
-    dict(name="픽셀 소팅", idea="밝기 구간의 픽셀을 정렬해 흘러내리게",
-         needs="(스스로 뺌) 겉보기가 댄디의 슬릿스캔 줄무늬와 같은 계열",
-         source="https://log.fakewhale.xyz/kim-asendorf-from-pixel-to-paradigm/",
-         quote="introduced over a decade ago and made open source in 2012"),
+# Round 2 (user, 2026-10-25: "레이아웃은 그대론데?"): the structure is open. These cards carry a `structure`
+# block that the editor renders with NEW functions; the approved structure and its functions stay untouched.
+# Geometry is in fractions of the 2000x1231 spread (gutter at x=0.5). Photo keys: night, park, shop, rock.
+# Copy is used verbatim; nothing is added to it.
+STRUCTURE_CARDS = [
+    dict(slug="splice", name="splice", mood="스테자커: 같은 사람의 두 장소를 반씩 이어, 한 몸이 두 장소의 옷을 입는다",
+         technique="John Stezaker, spliced found portraits (Marriage series)",
+         sources=["https://www.npg.org.uk/whatson/display/2019/john-stezaker-portrait"],
+         quote="cutting out, slicing and splicing images",
+         structure={"kind": "splice", "pairs": [["night", "rock"], ["park", "shop"]], "cut": "vertical", "at": 0.5,
+                    "align": "person box top and height", "placement": "one collage per page, centred, 0.32 of page width",
+                    "mat": "wide museum mat around each collage", "title": "small caps serif under the left collage",
+                    "body": "under the right collage, horizontal", "prints": 0},
+         layer={"paper": [150, 150, 148], "ink": [24, 24, 24], "taupe": [120, 120, 118], "camel": [40, 40, 40],
+                "title_face": "serif", "title_weight": "Regular", "title_mode": "solid", "title_color": [24, 24, 24],
+                "body_face": "serif", "body_weight": "Regular", "caption_face": "serif_it", "shadow": "none",
+                "halation": OFF, "slit_amp": 0}),
+    dict(slug="jogakbo", name="jogakbo", mood="조각보: 네 장소 사진을 조각으로 잘라 솔기로 이은 한 장의 보자기",
+         technique="jogakbo, Korean patchwork wrapping cloth of leftover scraps",
+         sources=["https://www.vam.ac.uk/articles/jogakbo-traditional-korean-patchwork"],
+         quote="the left-over fabrics were not discarded, but would be used to create a jogakbo",
+         structure={"kind": "jogakbo", "photos": ["night", "park", "shop", "rock"], "pieces": [14, 22],
+                    "piece_rule": "rectangles cut from the photos, each keeps the person box whole where it falls",
+                    "seam": {"width": 3, "color": [248, 244, 232], "double": True}, "cover": "both pages edge to edge",
+                    "title": "on one plain ramie piece", "body": "on one plain ramie piece, horizontal", "prints": 0},
+         layer={"paper": [226, 214, 184], "ink": [40, 34, 28], "camel": [120, 90, 60],
+                "title_face": "sans", "title_weight": "Medium", "title_mode": "solid", "title_color": [40, 34, 28],
+                "body_face": "serif", "body_weight": "Regular", "caption_face": "serif_it", "shadow": "none",
+                "halation": OFF, "slit_amp": 0}),
+    dict(slug="joiner", name="joiner", mood="호크니 조이너: 한 장면을 겹친 조각 수십 장으로 다시 모은 시선의 모자이크",
+         technique="David Hockney, joiners (photocollage, 1980s)",
+         sources=["https://www.h2g2.com/edited_entry/A520840"],
+         quote="a series of photographs taken from different viewpoints, arranged (overlapping) to form a single piece",
+         structure={"kind": "joiner", "source": "night", "tiles": 36, "tile_rot_deg": [-6, 6], "overlap": 0.12,
+                    "white_border": 8, "span": "across the gutter, 0.08-0.70 of spread width",
+                    "honesty_note": "one source frame cut into tiles; Hockney shot each tile separately",
+                    "title": "horizontal, small, top right", "body": "right page lower third", "prints": "park, shop, rock as three more small joiners"},
+         layer={"paper": [58, 56, 54], "ink": [236, 232, 224], "camel": [200, 190, 170], "light": [236, 232, 224],
+                "title_face": "inter", "title_weight": "Light", "title_mode": "solid", "title_color": [236, 232, 224],
+                "body_face": "sans", "body_weight": "Light", "caption_face": "mono", "shadow": "none",
+                "halation": OFF, "slit_amp": 0}),
+    dict(slug="calle-panel", name="record", mood="소피 칼: 액자 속 흑백 사진과 타자 원고 패널, 기록처럼",
+         technique="Sophie Calle, photographs paired with framed text panels",
+         sources=["https://en.wikipedia.org/wiki/Sophie_Calle"],
+         quote="photographic work often includes panels of text of her own writing",
+         structure={"kind": "panel", "left": {"photo": "night", "bw": True, "frame": "black frame, white mat"},
+                    "right": {"text_panel": "the copy only, verbatim, typewriter face, framed the same way"},
+                    "title": "typed first line of the panel", "prints": "three small framed prints in a row under the panel"},
+         layer={"paper": [246, 246, 244], "ink": [20, 20, 20], "camel": [80, 80, 80], "saturation": 0.0,
+                "title_face": "sans", "title_weight": "Regular", "title_mode": "solid", "title_color": [20, 20, 20],
+                "body_face": "sans", "body_weight": "Regular", "caption_face": "mono", "shadow": "none",
+                "halation": OFF, "slit_amp": 0}),
+    dict(slug="wool-stencil", name="stencil", mood="크리스토퍼 울: 오른쪽 면 전체를 덮는 검정 스텐실 MAT / CH.",
+         technique="Christopher Wool, word paintings in black stencilled letters",
+         sources=["https://en.wikipedia.org/wiki/Christopher_Wool"],
+         quote="paintings of large, black, stenciled letters on white canvases",
+         structure={"kind": "stencil_title", "title_lines": ["MAT", "CH."], "title_area": "whole right page, horizontal",
+                    "stencil_bridges": True, "hero": "night, left page as approved but without slit-scan",
+                    "prints": "three small prints in one row at the bottom of the right page", "body": "between title lines, small"},
+         layer={"paper": [236, 234, 226], "ink": [14, 14, 14], "camel": [60, 60, 60],
+                "title_face": "inter", "title_weight": "Black", "title_mode": "solid", "title_color": [14, 14, 14],
+                "body_face": "sans", "body_weight": "Medium", "caption_face": "mono", "shadow": "none",
+                "halation": OFF, "slit_amp": 0}),
+    dict(slug="baldessari-dots", name="dots", mood="발데사리: 얼굴 자리에 원색 점, 점 색은 그 장소 옷의 톤",
+         technique="John Baldessari, coloured dots over faces in found press photographs (1985-)",
+         sources=["https://www.kcur.org/2013-03-12/for-john-baldessari-conceptual-art-means-serious-mischief"],
+         quote="In 1985, in a fit of pique, Baldessari covered the faces with colored dots.",
+         structure={"kind": "dots", "photos": ["night", "park", "shop", "rock"],
+                    "layout": "four press prints of different sizes, slightly tilted, scattered across both pages",
+                    "dot": {"on": "face = top 22% of the person box", "color": "mean of the outfit box, saturation x2"},
+                    "rule_note": "a flat graphic over the photo; photo pixels unchanged. Needs the user's OK under the no-overpaint rule",
+                    "title": "small grotesk, bottom left", "body": "small grotesk, bottom right"},
+         layer={"paper": [244, 244, 240], "ink": [20, 20, 20], "camel": [80, 80, 80],
+                "title_face": "inter", "title_weight": "Bold", "title_mode": "solid", "title_color": [20, 20, 20],
+                "body_face": "sans", "body_weight": "Regular", "caption_face": "mono", "shadow": "none",
+                "halation": OFF, "slit_amp": 0}),
+    dict(slug="carson-nogrid", name="no grid", mood="데이비드 카슨: 그리드 없이 글과 사진이 겹치고 자간이 벌어진다",
+         technique="David Carson, Ray Gun (1990s)",
+         sources=["https://www.aiga.org/membership-community/aiga-awards/2014-aiga-medalist-david-carson"],
+         quote="endlessly contorting type, layout and grid into new configurations",
+         structure={"kind": "nogrid", "hero": "park, cropped to the person at 3x, bleeding over the gutter",
+                    "title": "letters of MATCH. at five different sizes and baselines",
+                    "body": "set once normally and readable; may overlap the photo edge only",
+                    "prints": "night, shop, rock cropped to slivers, overlapping each other",
+                    "intensity": "the copy must stay readable once (not 'unwatchable')"},
+         layer={"paper": [250, 250, 250], "ink": [16, 16, 16], "camel": [230, 80, 30],
+                "title_face": "inter", "title_weight": "Black", "title_mode": "solid", "title_color": [230, 80, 30],
+                "body_face": "sans", "body_weight": "Regular", "caption_face": "mono", "shadow": "none",
+                "halation": OFF, "slit_amp": 0}),
+    dict(slug="kruger-bars", name="red bars", mood="크루거: 한 장면이 양면을 덮고, 제목과 카피가 빨간 띠로 가로지른다",
+         technique="Barbara Kruger, black-and-white photographs with white-on-red Futura Bold Oblique",
+         sources=["https://whitney.org/artists/2635"],
+         quote="black-and-white photographs ... white-on-red Futura Bold Oblique or Helvetica Ultra Condensed",
+         structure={"kind": "bars", "hero": "park, black and white, both pages edge to edge",
+                    "bars": [{"text": "title", "y": 0.18}, {"text": "body line 1", "y": 0.64}, {"text": "body line 2", "y": 0.76}],
+                    "bar_color": [204, 20, 30], "text_color": [255, 255, 255],
+                    "prints": "night, shop, rock as three small insets with a red border, right page"},
+         layer={"paper": [16, 16, 16], "ink": [255, 255, 255], "camel": [204, 20, 30], "saturation": 0.0,
+                "title_face": "inter", "title_weight": "Black", "title_mode": "solid", "title_color": [255, 255, 255],
+                "body_face": "sans", "body_weight": "Bold", "caption_face": "mono", "shadow": "none",
+                "halation": OFF, "slit_amp": 0}),
 ]
+DROPPED = {"pixel sort (Asendorf)": "looks like the dandy's slit-scan streaks"}
 
 SIGNATURE = {"title_mode": "strip", "shadow": "soft_jpeg"}   # the dandy's own levers; a card may not use them
 
@@ -241,14 +310,14 @@ def main():
     a = ap.parse_args()
     sent = {m.group(1) for d in os.listdir(a.relay) if (m := re.match(r"\d{3}-(.+)$", d))} if os.path.isdir(a.relay) else set()
     n = next_no(a.relay)
-    for c in CARDS:
+    for c in CARDS + STRUCTURE_CARDS:
         bad = lint(c)
         if a.list or bad or c["slug"] in sent:
             print(f"{'skip' if (bad or c['slug'] in sent) else '    '} {c['slug']:24s} {c['mood']}  {'; '.join(bad)}")
             continue
         d = os.path.join(a.relay, f"{n:03d}-{c['slug']}")
         os.makedirs(d, exist_ok=True)
-        spec = {k: c[k] for k in ("name", "mood", "sources", "layer")}
+        spec = {k: c[k] for k in ("name", "mood", "sources", "layer", "structure") if k in c}
         spec["technique"], spec["quote"] = c["technique"], c["quote"]
         with open(os.path.join(d, "spec.json"), "w", encoding="utf-8") as f:
             json.dump(spec, f, ensure_ascii=False, indent=1)

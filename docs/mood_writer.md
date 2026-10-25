@@ -37,21 +37,22 @@ python3 scripts/mood_editor.py
 | 013 | 사바티에: 현상 중 빛을 켠 사고, 밝고 어두움이 뒤집힌 은빛 윤곽 | [Lee Miller / Man Ray, solarisation (Sabatier effect), Paris c.1929](https://www.leemillerresearchguide.com/articles/blog-post-title-four-a6392) | solarize, duotone | inter outline · ruff |
 | 014 | 에어로크롬: 적외선 필름처럼 올리브 재킷이 마젠타로 뒤집힌 낯선 색 | [Richard Mosse, The Enclave (2013), Kodak Aerochrome infrared film](https://www.unsw.edu.au/newsroom/news/2014/03/infrared-film-captures-congo-war) | duotone | serif solid · ruff |
 
-## 구조를 열어야 가능한 아이디어 8개 (보내지 않음)
+## 2차 제안 8개: 레이아웃까지 바꾼다 (우편함 015–022)
 
-지금 승인 구조(주인공 풀블리드, 세로 제목, 프린트 3장)는 고정이다. 아래 아이디어는 레버로 표현할 수 없어서 윤경 님이 구조를 열기 전에는 보내지 않는다.
+윤경 님 피드백(2026-10-25): "레이아웃은 그대론데?", "지난 세션에서는 무드 바꾸면 다 바꿨는데". 이제 무드는 지면 전체를 다시 설계하는 단위다. 모든 새 카드에 `structure`(배치, 제목, 사진 자리)를 넣는다. 승인작 3장과 그 함수는 건드리지 않고, 편집 스레드가 새 함수로 렌더한다.
 
-| 아이디어 | 무엇 | 필요한 것 | 출처 |
+| # | 무드 | 레이아웃 | 기법 · 출처 |
 |---|---|---|---|
-| Baldessari 가격표 점 | 얼굴 자리에 원색 원형 점, 장소마다 점 색을 옷 톤에 맞춤 | 사진 위 그래픽 오버레이(사진 픽셀은 그대로). 규칙 해석 필요 | [링크](https://www.kcur.org/2013-03-12/for-john-baldessari-conceptual-art-means-serious-mischief) |
-| Hockney 조이너 | 한 장면을 겹친 조각 수십 장으로 다시 모은 큐비즘 모자이크 | 주인공 풀블리드 대신 조각 배치. 원본은 한 장이라 '한 장을 타일로 자른 근사'라고 밝혀야 함 | [링크](https://www.h2g2.com/edited_entry/A520840) |
-| Stezaker 스플라이스 | 네 장소의 같은 사람을 반씩 잘라 이어 한 몸이 두 장소를 입게 | 주인공 자리를 두 사진의 이음으로. 카피 '장소가 틀이라면, 옷은 그 틀을 채우는 조합'과 가장 직접 맞음 | [링크](https://www.npg.org.uk/whatson/display/2019/john-stezaker-portrait) |
-| Sophie Calle 기록 | 흑백 액자 사진 + 타자 원고 패널, 날짜·장소 기록처럼 | 세로 제목 대신 텍스트 패널 | [링크](https://en.wikipedia.org/wiki/Sophie_Calle) |
-| Christopher Wool 스텐실 | 거대한 검정 스텐실 MATCH. 를 줄 끊어 'MAT / CH.' | 제목이 오른쪽 면 전체, 프린트는 작게 | [링크](https://en.wikipedia.org/wiki/Christopher_Wool) |
-| 조각보 | 네 장소 사진을 조각으로 잘라 솔기로 이어 양면이 한 장의 조각보 | 양면 전체를 조각 배치로 | [링크](https://www.vam.ac.uk/articles/jogakbo-traditional-korean-patchwork) |
-| David Carson 레이건 | 카피가 사진 위로 겹치고 자간이 극단으로 벌어지는 무그리드 | 그리드 해제. 강도는 카피 한 벌은 반드시 정상 판독 | [링크](https://www.aiga.org/membership-community/aiga-awards/2014-aiga-medalist-david-carson) |
-| 픽셀 소팅 | 밝기 구간의 픽셀을 정렬해 흘러내리게 | (스스로 뺌) 겉보기가 댄디의 슬릿스캔 줄무늬와 같은 계열 | [링크](https://log.fakewhale.xyz/kim-asendorf-from-pixel-to-paradigm/) |
+| 015 | 스테자커: 같은 사람의 두 장소를 반씩 이어, 한 몸이 두 장소의 옷을 입는다 | splice | [John Stezaker, spliced found portraits (Marriage series)](https://www.npg.org.uk/whatson/display/2019/john-stezaker-portrait) |
+| 016 | 조각보: 네 장소 사진을 조각으로 잘라 솔기로 이은 한 장의 보자기 | jogakbo | [jogakbo, Korean patchwork wrapping cloth of leftover scraps](https://www.vam.ac.uk/articles/jogakbo-traditional-korean-patchwork) |
+| 017 | 호크니 조이너: 한 장면을 겹친 조각 수십 장으로 다시 모은 시선의 모자이크 | joiner | [David Hockney, joiners (photocollage, 1980s)](https://www.h2g2.com/edited_entry/A520840) |
+| 018 | 소피 칼: 액자 속 흑백 사진과 타자 원고 패널, 기록처럼 | panel | [Sophie Calle, photographs paired with framed text panels](https://en.wikipedia.org/wiki/Sophie_Calle) |
+| 019 | 크리스토퍼 울: 오른쪽 면 전체를 덮는 검정 스텐실 MAT / CH. | stencil_title | [Christopher Wool, word paintings in black stencilled letters](https://en.wikipedia.org/wiki/Christopher_Wool) |
+| 020 | 발데사리: 얼굴 자리에 원색 점, 점 색은 그 장소 옷의 톤 | dots | [John Baldessari, coloured dots over faces in found press photographs (1985-)](https://www.kcur.org/2013-03-12/for-john-baldessari-conceptual-art-means-serious-mischief) |
+| 021 | 데이비드 카슨: 그리드 없이 글과 사진이 겹치고 자간이 벌어진다 | nogrid | [David Carson, Ray Gun (1990s)](https://www.aiga.org/membership-community/aiga-awards/2014-aiga-medalist-david-carson) |
+| 022 | 크루거: 한 장면이 양면을 덮고, 제목과 카피가 빨간 띠로 가로지른다 | bars | [Barbara Kruger, black-and-white photographs with white-on-red Futura Bold Oblique](https://whitney.org/artists/2635) |
 
+픽셀 소팅(Asendorf)은 댄디 슬릿스캔 줄무늬와 같은 계열이어서 뺐다.
 ## 판정 결과
 
 편집 스레드가 각 폴더에 `response.json`과 `preview.jpg`를 쓰고, 저장소 `docs/mood_ledger.jsonl`에 남긴다. 작가는 다음 제안을 만들 때 거절 이유를 읽고 같은 실수를 반복하지 않는다.

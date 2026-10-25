@@ -15,7 +15,7 @@ from __future__ import annotations
 from dataclasses import dataclass, replace
 
 import numpy as np
-from PIL import Image, ImageDraw, ImageEnhance, ImageFilter
+from PIL import Image, ImageChops, ImageDraw, ImageEnhance, ImageFilter
 
 from .artdirect import cover, grain
 from .contemporary import halation, matte, richter_strip, serif_kr, soft_jpeg
@@ -52,12 +52,24 @@ class Layer:
     tone: tuple | None = None               # (shadow rgb, highlight rgb, amount): split tone
     print_blur: float = 0.0                 # Sugimoto-style defocus on the three prints
     grain: tuple = (0.022, 1.5)
+    # stronger mood levers (unused by DANDY): photo technique family, title rendering, furniture
+    hero_fx: tuple = ()                     # e.g. (("duotone", lo, hi), ("halftone", cell, ink), ("scanlines",))
+    print_fx: tuple = ()
+    shadow: str = "soft_jpeg"               # soft_jpeg | ruff | threshold | none
+    title_mode: str = "strip"               # strip | solid | outline
+    title_color: tuple | None = None
+    caption_face: str = "serif_it"          # serif_it | mono
+    marks: bool = False                     # registration marks and crop marks
 
 
 DANDY = Layer("soft dandy (approved values)")
 
 
 def _face(face, weight, size):
+    if face == "inter":
+        return fnt({"Black": "black", "Bold": "bold", "Thin": "thin", "ExtraLight": "xlight"}.get(weight, "regular"), size)
+    if face == "italic":
+        return fnt("serif_it", size)
     if face == "sans":
         return kr({"Thin": "thin", "ExtraLight": "xlight", "Light": "light", "Regular": "regular",
                    "Medium": "medium", "SemiBold": "bold", "Bold": "bold", "Black": "black"}[weight], size)
@@ -73,6 +85,34 @@ def _grade(img, L: Layer):
         lum = a.mean(axis=2, keepdims=True)
         toned = np.array(lo, float) + lum * (np.array(hi, float) - np.array(lo, float))
         img = Image.fromarray(np.clip((1 - amt) * a * 255 + amt * toned, 0, 255).astype("uint8"))
+    return img
+
+
+def _fx(img, ops, paper, ink):
+    from PIL import ImageOps
+    from .defamiliar import dither, halftone, misregister
+    from .defamiliar2 import scanlines, threshold_copy
+    from .final import progressive_blur
+    for op in ops:
+        k = op[0]
+        if k == "duotone":
+            lo, hi = np.array(op[1], float), np.array(op[2], float)
+            g = np.asarray(img.convert("L"), float)[..., None] / 255
+            img = Image.fromarray((lo + g * (hi - lo)).astype("uint8"))
+        elif k == "halftone":
+            img = halftone(img, op[1], op[2], paper)
+        elif k == "dither":
+            img = dither(img, op[1], paper, op[2])
+        elif k == "threshold":
+            img = threshold_copy(img, op[1], ink, paper)
+        elif k == "scanlines":
+            img = scanlines(img, 3, 0.22)
+        elif k == "misregister":
+            img = misregister(img, op[1], 0)
+        elif k == "blur_ramp":
+            img = progressive_blur(img, op[1], direction="right")
+        elif k == "solarize":
+            img = ImageOps.solarize(img, op[1])
     return img
 
 
@@ -98,6 +138,8 @@ def nocturne_mood(crops, texts, L: Layer = DANDY, H=H):
     left = slit_scan(left, 640, GUT, amp=L.slit_amp, period=22)
     thr, rad, tint, st = L.halation
     left = matte(halation(_grade(left, L), thr, rad, tint, st), black=L.hero_matte[0], white=L.hero_matte[1])
+    if L.hero_fx:
+        left = _fx(left, L.hero_fx, paper, ink)
     page.paste(left, (0, 0))
     knit = np.asarray(crops[L.strip_key]).astype(float)
     p = knit.shape
@@ -106,9 +148,15 @@ def nocturne_mood(crops, texts, L: Layer = DANDY, H=H):
     a, b, c = L.strip_mix
     col = a * col + b * np.array(paper, float) * c
     m = text_mask((1180, 300), texts["title"], _face(L.title_face, L.title_weight, 250), (0, -40), 10)
+    if L.title_mode == "outline":
+        hard = m.point(lambda v: 255 if v > 127 else 0)
+        m = ImageChops.subtract(hard.filter(ImageFilter.MaxFilter(5)), hard.filter(ImageFilter.MinFilter(3)))
     m = m.rotate(90, expand=True)
-    strip = richter_strip(col, m.size[0], m.size[1], stages=L.stages)
-    page.paste(strip, (GUT + 40, H - m.size[1] - 40), m)
+    if L.title_mode == "strip":
+        fill = richter_strip(col, m.size[0], m.size[1], stages=L.stages)
+    else:
+        fill = Image.new("RGB", m.size, L.title_color or ink)
+    page.paste(fill, (GUT + 40, H - m.size[1] - 40), m)
     d = ImageDraw.Draw(page)
     spots = (("park", 320, (1440, 120)), ("shop", 130, (1390, 440)), ("rock", 250, (1440, 815)))
     cap = fnt("serif_it", 15)
@@ -118,11 +166,30 @@ def nocturne_mood(crops, texts, L: Layer = DANDY, H=H):
         im2 = matte(_grade(im, L).resize((w_, round(im.size[1] * s)), Image.LANCZOS), *L.print_matte)
         if L.print_blur:
             im2 = im2.filter(ImageFilter.GaussianBlur(L.print_blur))
-        shadow = soft_jpeg(im2.resize((int(w_ * 1.16), int(im2.size[1] * 1.16)), Image.LANCZOS), paper, taupe)
-        page.paste(shadow, (x - 30, y + 24))
+        big = im2.resize((int(w_ * 1.16), int(im2.size[1] * 1.16)), Image.LANCZOS)
+        if L.shadow == "soft_jpeg":
+            shadow = soft_jpeg(big, paper, taupe)
+        elif L.shadow == "ruff":
+            from .contemporary import ruff_jpeg
+            shadow = ruff_jpeg(big, factor=4, quality=3)
+        elif L.shadow == "threshold":
+            from .defamiliar2 import threshold_copy
+            shadow = threshold_copy(big, 0.45, taupe, paper)
+        else:
+            shadow = None
+        if shadow is not None:
+            page.paste(shadow, (x - 30, y + 24))
+        if L.print_fx:
+            im2 = _fx(im2, L.print_fx, paper, ink)
         page.paste(im2, (x, y))
-        d.rectangle([x - 1, y - 1, x + im2.size[0], y + im2.size[1]], outline=taupe, width=1)
-        tracked(d, (x - 30, y + 24 + shadow.size[1] + 10), f"{im.size[0]} × {im.size[1]}, ×{s:.2f}", cap, camel, 0.3)
+        if L.marks:
+            from .defamiliar import crop_marks
+            crop_marks(d, (x, y, x + im2.size[0], y + im2.size[1]), taupe)
+        else:
+            d.rectangle([x - 1, y - 1, x + im2.size[0], y + im2.size[1]], outline=taupe, width=1)
+        sh_h = shadow.size[1] if shadow is not None else im2.size[1]
+        capf = cap if L.caption_face == "serif_it" else fnt("mono", 11)
+        tracked(d, (x - 30, y + 24 + sh_h + 10), f"{im.size[0]} × {im.size[1]}, ×{s:.2f}", capf, camel, 0.3)
     fk = _face(L.body_face, L.body_weight, 22)
     if "body" in texts:
         # long copy: a smaller body in three columns, so it stays clear of the shop and rock prints
@@ -153,6 +220,10 @@ def nocturne_mood(crops, texts, L: Layer = DANDY, H=H):
     if texts.get("folio"):
         tracked(d, (W - 76, H - 46), texts["folio"], serif_kr("Light", 14), ink, 1)
     d.line([(GUT + 40, 40), (W - 40, 40)], fill=taupe, width=1)
+    if L.marks:
+        from .defamiliar import reg_mark
+        reg_mark(d, W - 40, 40, 10, taupe)
+        reg_mark(d, W - 40, H - 40, 10, taupe)
     return grain(page, L.grain[0], 12, size=L.grain[1]), {"layer": L.__dict__, "night_scale": info["scale"]}
 
 

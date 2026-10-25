@@ -16,6 +16,10 @@ Rules the cards keep (from docs/mood_library.md and the user's rejections):
   * the approved recipe goes into every kind (edas/mood/kinds/recipe.py; user: "과감함이나 낯설게하기도 없고 정제도
     안 되어 있고"): from round 3 on, a card names `defamiliarize` (one device) and `techniques` (2-3 approved
     palette techniques, e.g. halation, matte, JPEG shadow) at the top level of its spec
+  * the user's top criteria (2026-10-25), the first filter for every card: 1. 익숙한 낯섦 (familiar, yet somewhere
+    strange, so it reads as art) and 2. 과감한 안정 (bold and challenging, yet never uncomfortable or ugly). From
+    round 3 a card states both in `familiar_strange` and `bold_stable`: what stays familiar, what is made strange,
+    what is bold, and what keeps it stable and beautiful
   * each card names one art technique and a source that was opened and read in this session (`quote`)
 
 Round 2 cards (STRUCTURE_CARDS) also change the layout; they carry a `structure` block for new editor functions.
@@ -299,6 +303,9 @@ def lint(card: dict) -> list[str]:
             bad.append("no defamiliarize device")
         if not 2 <= len(card.get("techniques", [])) <= 3:
             bad.append("needs 2-3 approved techniques")
+        for k in ("familiar_strange", "bold_stable"):
+            if not card.get(k):
+                bad.append(f"no {k} (user's top criteria)")
         if not card.get("structure"):
             bad.append("no structure (a mood redesigns the whole page)")
     for k, v in SIGNATURE.items():
@@ -330,7 +337,7 @@ def main():
             continue
         d = os.path.join(a.relay, f"{n:03d}-{c['slug']}")
         os.makedirs(d, exist_ok=True)
-        spec = {k: c[k] for k in ("name", "mood", "sources", "layer", "structure", "defamiliarize", "techniques") if k in c}
+        spec = {k: c[k] for k in ("name", "mood", "sources", "layer", "structure", "defamiliarize", "techniques", "familiar_strange", "bold_stable") if k in c}
         spec["technique"], spec["quote"] = c["technique"], c["quote"]
         with open(os.path.join(d, "spec.json"), "w", encoding="utf-8") as f:
             json.dump(spec, f, ensure_ascii=False, indent=1)

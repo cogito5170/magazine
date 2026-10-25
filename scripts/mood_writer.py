@@ -13,6 +13,9 @@ Rules the cards keep (from docs/mood_library.md and the user's rejections):
   * no colour chips, no ΔE numbers on the page, no rational grid, no generated or inpainted photo
   * a mood redesigns the whole page (user, 2026-10-25: "지난 세션에서는 무드 바꾸면 다 바꿨는데"): every new
     card carries a `structure` block -- layout, title, photo placement -- not only colour and levers
+  * the approved recipe goes into every kind (edas/mood/kinds/recipe.py; user: "과감함이나 낯설게하기도 없고 정제도
+    안 되어 있고"): from round 3 on, a card names `defamiliarize` (one device) and `techniques` (2-3 approved
+    palette techniques, e.g. halation, matte, JPEG shadow) at the top level of its spec
   * each card names one art technique and a source that was opened and read in this session (`quote`)
 
 Round 2 cards (STRUCTURE_CARDS) also change the layout; they carry a `structure` block for new editor functions.
@@ -28,7 +31,7 @@ RELAY = "/mnt/project-files/mood-relay"
 OFF = [255, 1, [255, 255, 255], 0.0]                        # halation with zero strength
 
 CARDS = [
-    dict(slug="cyanotype", name="cyanotype specimen", mood="청사진: 네 장소를 프러시안 블루 한 톤으로 맞춘 표본",
+    dict(round=1, slug="cyanotype", name="cyanotype specimen", mood="청사진: 네 장소를 프러시안 블루 한 톤으로 맞춘 표본",
          technique="Anna Atkins, Photographs of British Algae (1843), cyanotype photograms",
          sources=["https://aperture.org/blog/anna-atkins/"],
          quote="Atkins printed some six thousand cyanotype photogram exposures on hand-treated paper",
@@ -39,7 +42,7 @@ CARDS = [
                 "title_face": "italic", "title_mode": "solid", "title_color": [22, 48, 96],
                 "body_face": "serif", "body_weight": "Regular", "caption_face": "serif_it",
                 "shadow": "none", "halation": OFF, "slit_amp": 0, "grain": [0.03, 2.0]}),
-    dict(slug="kruger", name="red bar", mood="크루거: 흑백 사진 위 빨간 띠와 굵은 기울임 고딕, 카피가 선언처럼",
+    dict(round=1, slug="kruger", name="red bar", mood="크루거: 흑백 사진 위 빨간 띠와 굵은 기울임 고딕, 카피가 선언처럼",
          technique="Barbara Kruger, black-and-white photographs with white-on-red Futura Bold Oblique",
          sources=["https://whitney.org/artists/2635"],
          quote="black-and-white photographs ... white-on-red Futura Bold Oblique or Helvetica Ultra Condensed",
@@ -50,7 +53,7 @@ CARDS = [
                 "title_face": "inter", "title_weight": "Black", "title_mode": "solid", "title_color": [204, 20, 30],
                 "body_face": "sans", "body_weight": "Bold", "caption_face": "mono",
                 "shadow": "none", "halation": OFF, "slit_amp": 0, "grain": [0.008, 1.0]}),
-    dict(slug="provoke", name="are bure boke", mood="프로보크: 거칠고 흔들리고 초점 나간 흑백, 갱지",
+    dict(round=1, slug="provoke", name="are bure boke", mood="프로보크: 거칠고 흔들리고 초점 나간 흑백, 갱지",
          technique="Daido Moriyama / Provoke (late 1960s), are-bure-boke",
          sources=["https://thephotographersgallery.org.uk/node/2317"],
          quote="'are, bure, boke' - or 'grainy, blurry, out of focus' ... often associated with the Provoke era",
@@ -61,7 +64,7 @@ CARDS = [
                 "title_face": "sans", "title_weight": "Black", "title_mode": "solid", "title_color": [20, 20, 20],
                 "body_face": "sans", "body_weight": "Medium", "caption_face": "mono",
                 "shadow": "threshold", "halation": OFF, "slit_amp": 0, "grain": [0.09, 2.6]}),
-    dict(slug="polke-raster", name="raster", mood="폴케: 신문 망점을 크게 키워 사진이 점으로 풀리는 지면",
+    dict(round=1, slug="polke-raster", name="raster", mood="폴케: 신문 망점을 크게 키워 사진이 점으로 풀리는 지면",
          technique="Sigmar Polke, Rasterbilder (1960s), magnified newsprint dots",
          sources=["https://en.wikipedia.org/wiki/Sigmar_Polke"],
          quote="exploit the raster-dot technique of printing as a way as of subverting and bringing into question the apparent truth",
@@ -70,7 +73,7 @@ CARDS = [
                 "title_face": "inter", "title_weight": "Bold", "title_mode": "outline", "title_color": [30, 28, 26],
                 "body_face": "sans", "body_weight": "Regular", "caption_face": "mono",
                 "shadow": "none", "halation": OFF, "slit_amp": 0, "grain": [0.02, 1.2]}),
-    dict(slug="weingart-film", name="film montage", mood="바인가르트: 리스 필름을 겹친 듯 반전과 거친 망점, 시안 별색",
+    dict(round=1, slug="weingart-film", name="film montage", mood="바인가르트: 리스 필름을 겹친 듯 반전과 거친 망점, 시안 별색",
          technique="Wolfgang Weingart, layered film collages with rough halftone screens (Basel, 1970s-80s)",
          sources=["https://eyeondesign.aiga.org/museum-of-design-zurich-unveils-the-weingart-archive/"],
          quote="rough, fragmented dot screens ... The low resolution of the screens reveals the photo-mechanical process",
@@ -80,7 +83,7 @@ CARDS = [
                 "title_face": "inter", "title_weight": "Thin", "title_mode": "outline", "title_color": [0, 120, 190],
                 "body_face": "sans", "body_weight": "Light", "caption_face": "mono", "marks": True,
                 "shadow": "threshold", "halation": OFF, "slit_amp": 0, "grain": [0.01, 1.0]}),
-    dict(slug="tintype", name="wet plate", mood="습판: 어두운 금속판 위 은빛 단색, 가운데만 선명하고 가장자리는 흐름",
+    dict(round=1, slug="tintype", name="wet plate", mood="습판: 어두운 금속판 위 은빛 단색, 가운데만 선명하고 가장자리는 흐름",
          technique="Sally Mann, Proud Flesh (2009), wet-plate collodion with its flaws kept",
          sources=["https://brooklynrail.org/2009/11/artseen/sally-mann-proud-flesh/"],
          quote="The collodion 'skin' of the negative, with all its flaws, is prominent in these prints",
@@ -92,7 +95,7 @@ CARDS = [
                 "title_face": "italic", "title_mode": "solid", "title_color": [214, 206, 186],
                 "body_face": "serif", "body_weight": "Light", "caption_face": "serif_it",
                 "shadow": "none", "halation": OFF, "slit_amp": 0, "grain": [0.05, 1.8]}),
-    dict(slug="kawauchi", name="overexposed pastel", mood="가와우치: 과노출로 들뜬 파스텔, 하얀 지면, 가는 글자",
+    dict(round=1, slug="kawauchi", name="overexposed pastel", mood="가와우치: 과노출로 들뜬 파스텔, 하얀 지면, 가는 글자",
          technique="Rinko Kawauchi, Utatane (2001), pastel shift and square format",
          sources=["https://cphmag.com/rinko-kawauchis-world-of-wonders/"],
          quote="very deliberate, shifting everything towards pastel tones ... a light blueish tint",
@@ -103,7 +106,7 @@ CARDS = [
                 "title_face": "inter", "title_weight": "Thin", "title_mode": "solid", "title_color": [150, 170, 175],
                 "body_face": "sans", "body_weight": "Light", "caption_face": "serif_it",
                 "shadow": "none", "slit_amp": 0, "grain": [0.01, 1.0]}),
-    dict(slug="holzer-led", name="LED truism", mood="홀저: 알루미늄 판 위 앰버 LED, 카피가 전광판 문장처럼",
+    dict(round=1, slug="holzer-led", name="LED truism", mood="홀저: 알루미늄 판 위 앰버 LED, 카피가 전광판 문장처럼",
          technique="Jenny Holzer, Truisms on LED signs",
          sources=["https://en.wikipedia.org/wiki/Jenny_Holzer"],
          quote="LED signs have become her most visible medium",
@@ -114,7 +117,7 @@ CARDS = [
                 "title_face": "inter", "title_weight": "Bold", "title_mode": "solid", "title_color": [255, 176, 40],
                 "body_face": "sans", "body_weight": "Medium", "caption_face": "mono",
                 "shadow": "none", "halation": [200, 8, [255, 190, 90], 0.5], "slit_amp": 0, "grain": [0.01, 1.0]}),
-    dict(slug="paik-crt", name="TV cabinet", mood="백남준: 나무 TV 함 안의 CRT, 주사선과 RGB 번짐, 형광 빛",
+    dict(round=1, slug="paik-crt", name="TV cabinet", mood="백남준: 나무 TV 함 안의 CRT, 주사선과 RGB 번짐, 형광 빛",
          technique="Nam June Paik, The More, The Better (1988), 1,003 CRT monitors",
          sources=["https://en.wikipedia.org/wiki/The_More,_The_Better"],
          quote="adorned entirely with an impressive arrangement of 1,003 cathode ray tube (CRT) television monitors",
@@ -125,7 +128,7 @@ CARDS = [
                 "title_face": "inter", "title_weight": "Black", "title_mode": "outline", "title_color": [190, 230, 255],
                 "body_face": "sans", "body_weight": "Regular", "caption_face": "mono",
                 "shadow": "none", "slit_amp": 0, "grain": [0.02, 1.0]}),
-    dict(slug="xerox-zine", name="photocopy zine", mood="펑크 진: 복사기로 1비트가 된 사진, 토너 얼룩, 굵은 고딕",
+    dict(round=1, slug="xerox-zine", name="photocopy zine", mood="펑크 진: 복사기로 1비트가 된 사진, 토너 얼룩, 굵은 고딕",
          technique="Sniffin' Glue (1976), cut-and-paste, typewritten, photocopied fanzine",
          sources=["https://www.udiscovermusic.com/stories/40-years-ago-our-first-whiff-of-sniffin-glue"],
          quote="rudimentary cut-and-paste graphics, typewritten or felt-tipped text, and hastily photocopied end product",
@@ -135,7 +138,7 @@ CARDS = [
                 "title_face": "sans", "title_weight": "Black", "title_mode": "solid", "title_color": [12, 12, 12],
                 "body_face": "sans", "body_weight": "Bold", "caption_face": "mono",
                 "shadow": "threshold", "halation": OFF, "slit_amp": 0, "grain": [0.06, 1.2]}),
-    dict(slug="rauschenberg-transfer", name="solvent transfer", mood="라우센버그: 용제로 옮긴 흐린 사진, 빗금 질감, 붉은 과슈",
+    dict(round=1, slug="rauschenberg-transfer", name="solvent transfer", mood="라우센버그: 용제로 옮긴 흐린 사진, 빗금 질감, 붉은 과슈",
          technique="Robert Rauschenberg, Thirty-Four Illustrations for Dante's Inferno (1958-60), solvent transfer",
          sources=["https://www.moma.org/collection/works/36730"],
          quote="transferring photographic reproductions from magazines or newspapers onto the drawing surface",
@@ -145,7 +148,7 @@ CARDS = [
                 "title_face": "italic", "title_mode": "outline", "title_color": [190, 50, 40],
                 "body_face": "serif", "body_weight": "Regular", "caption_face": "serif_it",
                 "shadow": "none", "halation": OFF, "slit_amp": 0, "grain": [0.02, 1.4]}),
-    dict(slug="ecriture", name="écriture", mood="단색화 묘법: 한지에 스며든 듯 아주 옅은 사진, 흑연 회색, 반복과 시간",
+    dict(round=1, slug="ecriture", name="écriture", mood="단색화 묘법: 한지에 스며든 듯 아주 옅은 사진, 흑연 회색, 반복과 시간",
          technique="Park Seo-Bo, Écriture (Myobop), pencil lines on wet layers of hanji",
          sources=["https://m.kukjegallery.com/exhibition/234"],
          quote="Through this repetitive action, the completed works manifest accumulated time",
@@ -155,7 +158,7 @@ CARDS = [
                 "title_face": "sans", "title_weight": "Thin", "title_mode": "outline", "title_color": [80, 80, 82],
                 "body_face": "sans", "body_weight": "Light", "caption_face": "serif_it",
                 "shadow": "none", "halation": OFF, "slit_amp": 0, "grain": [0.035, 2.2]}),
-    dict(slug="sabattier", name="solarised", mood="사바티에: 현상 중 빛을 켠 사고, 밝고 어두움이 뒤집힌 은빛 윤곽",
+    dict(round=1, slug="sabattier", name="solarised", mood="사바티에: 현상 중 빛을 켠 사고, 밝고 어두움이 뒤집힌 은빛 윤곽",
          technique="Lee Miller / Man Ray, solarisation (Sabatier effect), Paris c.1929",
          sources=["https://www.leemillerresearchguide.com/articles/blog-post-title-four-a6392"],
          quote="Something crawled across my foot in the darkroom and I let out a yell and turned on the light",
@@ -165,7 +168,7 @@ CARDS = [
                 "title_face": "inter", "title_weight": "Light", "title_mode": "outline", "title_color": [24, 26, 30],
                 "body_face": "serif", "body_weight": "Regular", "caption_face": "mono",
                 "shadow": "ruff", "halation": [200, 12, [240, 244, 250], 0.4], "slit_amp": 0, "grain": [0.02, 1.2]}),
-    dict(slug="aerochrome", name="false colour", mood="에어로크롬: 적외선 필름처럼 올리브 재킷이 마젠타로 뒤집힌 낯선 색",
+    dict(round=1, slug="aerochrome", name="false colour", mood="에어로크롬: 적외선 필름처럼 올리브 재킷이 마젠타로 뒤집힌 낯선 색",
          technique="Richard Mosse, The Enclave (2013), Kodak Aerochrome infrared film",
          sources=["https://www.unsw.edu.au/newsroom/news/2014/03/infrared-film-captures-congo-war"],
          quote="rendering the Congolese rainforest as a surreal landscape of vivid magenta, pinks and reds",
@@ -183,7 +186,7 @@ CARDS = [
 # Geometry is in fractions of the 2000x1231 spread (gutter at x=0.5). Photo keys: night, park, shop, rock.
 # Copy is used verbatim; nothing is added to it.
 STRUCTURE_CARDS = [
-    dict(slug="splice", name="splice", mood="스테자커: 같은 사람의 두 장소를 반씩 이어, 한 몸이 두 장소의 옷을 입는다",
+    dict(round=2, slug="splice", name="splice", mood="스테자커: 같은 사람의 두 장소를 반씩 이어, 한 몸이 두 장소의 옷을 입는다",
          technique="John Stezaker, spliced found portraits (Marriage series)",
          sources=["https://www.npg.org.uk/whatson/display/2019/john-stezaker-portrait"],
          quote="cutting out, slicing and splicing images",
@@ -195,7 +198,7 @@ STRUCTURE_CARDS = [
                 "title_face": "serif", "title_weight": "Regular", "title_mode": "solid", "title_color": [24, 24, 24],
                 "body_face": "serif", "body_weight": "Regular", "caption_face": "serif_it", "shadow": "none",
                 "halation": OFF, "slit_amp": 0}),
-    dict(slug="jogakbo", name="jogakbo", mood="조각보: 네 장소 사진을 조각으로 잘라 솔기로 이은 한 장의 보자기",
+    dict(round=2, slug="jogakbo", name="jogakbo", mood="조각보: 네 장소 사진을 조각으로 잘라 솔기로 이은 한 장의 보자기",
          technique="jogakbo, Korean patchwork wrapping cloth of leftover scraps",
          sources=["https://www.vam.ac.uk/articles/jogakbo-traditional-korean-patchwork"],
          quote="the left-over fabrics were not discarded, but would be used to create a jogakbo",
@@ -207,7 +210,7 @@ STRUCTURE_CARDS = [
                 "title_face": "sans", "title_weight": "Medium", "title_mode": "solid", "title_color": [40, 34, 28],
                 "body_face": "serif", "body_weight": "Regular", "caption_face": "serif_it", "shadow": "none",
                 "halation": OFF, "slit_amp": 0}),
-    dict(slug="joiner", name="joiner", mood="호크니 조이너: 한 장면을 겹친 조각 수십 장으로 다시 모은 시선의 모자이크",
+    dict(round=2, slug="joiner", name="joiner", mood="호크니 조이너: 한 장면을 겹친 조각 수십 장으로 다시 모은 시선의 모자이크",
          technique="David Hockney, joiners (photocollage, 1980s)",
          sources=["https://www.h2g2.com/edited_entry/A520840"],
          quote="a series of photographs taken from different viewpoints, arranged (overlapping) to form a single piece",
@@ -219,7 +222,7 @@ STRUCTURE_CARDS = [
                 "title_face": "inter", "title_weight": "Light", "title_mode": "solid", "title_color": [236, 232, 224],
                 "body_face": "sans", "body_weight": "Light", "caption_face": "mono", "shadow": "none",
                 "halation": OFF, "slit_amp": 0}),
-    dict(slug="calle-panel", name="record", mood="소피 칼: 액자 속 흑백 사진과 타자 원고 패널, 기록처럼",
+    dict(round=2, slug="calle-panel", name="record", mood="소피 칼: 액자 속 흑백 사진과 타자 원고 패널, 기록처럼",
          technique="Sophie Calle, photographs paired with framed text panels",
          sources=["https://en.wikipedia.org/wiki/Sophie_Calle"],
          quote="photographic work often includes panels of text of her own writing",
@@ -230,7 +233,7 @@ STRUCTURE_CARDS = [
                 "title_face": "sans", "title_weight": "Regular", "title_mode": "solid", "title_color": [20, 20, 20],
                 "body_face": "sans", "body_weight": "Regular", "caption_face": "mono", "shadow": "none",
                 "halation": OFF, "slit_amp": 0}),
-    dict(slug="wool-stencil", name="stencil", mood="크리스토퍼 울: 오른쪽 면 전체를 덮는 검정 스텐실 MAT / CH.",
+    dict(round=2, slug="wool-stencil", name="stencil", mood="크리스토퍼 울: 오른쪽 면 전체를 덮는 검정 스텐실 MAT / CH.",
          technique="Christopher Wool, word paintings in black stencilled letters",
          sources=["https://en.wikipedia.org/wiki/Christopher_Wool"],
          quote="paintings of large, black, stenciled letters on white canvases",
@@ -241,7 +244,7 @@ STRUCTURE_CARDS = [
                 "title_face": "inter", "title_weight": "Black", "title_mode": "solid", "title_color": [14, 14, 14],
                 "body_face": "sans", "body_weight": "Medium", "caption_face": "mono", "shadow": "none",
                 "halation": OFF, "slit_amp": 0}),
-    dict(slug="baldessari-dots", name="dots", mood="발데사리: 얼굴 자리에 원색 점, 점 색은 그 장소 옷의 톤",
+    dict(round=2, slug="baldessari-dots", name="dots", mood="발데사리: 얼굴 자리에 원색 점, 점 색은 그 장소 옷의 톤",
          technique="John Baldessari, coloured dots over faces in found press photographs (1985-)",
          sources=["https://www.kcur.org/2013-03-12/for-john-baldessari-conceptual-art-means-serious-mischief"],
          quote="In 1985, in a fit of pique, Baldessari covered the faces with colored dots.",
@@ -254,7 +257,7 @@ STRUCTURE_CARDS = [
                 "title_face": "inter", "title_weight": "Bold", "title_mode": "solid", "title_color": [20, 20, 20],
                 "body_face": "sans", "body_weight": "Regular", "caption_face": "mono", "shadow": "none",
                 "halation": OFF, "slit_amp": 0}),
-    dict(slug="carson-nogrid", name="no grid", mood="데이비드 카슨: 그리드 없이 글과 사진이 겹치고 자간이 벌어진다",
+    dict(round=2, slug="carson-nogrid", name="no grid", mood="데이비드 카슨: 그리드 없이 글과 사진이 겹치고 자간이 벌어진다",
          technique="David Carson, Ray Gun (1990s)",
          sources=["https://www.aiga.org/membership-community/aiga-awards/2014-aiga-medalist-david-carson"],
          quote="endlessly contorting type, layout and grid into new configurations",
@@ -267,7 +270,7 @@ STRUCTURE_CARDS = [
                 "title_face": "inter", "title_weight": "Black", "title_mode": "solid", "title_color": [230, 80, 30],
                 "body_face": "sans", "body_weight": "Regular", "caption_face": "mono", "shadow": "none",
                 "halation": OFF, "slit_amp": 0}),
-    dict(slug="kruger-bars", name="red bars", mood="크루거: 한 장면이 양면을 덮고, 제목과 카피가 빨간 띠로 가로지른다",
+    dict(round=2, slug="kruger-bars", name="red bars", mood="크루거: 한 장면이 양면을 덮고, 제목과 카피가 빨간 띠로 가로지른다",
          technique="Barbara Kruger, black-and-white photographs with white-on-red Futura Bold Oblique",
          sources=["https://whitney.org/artists/2635"],
          quote="black-and-white photographs ... white-on-red Futura Bold Oblique or Helvetica Ultra Condensed",
@@ -285,9 +288,19 @@ DROPPED = {"pixel sort (Asendorf)": "looks like the dandy's slit-scan streaks"}
 SIGNATURE = {"title_mode": "strip", "shadow": "soft_jpeg"}   # the dandy's own levers; a card may not use them
 
 
+ROUND3 = True     # cards written from round 3 on must carry the recipe fields
+
+
 def lint(card: dict) -> list[str]:
     """The writer's own hygiene (not a grade): rules a card must keep before it is sent."""
     L, bad = card["layer"], []
+    if ROUND3 and card.get("round", 3) >= 3:
+        if not card.get("defamiliarize"):
+            bad.append("no defamiliarize device")
+        if not 2 <= len(card.get("techniques", [])) <= 3:
+            bad.append("needs 2-3 approved techniques")
+        if not card.get("structure"):
+            bad.append("no structure (a mood redesigns the whole page)")
     for k, v in SIGNATURE.items():
         if L.get(k, v) == v:
             bad.append(f"{k}={v} is the dandy's lever")
@@ -317,7 +330,7 @@ def main():
             continue
         d = os.path.join(a.relay, f"{n:03d}-{c['slug']}")
         os.makedirs(d, exist_ok=True)
-        spec = {k: c[k] for k in ("name", "mood", "sources", "layer", "structure") if k in c}
+        spec = {k: c[k] for k in ("name", "mood", "sources", "layer", "structure", "defamiliarize", "techniques") if k in c}
         spec["technique"], spec["quote"] = c["technique"], c["quote"]
         with open(os.path.join(d, "spec.json"), "w", encoding="utf-8") as f:
             json.dump(spec, f, ensure_ascii=False, indent=1)

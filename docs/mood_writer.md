@@ -56,3 +56,11 @@ python3 scripts/mood_editor.py
 ## 판정 결과
 
 편집 스레드가 각 폴더에 `response.json`과 `preview.jpg`를 쓰고, 저장소 `docs/mood_ledger.jsonl`에 남긴다. 작가는 다음 제안을 만들 때 거절 이유를 읽고 같은 실수를 반복하지 않는다.
+
+## 3차부터: 승인 레시피를 같이 적는다
+
+2차 렌더를 윤경 님이 "과감함이나 낯설게하기도 없고 정제도 안 되어 있고"라며 반려했다. 편집 쪽은 모든 kind가 `edas/mood/kinds/recipe.py`를 거치게 고쳤다. 작가는 3차 카드부터 spec 최상위에 두 가지를 반드시 적는다. 빠지면 `lint`가 카드를 보내지 않는다.
+
+- `defamiliarize`: 낯설게하기 장치 하나
+- `techniques`: 승인 팔레트 기법 2~3개
+- `structure`: 레이아웃

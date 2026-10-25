@@ -194,6 +194,7 @@ def nocturne_mood(crops, texts, L: Layer = DANDY, H=H):
     if "body" in texts:
         # long copy: a smaller body in three columns, so it stays clear of the shop and rock prints
         fb = _face(L.body_face, L.body_weight, 20)
+        bottom, left_x = 0, W
         cols = _columns(texts["body"], per_col=34)
         x, y0 = 1884, 380
         if texts.get("head"):
@@ -201,7 +202,8 @@ def nocturne_mood(crops, texts, L: Layer = DANDY, H=H):
                                                         else "Regular", 26), ink)
             x -= 58
         for line in cols:
-            vertical_ko(d, x, y0, line, fb, ink)
+            bottom = max(bottom, vertical_ko(d, x, y0, line, fb, ink))
+            left_x = x
             x -= 38
     else:
         vertical_ko(d, 1880, 440, texts["body_ko"][0], fk, ink)
@@ -224,7 +226,8 @@ def nocturne_mood(crops, texts, L: Layer = DANDY, H=H):
         from .defamiliar import reg_mark
         reg_mark(d, W - 40, 40, 10, taupe)
         reg_mark(d, W - 40, H - 40, 10, taupe)
-    return grain(page, L.grain[0], 12, size=L.grain[1]), {"layer": L.__dict__, "night_scale": info["scale"]}
+    geo = {"copy_bottom": bottom, "copy_left": left_x} if "body" in texts else {}
+    return grain(page, L.grain[0], 12, size=L.grain[1]), {"layer": L.__dict__, "night_scale": info["scale"], **geo}
 
 
 # ---------------------------------------------------------------- brainstorm: mood layers, generated in one sweep

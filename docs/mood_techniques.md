@@ -171,3 +171,20 @@ Tickle-Degnen & Rosenthal (1990) define rapport by three components: mutual atte
 The title is filled with stripes taken from the smoothie stall's light, divided, mirrored and repeated (after Richter).
 
 Copy is verbatim. In the source, the body under (5.5) NEXT duplicates the body under (5.4) WHY?, so it is set once and the duplication was reported.
+
+## MATCH 표지 + 펼침면 — 스프레차투라 (sprezzatura), 새 무드 시안 (`edas/mood/sprezzatura.py`, `examples/match_sprezzatura.py`)
+
+The user supplied both MATCH pages (`sources/match_pages.png`) and asked for a mood that is not in the library. Copy theme: clothes matched to the place, a colour one tone lower that blends in. We chose sprezzatura, the studied ease of dress.
+
+Sources checked this session:
+- Castiglione, *The Book of the Courtier* (1528), Penguin 1967 pp. 66–68, quoted at https://courses.washington.edu/hsteu401/Courtier%20sprezzatura.htm: a "certain nonchalance" that "conceals all artistry"; avoid "affectation"; "true art is what does not seem to be art".
+- Wolfgang Tillmans tapes unframed prints of varied size and orientation directly to the wall as a "constellated installation" (https://unframed.lacma.org/node/2835).
+
+| Component | On the page |
+|---|---|
+| Nonchalance | Placement: unframed prints taped up, varied sizes, two turned ≤1.2°, a few edges sharing a line. |
+| Concealed artistry | Treatment at the approved strengths, kept quiet: low-contrast Richter title, JPEG shadow printed in the source's own blue. |
+| No affectation | Type: plain Pretendard Light for the Korean copy, Caladea Italic notes. |
+| Palette | Sampled from the source: paper (239,232,226), blue panel (130,150,181) for shadows, floor (197,158,128) for tape, the black sleeve lifted one step for ink. |
+
+The cover figures are cropped as prints together with the paper and floor they stand on in the source (no keying). Intensity values are those of `nocturne_dandy` (matte 24/240 and 18/244, halation defaults, soft_jpeg ×1.16 at −30/+24). Draft; not approved, not in `WORKS`.

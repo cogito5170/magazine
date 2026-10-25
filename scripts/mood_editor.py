@@ -8,7 +8,9 @@ Mailbox (shared project folder, one folder per proposal; the writer only writes 
     /mnt/project-files/mood-relay/<NNN-name>/spec.json      {"name", "mood", "sources": [...], "layer": {...}}
     /mnt/project-files/mood-relay/<NNN-name>/response.json  written here: verdict, why, V, J
     /mnt/project-files/mood-relay/<NNN-name>/preview.jpg    the spread (and cover) as rendered
-Every decision, rejections included, is appended to docs/mood_ledger.jsonl.
+    /mnt/project-files/mood-relay/<NNN-name>/critic/        on ACCEPT: candidate, nearest canon pages, prompt.md
+Every decision, rejections included, is appended to docs/mood_ledger.jsonl.  A page whose invariants hold is
+PENDING; the canon critic (scripts/mood_critic.py) turns it into ACCEPT or REJECT.  That verdict is final.
 
     python3 scripts/mood_editor.py [--relay DIR] [--all]     (--all re-judges folders that already have a response)
 """
@@ -21,6 +23,7 @@ from dataclasses import fields, replace
 
 from PIL import Image
 
+from edas.mood.canon import write_packet
 from edas.mood.judge import judge, machine_check
 import importlib
 
@@ -78,16 +81,21 @@ for d in sorted(glob.glob(os.path.join(args.relay, "*", "spec.json"))):
         try:
             kind = (spec.get("structure") or {}).get("kind")
             page, s = compose(kind, crops, dict(stext, structure=spec.get("structure")), L, sp_persons, 1231)
-            res = judge(page, s, L, machine_ok, copy_spread)
+            res = judge(page, s, L, machine_ok, copy_spread, card=spec)
             cover_page, s2 = compose(kind, ccrops, dict(ctext, structure=spec.get("structure")),
                                      replace(L, strip_key="park", strip_col=(0.5, 0.1, 0.95)), cv_persons, 1233)
-            rc = judge(cover_page, s2, L, machine_ok, copy_cover)
+            rc = judge(cover_page, s2, L, machine_ok, copy_cover, card=spec)
             if res["verdict"] == "ACCEPT" and rc["verdict"] != "ACCEPT":
                 res = dict(rc, why="cover: " + rc["why"], spread={"verdict": res["verdict"], "why": res["why"],
                                                                   "V": res["V"]})
             if s.get("needs_user_ok") and res["verdict"] == "ACCEPT":
                 res = dict(res, verdict="HOLD", why="passes the judge; needs the user's OK: " + s["needs_user_ok"])
             res["cover"] = {"verdict": rc["verdict"], "why": rc["why"], "V": rc["V"]}
+            if res["verdict"] == "ACCEPT":     # invariants hold; the canon critic gives the judge's final word
+                boxes = (s.get("recipe") or {}).get("title_boxes") or []
+                res = dict(res, verdict="PENDING", why="invariants hold; awaiting the canon critic",
+                           critic=dict(write_packet(page, folder, spec.get("dominant_device"), title_boxes=boxes),
+                                       status="pending"))
             prev = Image.new("RGB", (1200, 1500), (245, 243, 238))
             prev.paste(cover_page.resize((1200, 740)), (0, 0))
             prev.paste(page.resize((1200, 739)), (0, 760))

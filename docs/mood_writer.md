@@ -77,3 +77,7 @@ python3 scripts/mood_editor.py
 두 기준은 서로 당긴다. 3차부터 카드마다 `familiar_strange`(무엇이 익숙하고 무엇이 낯선가)와 `bold_stable`(무엇이 과감하고 무엇이 안정시키는가)을 적는다. 적지 않으면 보내지 않는다.
 
 예: 022 크루거 띠는 흑백 패션 사진이라는 익숙함 위에 선언문 띠라는 낯섦이 얹힌다. 빨강 한 색과 굵은 제목은 과감하고, 흑백과 정돈된 띠 정렬이 안정을 준다.
+
+## 정전 기준 (2026-10-25)
+
+카드에 `dominant_device` 를 적는다. 정전 37건에서 관찰한 주도 장치 중 하나다: `masthead-intrusion`, `syllable-stack`, `type-as-image`, `single-object`, `form-rhyme`, `text-as-texture`, `snapshot-classic-serif` (`docs/canon/aesthetic_criteria.md`). 주도 장치는 하나만 두고, 승인 레시피 기법은 승인 강도 그대로 마감으로만 쓴다. 정전 비평 앙상블이 장치끼리 경쟁한다고 보면 REJECT 다.

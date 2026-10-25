@@ -1,0 +1,811 @@
+[
+ {
+  "publication": "New York Magazine",
+  "issue": "2021-03-29, “The Lunacy of Text-Based Therapy” 표지",
+  "art_director": "Thomas Alberty",
+  "award": "SPD 57 Gold, 표지",
+  "url": "https://www.typeroom.eu/57th-annual-spd-awards-the-winners",
+  "verified": true,
+  "index": 1,
+  "images": [
+   {
+    "file": "docs/canon/img/01-new-york-magazine-1.jpg",
+    "shows": "cover",
+    "image_url": "https://asme.memberclicks.net/assets/BCC2022/New%20York%20-%20March%2029%202021.jpg",
+    "source_page": "https://asme.memberclicks.net/asme-best-cover-contest-winners-and-finalists-2022"
+   }
+  ]
+ },
+ {
+  "publication": "The New York Times for Kids",
+  "issue": "2021-05-30, The Money Issue 표지",
+  "art_director": "Deb Bishop",
+  "award": "SPD 57 Silver, 표지",
+  "url": "https://www.typeroom.eu/57th-annual-spd-awards-the-winners",
+  "verified": true,
+  "index": 2,
+  "images": [
+   {
+    "file": "docs/canon/img/02-the-new-york-times-for-kids-1.jpg",
+    "shows": "cover",
+    "image_url": "https://d2z00kf51ll94q.cloudfront.net//archive/2022/media/ADC101_PUB017S_0.jpg",
+    "source_page": "https://www.oneclub.org/awards/adcawards/-award/43093/the-new-york-times-for-kids-may-2021/"
+   },
+   {
+    "file": "docs/canon/img/02-the-new-york-times-for-kids-2.jpg",
+    "shows": "spread",
+    "image_url": "https://d2z00kf51ll94q.cloudfront.net//archive/2022/media/ADC101_PUB017S_1.jpg",
+    "source_page": "https://www.oneclub.org/awards/adcawards/-award/43093/the-new-york-times-for-kids-may-2021/"
+   }
+  ]
+ },
+ {
+  "publication": "The New York Times for Kids",
+  "issue": "2021-10-31, The Halloween Issue",
+  "art_director": "Deb Bishop",
+  "award": "SPD 57 Gold, 호 전체",
+  "url": "https://www.typeroom.eu/57th-annual-spd-awards-the-winners",
+  "verified": true,
+  "index": 3,
+  "images": [
+   {
+    "file": "docs/canon/img/03-the-new-york-times-for-kids-1.jpg",
+    "shows": "cover",
+    "image_url": "https://d2z00kf51ll94q.cloudfront.net//archive/2022/media/ADC101_PUB001G_0.jpg",
+    "source_page": "https://www.oneclub.org/awards/adcawards/-award/45026/the-new-york-times-for-kids-october-2021/"
+   },
+   {
+    "file": "docs/canon/img/03-the-new-york-times-for-kids-2.jpg",
+    "shows": "spread",
+    "image_url": "https://d2z00kf51ll94q.cloudfront.net//archive/2022/media/ADC101_PUB001G_1.jpg",
+    "source_page": "https://www.oneclub.org/awards/adcawards/-award/45026/the-new-york-times-for-kids-october-2021/"
+   }
+  ]
+ },
+ {
+  "publication": "Fast Company",
+  "issue": "2021-10, Innovation by Design",
+  "art_director": "Mike Schnaidt",
+  "award": "SPD 57 Silver, 호 전체",
+  "url": "https://www.typeroom.eu/57th-annual-spd-awards-the-winners",
+  "verified": true,
+  "index": 4,
+  "images": [
+   {
+    "file": "docs/canon/img/04-fast-company-1.jpg",
+    "shows": "cover",
+    "image_url": "https://files.coverscdn.com/covers/237129/mid/0000.jpg",
+    "source_page": "https://pocketmags.com/fast-company-magazine/october-2021"
+   },
+   {
+    "file": "docs/canon/img/04-fast-company-2.jpg",
+    "shows": "page",
+    "image_url": "https://files.coverscdn.com/covers/237129/mid/0019.jpg",
+    "source_page": "https://pocketmags.com/fast-company-magazine/october-2021"
+   }
+  ]
+ },
+ {
+  "publication": "Wired Italia",
+  "issue": "n.75 (2015) 리디자인",
+  "art_director": "Massimo Pitis, David Moretti",
+  "award": "SPD 51 Gold 리디자인/호 전체, Silver “Astral Jukebox”",
+  "url": "https://pitis.eu/press/",
+  "verified": true,
+  "index": 5,
+  "images": [
+   {
+    "file": "docs/canon/img/05-wired-italia-1.jpg",
+    "shows": "spread",
+    "image_url": "https://pitis.eu/wp-content/uploads/2019/03/IMG_2308-1.jpg",
+    "source_page": "https://pitis.eu/project/wired-italia-trimestrale/"
+   },
+   {
+    "file": "docs/canon/img/05-wired-italia-2.jpg",
+    "shows": "cover",
+    "image_url": "https://pitis.eu/wp-content/uploads/2019/02/Wired_dicembre15-772x1024.jpg",
+    "source_page": "https://pitis.eu/press/"
+   }
+  ]
+ },
+ {
+  "publication": "Wired Italia",
+  "issue": "n.78 (2016)",
+  "art_director": "Massimo Pitis, David Moretti",
+  "award": "SPD 52 Gold Magazine of the Year, Silver 호 전체",
+  "url": "https://pitis.eu/press/",
+  "verified": true,
+  "index": 6,
+  "images": [
+   {
+    "file": "docs/canon/img/06-wired-italia-1.jpg",
+    "shows": "cover",
+    "image_url": "https://pitis.eu/wp-content/uploads/2019/03/IH6A0114-3.jpg",
+    "source_page": "https://pitis.eu/fr/project/wired-italia-2016-17-2/"
+   },
+   {
+    "file": "docs/canon/img/06-wired-italia-2.jpg",
+    "shows": "spread",
+    "image_url": "https://pitis.eu/wp-content/uploads/2019/03/IH6A0145-8-1.jpg",
+    "source_page": "https://pitis.eu/fr/project/wired-italia-2016-17-2/"
+   }
+  ]
+ },
+ {
+  "publication": "Wired Italia",
+  "issue": "2017",
+  "art_director": "Massimo Pitis, David Moretti",
+  "award": "D&AD Graphite Pencil, Magazine & Newspaper Design",
+  "url": "https://pitis.eu/press/",
+  "verified": true,
+  "index": 7,
+  "images": [
+   {
+    "file": "docs/canon/img/07-wired-italia-1.jpg",
+    "shows": "cover",
+    "image_url": "https://pitis.eu/wp-content/uploads/2019/03/IH6A0811.jpg",
+    "source_page": "https://pitis.eu/fr/project/wired-italia-2017-18-2/"
+   },
+   {
+    "file": "docs/canon/img/07-wired-italia-2.jpg",
+    "shows": "cover",
+    "image_url": "https://pitis.eu/wp-content/uploads/2019/03/IH6A0249-32.jpg",
+    "source_page": "https://pitis.eu/fr/project/wired-italia-2017-18-2/"
+   }
+  ]
+ },
+ {
+  "publication": "Wired Italia",
+  "issue": "n.84 (2018)",
+  "art_director": "Massimo Pitis, David Moretti",
+  "award": "SPD 54 Gold 호 전체",
+  "url": "https://pitis.eu/press/",
+  "verified": true,
+  "index": 8,
+  "images": [
+   {
+    "file": "docs/canon/img/08-wired-italia-1.jpg",
+    "shows": "cover",
+    "image_url": "https://pitis.eu/wp-content/uploads/2019/09/59414336_2359593350745562_5966961123319087104_o.jpg",
+    "source_page": "https://pitis.eu/press/"
+   }
+  ]
+ },
+ {
+  "publication": "Wired Italia",
+  "issue": "#100 (2023)",
+  "art_director": "Pitis e Associati",
+  "award": "European Design Awards Gold, Magazine",
+  "url": "https://pitis.eu/press/",
+  "verified": true,
+  "index": 9,
+  "images": [
+   {
+    "file": "docs/canon/img/09-wired-italia-1.jpg",
+    "shows": "spread",
+    "image_url": "https://pitis.eu/wp-content/uploads/2023/05/DSC9435.jpg",
+    "source_page": "https://pitis.eu/project/wired-italia-2022-2023/"
+   },
+   {
+    "file": "docs/canon/img/09-wired-italia-2.jpg",
+    "shows": "cover",
+    "image_url": "https://pitis.eu/wp-content/uploads/2023/07/Schermata-2023-05-09-alle-12.14.17.png",
+    "source_page": "https://pitis.eu/press/"
+   }
+  ]
+ },
+ {
+  "publication": "Fukt",
+  "issue": "#17 (2019)",
+  "art_director": "Ariane Spanier Design",
+  "award": "TDC 65 Typographic Excellence, D&AD Wood Pencil",
+  "url": "https://www.arianespanier.com/press",
+  "verified": true,
+  "index": 10,
+  "images": [
+   {
+    "file": "docs/canon/img/10-fukt-1.jpg",
+    "shows": "cover",
+    "image_url": "https://images.squarespace-cdn.com/content/v1/59830eb0a803bb2295785f00/1536924703958-O1J0FY12BP9RLYKS6U9B/coverfukt17_white.jpg",
+    "source_page": "https://www.fuktmagazine.com/shop/fukt-17"
+   },
+   {
+    "file": "docs/canon/img/10-fukt-2.jpg",
+    "shows": "spread",
+    "image_url": "https://images.squarespace-cdn.com/content/v1/59830eb0a803bb2295785f00/1536922928485-86I8BVQI0LG0BSATOSE7/FUKT17_SPREADS_0011_Ebene-3.jpg",
+    "source_page": "https://www.fuktmagazine.com/shop/fukt-17"
+   }
+  ]
+ },
+ {
+  "publication": "Fukt",
+  "issue": "#18 The System Issue (2020)",
+  "art_director": "Ariane Spanier Design",
+  "award": "D&AD Graphite Pencil 2020",
+  "url": "https://www.arianespanier.com/press",
+  "verified": true,
+  "index": 11,
+  "images": [
+   {
+    "file": "docs/canon/img/11-fukt-1.jpg",
+    "shows": "cover",
+    "image_url": "https://images.squarespace-cdn.com/content/v1/59830eb0a803bb2295785f00/1606220728109-WABKI3FYD2116Y1QCEYR/1_FRONT_WHITE.jpg",
+    "source_page": "https://www.fuktmagazine.com/shop/fukt-18"
+   }
+  ]
+ },
+ {
+  "publication": "Fukt",
+  "issue": "#19 Storylines (2021)",
+  "art_director": "Ariane Spanier Design",
+  "award": "ADC New York Silver Cube",
+  "url": "https://www.arianespanier.com/press",
+  "verified": true,
+  "index": 12,
+  "images": [
+   {
+    "file": "docs/canon/img/12-fukt-1.jpg",
+    "shows": "cover",
+    "image_url": "https://a-g-i.s3.eu-west-3.amazonaws.com/arianespanier/01_FUKT_19_Front_WHITE.jpg",
+    "source_page": "https://a-g-i.org/design/fukt-magazine-storylines"
+   },
+   {
+    "file": "docs/canon/img/12-fukt-2.jpg",
+    "shows": "cover",
+    "image_url": "https://a-g-i.s3.eu-west-3.amazonaws.com/arianespanier/FUKT_foldout4_150dpi.jpg",
+    "source_page": "https://a-g-i.org/design/fukt-magazine-storylines"
+   }
+  ]
+ },
+ {
+  "publication": "Fukt",
+  "issue": "#22 The Nature Issue (2025)",
+  "art_director": "Ariane Spanier Design",
+  "award": "ADC 104th Gold Cube, D&AD Wood Pencil ×2",
+  "url": "https://www.arianespanier.com/press",
+  "verified": true,
+  "index": 13,
+  "images": [
+   {
+    "file": "docs/canon/img/13-fukt-1.jpg",
+    "shows": "cover",
+    "image_url": "https://m.itsnicethat.com/original_images/01_Fukt_Nature_front.jpg",
+    "source_page": "https://www.itsnicethat.com/articles/fukt-magazine-the-nature-issue-publication-project-280425"
+   },
+   {
+    "file": "docs/canon/img/13-fukt-2.jpg",
+    "shows": "spread",
+    "image_url": "https://m.itsnicethat.com/original_images/fukt_nature_165x230_124-125.jpg",
+    "source_page": "https://www.itsnicethat.com/articles/fukt-magazine-the-nature-issue-publication-project-280425"
+   }
+  ]
+ },
+ {
+  "publication": "Kindling",
+  "issue": "Issue 3, The Imagination Issue (2023)",
+  "art_director": "Alex Hunting Studio",
+  "award": "D&AD Graphite Pencil 2023 (GPT는 ADC Gold라 했으나 스튜디오 사이트 기준으로 정정)",
+  "url": "https://alexhunting.studio/blogs/projects/kinfolk",
+  "verified": true,
+  "index": 14,
+  "images": [
+   {
+    "file": "docs/canon/img/14-kindling-1.jpg",
+    "shows": "cover",
+    "image_url": "https://alexhunting.studio/cdn/shop/files/KD_Cover3.jpg?v=1712233120",
+    "source_page": "https://alexhunting.studio/blogs/projects/kindling"
+   },
+   {
+    "file": "docs/canon/img/14-kindling-2.jpg",
+    "shows": "spread",
+    "image_url": "https://alexhunting.studio/cdn/shop/files/KINDLING_ISSUE3_34-35_LEFT_d09ec935-2938-4c03-a6f7-b1c6cf397c05.jpg?v=1712228768",
+    "source_page": "https://alexhunting.studio/blogs/projects/kindling"
+   }
+  ]
+ },
+ {
+  "publication": "Meantime",
+  "issue": "#3 Funny Stories (2022)",
+  "art_director": "Fable",
+  "award": "D&AD Wood Pencil, Magazine & Newspaper Design",
+  "url": "https://www.dandad.org/work/d-ad-awards-archive/meantime-3-funny-stories",
+  "verified": true,
+  "index": 15,
+  "images": [
+   {
+    "file": "docs/canon/img/15-meantime-1.jpg",
+    "shows": "cover",
+    "image_url": "https://cms.dandad.org/images/nmXb4uYObTiexrGCzxkRXpyVjF8=/26044/width-2800/1440x2560-inside_kCTDy8y.jpeg",
+    "source_page": "https://www.dandad.org/work/d-ad-awards-archive/meantime-3-funny-stories"
+   },
+   {
+    "file": "docs/canon/img/15-meantime-2.jpg",
+    "shows": "cover",
+    "image_url": "https://cms.dandad.org/images/0GGX2VMlocHrTkn5G-FgydJEpZM=/26045/width-2800/1440x2560-inside_rly12zZ.jpeg",
+    "source_page": "https://www.dandad.org/work/d-ad-awards-archive/meantime-3-funny-stories"
+   }
+  ]
+ },
+ {
+  "publication": "DOMa",
+  "issue": "2021",
+  "art_director": "Nowhere Studio",
+  "award": "European Design Awards Bronze, Magazine & Periodical",
+  "url": "https://awards.europeandesign.org/winner/246270",
+  "verified": true,
+  "index": 16,
+  "images": [
+   {
+    "file": "docs/canon/img/16-doma-1.jpg",
+    "shows": "cover",
+    "image_url": "https://europeandesign.s3.amazonaws.com/uploads/submissions/2021/magazine/7403-108-246270/images/0cbfe889-d954-4539-aa10-dab223fc1d96.jpg",
+    "source_page": "https://awards.europeandesign.org/winner/246270"
+   },
+   {
+    "file": "docs/canon/img/16-doma-2.jpg",
+    "shows": "spread",
+    "image_url": "https://europeandesign.s3.amazonaws.com/uploads/submissions/2021/magazine/7403-108-246270/images/ab7f3978-9ddd-433d-8fef-6804cbb17027.jpg",
+    "source_page": "https://awards.europeandesign.org/winner/246270"
+   }
+  ]
+ },
+ {
+  "publication": "Emergence Magazine",
+  "issue": "Vol.4 Shifting Landscapes (2024)",
+  "art_director": "Studio Airport",
+  "award": "European Design Awards Gold, Magazine",
+  "url": "https://awards.europeandesign.org/winner/260744",
+  "verified": true,
+  "index": 17,
+  "images": [
+   {
+    "file": "docs/canon/img/17-emergence-magazine-1.jpg",
+    "shows": "cover",
+    "image_url": "https://europeandesign.s3.eu-central-1.amazonaws.com/files/2024/dYua771w48i8AFYszaiE2GIfOl25JbCOvpMJ1fhq.jpg",
+    "source_page": "https://awards.europeandesign.org/winner/260744"
+   },
+   {
+    "file": "docs/canon/img/17-emergence-magazine-2.jpg",
+    "shows": "spread",
+    "image_url": "https://europeandesign.s3.eu-central-1.amazonaws.com/files/2024/ClIQCeWc8auMLxHzKnoYFponxbwcF9FdStizFuy8.jpg",
+    "source_page": "https://awards.europeandesign.org/winner/260744"
+   }
+  ]
+ },
+ {
+  "publication": "Harper's Bazaar",
+  "issue": "1940-08 표지 외 1940–50년대 펼침면",
+  "art_director": "Alexey Brodovitch",
+  "award": "정전",
+  "url": "https://www.thecompmagazine.com/alexey-brodovitch-art-direction-supreme-mid-20th-century/",
+  "verified": true,
+  "index": 18,
+  "images": [
+   {
+    "file": "docs/canon/img/18-harper-s-bazaar-1.jpg",
+    "shows": "cover",
+    "image_url": "https://i0.wp.com/www.thecompmagazine.com/wp-content/uploads/2021/06/Alexey_Brodovitch_08.jpg",
+    "source_page": "https://www.thecompmagazine.com/alexey-brodovitch-art-direction-supreme-mid-20th-century/"
+   },
+   {
+    "file": "docs/canon/img/18-harper-s-bazaar-2.jpg",
+    "shows": "spread",
+    "image_url": "https://i0.wp.com/www.thecompmagazine.com/wp-content/uploads/2021/06/Alexey_Brodovitch_01.jpg",
+    "source_page": "https://www.thecompmagazine.com/alexey-brodovitch-art-direction-supreme-mid-20th-century/"
+   }
+  ]
+ },
+ {
+  "publication": "Harper's Bazaar",
+  "issue": "1992-09 리디자인",
+  "art_director": "Fabien Baron",
+  "award": "정전",
+  "url": "https://www.newyorker.com/magazine/1993/07/05/bing-its-fabien",
+  "verified": false,
+  "index": 19,
+  "images": [
+   {
+    "file": "docs/canon/img/19-harper-s-bazaar-1.jpg",
+    "shows": "cover",
+    "image_url": "https://vintagefashionmagazinecovers.wordpress.com/wp-content/uploads/2015/06/harpers-bazaar-cover-fabien-baron.jpg",
+    "source_page": "https://vintagefashionmagazinecovers.wordpress.com/2015/06/18/harpers-bazaar-1992/"
+   }
+  ]
+ },
+ {
+  "publication": "The Face",
+  "issue": "No.49 Electro (1984-05)",
+  "art_director": "Neville Brody",
+  "award": "정전",
+  "url": "https://designreviewed.com/artefacts/the-face-electro-1984/",
+  "verified": true,
+  "index": 20,
+  "images": [
+   {
+    "file": "docs/canon/img/20-the-face-1.jpg",
+    "shows": "cover",
+    "image_url": "https://www.testpressing.org/wp-content/uploads/2012/01/ELECTRO1.png",
+    "source_page": "https://www.testpressing.org/archive/the-faceelectro"
+   },
+   {
+    "file": "docs/canon/img/20-the-face-2.jpg",
+    "shows": "spread",
+    "image_url": "https://www.testpressing.org/wp-content/uploads/2012/01/ELECTRO2.png",
+    "source_page": "https://www.testpressing.org/archive/the-faceelectro"
+   }
+  ]
+ },
+ {
+  "publication": "The Face",
+  "issue": "No.50 (1984-06)",
+  "art_director": "Neville Brody",
+  "award": "정전",
+  "url": "https://designreviewed.com/series/the-face/",
+  "verified": true,
+  "index": 21,
+  "images": [
+   {
+    "file": "docs/canon/img/21-the-face-1.jpg",
+    "shows": "cover",
+    "image_url": "https://www.record28.com/cdn/shop/files/THE_FACE_50.jpg?v=1739978615",
+    "source_page": "https://www.record28.com/products/the-face-50-th-issue-no-50-june-1984"
+   },
+   {
+    "file": "docs/canon/img/21-the-face-2.jpg",
+    "shows": "page",
+    "image_url": "https://www.record28.com/cdn/shop/files/THE_FACE_50_5.jpg?v=1739978615",
+    "source_page": "https://www.record28.com/products/the-face-50-th-issue-no-50-june-1984"
+   }
+  ]
+ },
+ {
+  "publication": "The Face",
+  "issue": "No.57 (1985-01)",
+  "art_director": "Neville Brody",
+  "award": "정전",
+  "url": "https://designreviewed.com/series/the-face/",
+  "verified": true,
+  "index": 22,
+  "images": [
+   {
+    "file": "docs/canon/img/22-the-face-1.jpg",
+    "shows": "cover",
+    "image_url": "https://magazinecanteen.com/cdn/shop/files/THEFACEMAGAZINE198510copy2_a790b8eb-947d-45c1-b9d1-9747f9e238c6.jpg?v=1760868252",
+    "source_page": "https://magazinecanteen.com/products/the-face-magazine-1985-annie-lennox-1"
+   }
+  ]
+ },
+ {
+  "publication": "Colors",
+  "issue": "1990–1995 (1–13호)",
+  "art_director": "Tibor Kalman",
+  "award": "정전",
+  "url": "https://a-g-i.org/design/colors",
+  "verified": true,
+  "index": 23,
+  "images": [
+   {
+    "file": "docs/canon/img/23-colors-1.jpg",
+    "shows": "cover",
+    "image_url": "https://a-g-i.s3.eu-west-3.amazonaws.com/tiborkalman/tibor1.jpg",
+    "source_page": "https://a-g-i.org/design/colors"
+   },
+   {
+    "file": "docs/canon/img/23-colors-2.jpg",
+    "shows": "cover",
+    "image_url": "https://a-g-i.s3.eu-west-3.amazonaws.com/tiborkalman/tibor2.jpg",
+    "source_page": "https://a-g-i.org/design/colors"
+   }
+  ]
+ },
+ {
+  "publication": "The Gentlewoman",
+  "issue": "2011",
+  "art_director": "Jop van Bennekom, Veronica Ditting",
+  "award": "Dutch Design Awards 후보, Communication",
+  "url": "https://www.dutchdesignawards.nl/gallery/the-gentlewoman/",
+  "verified": true,
+  "index": 24,
+  "images": [
+   {
+    "file": "docs/canon/img/24-the-gentlewoman-1.jpg",
+    "shows": "cover",
+    "image_url": "https://www.maban.co.uk/image/cutout-gentlewoman-cover.jpg",
+    "source_page": "https://www.maban.co.uk/51/"
+   },
+   {
+    "file": "docs/canon/img/24-the-gentlewoman-2.jpg",
+    "shows": "page",
+    "image_url": "https://www.maban.co.uk/image/cutout-gentlewoman.jpg",
+    "source_page": "https://www.maban.co.uk/51/"
+   }
+  ]
+ },
+ {
+  "publication": "Kinfolk",
+  "issue": "2021 여름 리디자인",
+  "art_director": "Alex Hunting Studio",
+  "award": "정전(리디자인)",
+  "url": "https://alexhunting.studio/blogs/projects/kinfolk",
+  "verified": true,
+  "index": 25,
+  "images": [
+   {
+    "file": "docs/canon/img/25-kinfolk-1.jpg",
+    "shows": "spread",
+    "image_url": "https://alexhunting.studio/cdn/shop/files/KINFOLK40_10-11_ab003a35-86d8-443a-ac5f-e5a2862d1851.jpg?v=1712074676",
+    "source_page": "https://alexhunting.studio/blogs/projects/kinfolk"
+   },
+   {
+    "file": "docs/canon/img/25-kinfolk-2.jpg",
+    "shows": "spread",
+    "image_url": "https://alexhunting.studio/cdn/shop/files/KINFOLK40_12-13_copy_12f106a0-4c2a-41c0-897e-08adfd20b3e3.jpg?v=1712074698",
+    "source_page": "https://alexhunting.studio/blogs/projects/kinfolk"
+   }
+  ]
+ },
+ {
+  "publication": "032c",
+  "issue": "Issue 13 (2007 여름) 리디자인",
+  "art_director": "Mike Meiré",
+  "award": "정전",
+  "url": "https://designobserver.com/how-to-be-ugly/",
+  "verified": true,
+  "index": 26,
+  "images": [
+   {
+    "file": "docs/canon/img/26-032c-1.jpg",
+    "shows": "cover",
+    "image_url": "https://rarebooksparis.com/cdn/shop/files/IMAGES_Pagina_01.jpg?v=1716904909",
+    "source_page": "https://rarebooksparis.com/collections/fashion/products/032c-issue-13-energy-experimentation"
+   },
+   {
+    "file": "docs/canon/img/26-032c-2.jpg",
+    "shows": "spread",
+    "image_url": "https://rarebooksparis.com/cdn/shop/files/IMAGES_Pagina_02.jpg?v=1716904910",
+    "source_page": "https://rarebooksparis.com/collections/fashion/products/032c-issue-13-energy-experimentation"
+   }
+  ]
+ },
+ {
+  "publication": "032c",
+  "issue": "Issue 30 (2016)",
+  "art_director": "Mike Meiré 체계",
+  "award": "정전",
+  "url": "https://magculture.com/blogs/journal/032c-30",
+  "verified": true,
+  "index": 27,
+  "images": [
+   {
+    "file": "docs/canon/img/27-032c-1.jpg",
+    "shows": "spread",
+    "image_url": "https://cdn.shopify.com/s/files/1/0514/7889/files/IMG_6493.jpg",
+    "source_page": "https://magculture.com/blogs/journal/032c-30"
+   },
+   {
+    "file": "docs/canon/img/27-032c-2.jpg",
+    "shows": "cover",
+    "image_url": "https://magculture.com/cdn/shop/articles/IMG_6491_fefdf0a5-e322-4480-8b48-36f0c09d8613.jpg?v=1615829434",
+    "source_page": "https://magculture.com/blogs/journal/032c-30"
+   }
+  ]
+ },
+ {
+  "publication": "La Belle et La Bête",
+  "issue": "2019",
+  "art_director": "Rational Beauty",
+  "award": "TDC Judges’ Choice 2019 (GPT 주장)",
+  "url": "https://www.tdc.org/competitions/communication-design-2019/",
+  "verified": false,
+  "index": 28,
+  "images": [
+   {
+    "file": "docs/canon/img/28-la-belle-et-la-bete-1.jpg",
+    "shows": "spread",
+    "image_url": "https://tdc.org/wp-content/uploads/2025/01/2_Judges-Choice_Spalter_Rational_La-Belle.jpg",
+    "source_page": "https://tdc.org/news/2019-communication-design-judges-choice-magazine-design-by-rational-beauty/"
+   },
+   {
+    "file": "docs/canon/img/28-la-belle-et-la-bete-2.jpg",
+    "shows": "spread",
+    "image_url": "https://tdc.org/wp-content/uploads/2025/01/3_Judges-Choice_Spalter_Rational_La-Belle.jpg",
+    "source_page": "https://tdc.org/news/2019-communication-design-judges-choice-magazine-design-by-rational-beauty/"
+   }
+  ]
+ },
+ {
+  "publication": "i-D",
+  "issue": "No.3 (창간 1980)",
+  "art_director": "Terry Jones",
+  "award": "정전",
+  "url": "https://www.eyemagazine.com/feature/article/reputations-terry-jones",
+  "verified": true,
+  "index": 29,
+  "images": [
+   {
+    "file": "docs/canon/img/29-i-d-1.jpg",
+    "shows": "cover",
+    "image_url": "https://www.cultjones.com/wp-content/uploads/idmag-1.jpg",
+    "source_page": "https://www.cultjones.com/product/jones-terry-i-d-magazine-7/"
+   },
+   {
+    "file": "docs/canon/img/29-i-d-2.jpg",
+    "shows": "page",
+    "image_url": "https://www.cultjones.com/wp-content/uploads/idmag1-1.jpg",
+    "source_page": "https://www.cultjones.com/product/jones-terry-i-d-magazine-7/"
+   }
+  ]
+ },
+ {
+  "publication": "Vogue Italia",
+  "issue": "1988-07/08 Sozzani 첫 호 표지",
+  "art_director": "Fabien Baron, Franca Sozzani, 사진 Steven Meisel",
+  "award": "정전 (출처 미확인: 사이트 차단)",
+  "url": "https://www.vogue.it/article/storia-vogue-italia",
+  "verified": false,
+  "index": 30,
+  "images": [
+   {
+    "file": "docs/canon/img/30-vogue-italia-1.jpg",
+    "shows": "cover",
+    "image_url": "https://pictures.abebooks.com/inventory/31321291551.jpg",
+    "source_page": "https://www.abebooks.de/magazine-zeitschriften/VOGUE-Italia-Magazine-July-1988-ROBYN/31321291551/bd"
+   }
+  ]
+ },
+ {
+  "publication": "Visionaire",
+  "issue": "No.18 Fashion Special",
+  "art_director": "Louis Vuitton (모노그램 포트폴리오 패키지)",
+  "award": "정전",
+  "url": "https://visionaireworld.com/products/visionaire-18-fashion-special-louis-vuitton",
+  "verified": true,
+  "index": 31,
+  "images": [
+   {
+    "file": "docs/canon/img/31-visionaire-1.jpg",
+    "shows": "cover",
+    "image_url": "https://visionaireworld.com/cdn/shop/products/18-LOUIS-VUITTON-Cover.jpg?v=1528753168",
+    "source_page": "https://visionaireworld.com/products/visionaire-18-fashion-special-louis-vuitton"
+   }
+  ]
+ },
+ {
+  "publication": "Fantastic Man",
+  "issue": "#30 리디자인 (2019)",
+  "art_director": "Jop van Bennekom",
+  "award": "정전 (정사각 판형, Diatype 단일 서체)",
+  "url": "https://magculture.com/blogs/journal/fantastic-man-30",
+  "verified": true,
+  "index": 32,
+  "images": [
+   {
+    "file": "docs/canon/img/32-fantastic-man-1.jpg",
+    "shows": "cover",
+    "image_url": "https://magculture.com/cdn/shop/articles/IMG_3509_c969186a-e723-4433-9c9b-1c539ac6e2d7.jpg?v=1615834236",
+    "source_page": "https://magculture.com/blogs/journal/fantastic-man-30"
+   },
+   {
+    "file": "docs/canon/img/32-fantastic-man-2.jpg",
+    "shows": "spread",
+    "image_url": "https://cdn.shopify.com/s/files/1/0514/7889/files/IMG_3512.jpg",
+    "source_page": "https://magculture.com/blogs/journal/fantastic-man-30"
+   }
+  ]
+ },
+ {
+  "publication": "Perfect Magazine",
+  "issue": "Issue 1 (2021-09)",
+  "art_director": "23.",
+  "award": "정전 (624쪽 양장)",
+  "url": "https://www.weare23.com/projects-feed/perfect-magazine-issue-1",
+  "verified": true,
+  "index": 33,
+  "images": [
+   {
+    "file": "docs/canon/img/33-perfect-magazine-1.jpg",
+    "shows": "cover",
+    "image_url": "https://images.squarespace-cdn.com/content/v1/62b446a90f840d20f23374db/1658742905324-4EJSAWR4CKZJT9MS9SEC/Binder5_Page_046.jpg",
+    "source_page": "https://www.weare23.com/projects-feed/perfect-magazine-issue-1"
+   },
+   {
+    "file": "docs/canon/img/33-perfect-magazine-2.jpg",
+    "shows": "cover",
+    "image_url": "https://images.squarespace-cdn.com/content/v1/62b446a90f840d20f23374db/1658743048338-3M2UBVRQMRF4P6ALM36K/Binder3_Page_72.jpg",
+    "source_page": "https://www.weare23.com/projects-feed/perfect-magazine-issue-1"
+   }
+  ]
+ },
+ {
+  "publication": "Buffalo Zine",
+  "issue": "No.9 (2020)",
+  "art_director": "Buffalo Zine",
+  "award": "D&AD Yellow Pencil, Magazine & Newspaper Design",
+  "url": "https://www.dandad.org/work/d-ad-awards-archive/buffalo-zine-no-9",
+  "verified": true,
+  "index": 34,
+  "images": [
+   {
+    "file": "docs/canon/img/34-buffalo-zine-1.jpg",
+    "shows": "cover",
+    "image_url": "https://cms.dandad.org/images/er7Em1gVN--nzkFlS0h81DQ_59k=/31430/width-2800/3000x2400_L5zIQiF.jpg",
+    "source_page": "https://www.dandad.org/work/d-ad-awards-archive/buffalo-zine-no-9"
+   },
+   {
+    "file": "docs/canon/img/34-buffalo-zine-2.jpg",
+    "shows": "cover",
+    "image_url": "https://cms.dandad.org/images/GyF3jIm9mVRCOEvVmolO3i0-7FY=/31431/width-2800/3000x2400_pZuwoWT.jpg",
+    "source_page": "https://www.dandad.org/work/d-ad-awards-archive/buffalo-zine-no-9"
+   }
+  ]
+ },
+ {
+  "publication": "Buffalo Zine",
+  "issue": "No.11 (2021)",
+  "art_director": "Buffalo Zine",
+  "award": "D&AD Wood Pencil, Magazine & Newspaper Design",
+  "url": "https://www.dandad.org/work/d-ad-awards-archive/buffalo-zine-no-11",
+  "verified": true,
+  "index": 35,
+  "images": [
+   {
+    "file": "docs/canon/img/35-buffalo-zine-1.jpg",
+    "shows": "spread",
+    "image_url": "https://cms.dandad.org/images/9AoarI3zqGm_VbGtUk5zda9Hjek=/30134/width-2800/3000x2400_3fvTnqS.jpg",
+    "source_page": "https://www.dandad.org/work/d-ad-awards-archive/buffalo-zine-no-11"
+   },
+   {
+    "file": "docs/canon/img/35-buffalo-zine-2.jpg",
+    "shows": "spread",
+    "image_url": "https://cms.dandad.org/images/tbyfdLu9y-8tRQT2C88IYO5OFFg=/30135/width-2800/3000x2400_cN4Gn7O.jpg",
+    "source_page": "https://www.dandad.org/work/d-ad-awards-archive/buffalo-zine-no-11"
+   }
+  ]
+ },
+ {
+  "publication": "Dazed",
+  "issue": "2015 가을 리디자인",
+  "art_director": "Jamie Reid (AD), Robbie Spencer (CD)",
+  "award": "정전",
+  "url": "https://d3buuag9gcp8bb.cloudfront.net/features/dazed-magazine-redesign-jamie-reid",
+  "verified": true,
+  "index": 36,
+  "images": [
+   {
+    "file": "docs/canon/img/36-dazed-1.jpg",
+    "shows": "cover",
+    "image_url": "https://m.itsnicethat.com/original_images/55cb55b27fa44cb8d400016f.jpg",
+    "source_page": "https://d3buuag9gcp8bb.cloudfront.net/features/dazed-magazine-redesign-jamie-reid"
+   },
+   {
+    "file": "docs/canon/img/36-dazed-2.jpg",
+    "shows": "spread",
+    "image_url": "https://m.itsnicethat.com/original_images/55cb55d27fa44cb8d4000187.jpg",
+    "source_page": "https://d3buuag9gcp8bb.cloudfront.net/features/dazed-magazine-redesign-jamie-reid"
+   }
+  ]
+ },
+ {
+  "publication": "System",
+  "issue": "No.5 + Kanye, Juergen & Kim 별책",
+  "art_director": "Lenthal (작업 목록에 기재)",
+  "award": "정전",
+  "url": "https://lenthal.com/work/",
+  "verified": true,
+  "index": 37,
+  "images": [
+   {
+    "file": "docs/canon/img/37-system-1.jpg",
+    "shows": "cover",
+    "image_url": "https://system-magazine.com/media/pages/issues/issue-05/5da513b4fd-1685447875/system5-cover-bandeau.jpg",
+    "source_page": "https://system-magazine.com/issues/issue-05"
+   },
+   {
+    "file": "docs/canon/img/37-system-2.jpg",
+    "shows": "cover",
+    "image_url": "https://tomorrowpublications.com/cdn/shop/files/coverimages_322a39cf-3458-4a04-9853-65c636fce05a.png?v=1771474313&width=3000",
+    "source_page": "https://tomorrowpublications.com/products/kanye-juergen-kim-2015-system-magazine-no-5"
+   }
+  ]
+ }
+]

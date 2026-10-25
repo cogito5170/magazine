@@ -83,7 +83,8 @@ for d in sorted(glob.glob(os.path.join(args.relay, "*", "spec.json"))):
                                      replace(L, strip_key="park", strip_col=(0.5, 0.1, 0.95)), cv_persons, 1233)
             rc = judge(cover_page, s2, L, machine_ok, copy_cover)
             if res["verdict"] == "ACCEPT" and rc["verdict"] != "ACCEPT":
-                res = dict(rc, why="cover: " + rc["why"])
+                res = dict(rc, why="cover: " + rc["why"], spread={"verdict": res["verdict"], "why": res["why"],
+                                                                  "V": res["V"]})
             if s.get("needs_user_ok") and res["verdict"] == "ACCEPT":
                 res = dict(res, verdict="HOLD", why="passes the judge; needs the user's OK: " + s["needs_user_ok"])
             res["cover"] = {"verdict": rc["verdict"], "why": rc["why"], "V": rc["V"]}

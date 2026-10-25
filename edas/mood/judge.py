@@ -9,6 +9,10 @@ V -- invariants (all must hold; unknown is a fail)
                  (approved NOCTURNE structure: vertical copy ends at H - 80 and clears the rock print, x >= 1705)
     copy-verbatim  the texts the page reports having set are exactly the source copy
     contrast     ink on paper >= 4.5 (WCAG 2.x), captions on paper >= 3
+    recipe       (structure composers) Richter strip title, a size note, the final frame, one defamiliarizing
+                 device, and 2-3 techniques from the approved palette -- the user: "과감함이나 낯설게하기도 없고
+                 정제도 안 되어 있고"
+    bold         (structure composers) the largest title box covers >= 4.5% of the page (approved: 4.6-8.5%)
 J -- layout: photo-area IoU with the approved match-dandy page (lower = a different layout); a mood that keeps
     the dandy layout must make up for it in colour (page_de) -- the user: "레이아웃은 그대론데?"
 J -- distinctness from every approved mood (the user's complaint "댄디랑 똑같다" is the reason it exists)
@@ -48,6 +52,7 @@ def _lum(c):
 # photo boxes of the approved match-dandy page (from contemporary.nocturne_dandy): left page + three prints
 DANDY_PHOTOS = [(0, 0, 1000, 1231), (1440, 120, 1760, 272), (1390, 440, 1520, 685), (1440, 815, 1690, 974)]
 IOU_MAX = 0.55
+TITLE_MIN = 0.045   # display title: measured ink boxes of the approved titles: stop-rapport 4.6%, match-contemporary 7.9%, match-dandy 8.5%
 
 
 def _mask(boxes, w, h):
@@ -93,6 +98,13 @@ def judge(page: Image.Image, spec: dict, L: Layer, machine_ok: bool, copy_expect
         photos = []
     if copy_expected is not None:
         v["copy-verbatim"] = sorted(spec.get("texts_set", copy_expected)) == sorted(copy_expected)
+    if "recipe" in spec:        # a structure composer: the approved recipe must have been followed (SKILL.md §4)
+        r = spec["recipe"]
+        v["recipe"] = bool(r.get("strip_title")) and r.get("size_notes", 0) >= 1 and r.get("frame") and \
+            bool(r.get("defamiliar")) and 2 <= len(r.get("techniques", [])) <= 3
+        tbs = r.get("title_boxes") or []
+        title_frac = max(((b[2] - b[0]) * (b[3] - b[1]) for b in tbs), default=0) / (w * h)
+        v["bold"] = title_frac >= TITLE_MIN
     c_ink = contrast_ratio(_lum(L.ink), _lum(L.paper))
     c_cap = contrast_ratio(_lum(L.camel), _lum(L.paper))
     v["contrast"] = c_ink >= 4.5 and c_cap >= 3.0

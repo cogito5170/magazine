@@ -32,6 +32,10 @@ gentleMonster 의 compose ↔ judge 구조를 옮긴 것. **작가는 스스로 
 (spec: `text_boxes`, `photo_boxes`, `texts_set`, 사진 위 글자는 `panels`). 현재 kind:
 splice · jogakbo · joiner · panel · stencil_title · dots · nogrid · bars. 새 kind 는 새 파일로만 추가한다.
 표지에도 같은 kind 를 쓴다(`texts["cover"]` 가 참). 사진은 자르기·확대·회전·반전·톤만 한다.
+구조가 달라도 **승인 레시피는 그대로 들어간다** (`edas/mood/kinds/recipe.py`, 값은 승인작과 동일):
+과감한 제목(제목 상자 ≥ 지면의 4.5%, 승인작 실측 4.6~8.5%) · Richter 줄무늬 제목 · 원본 크기·확대율 표기 ·
+승인 팔레트 기법 2~3개 · 낯설게하기 장치 하나 · 마감 프레임(러닝헤드, 공정 두 줄, 폴리오).
+사용자: "과감함이나 낯설게하기도 없고 정제도 안 되어 있고" (작가 기법만 옮긴 판은 반려).
 
 ## 편집(이 스레드)이 하는 일
 `python3 scripts/mood_editor.py` 가 응답 없는 폴더를 렌더(표지+펼침면)하고 재서 `response.json` · `preview.jpg` 를 쓴다.
@@ -40,7 +44,7 @@ splice · jogakbo · joiner · panel · stencil_title · dots · nogrid · bars.
 - V 불변조건(하나라도 실패하면 REJECT): 승인작 3장이 각자의 함수로 픽셀 동일 · 카피가 지면 안·사진 밖
   (사진 위라면 측정된 단색 띠 위, 띠와 글자 대비 ≥ 4.5) · 카피 원문 그대로 · 본문 대비 ≥ 4.5, 캡션 ≥ 3
 - J 레버에 `layout` 추가: 사진 면적이 match-dandy 배치와 겹치는 비율(IoU) ≤ 0.55 이면 레버 하나로 센다.
-- 얼굴을 가리는 등 규칙상 사용자 확인이 필요한 kind 는 통과해도 HOLD.
+- `recipe`·`bold`: 위 레시피를 따랐는지, 제목이 과감한지. 얼굴을 가리는 등 규칙상 사용자 확인이 필요한 kind 는 통과해도 HOLD.
 - J: 승인 무드(댄디·검정·라포)와의 지면 평균 색차 최소값 ≥ 20 (사용자가 "댄디랑 똑같다"고 한 와비사비 = 4.2, 승인작끼리 최소 33.4),
   팔레트 말고 바꾼 레버 ≥ 2
 - 거절된 이유를 읽고 다음 제안에서 같은 실수를 반복하지 않는다. 원장: 저장소 `docs/mood_ledger.jsonl`.

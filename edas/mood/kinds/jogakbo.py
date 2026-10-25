@@ -9,12 +9,23 @@ import numpy as np
 from PIL import Image, ImageDraw
 
 from ..moodmachine import Layer, _face
-from ._common import KEYS, W, finish, prep, set_copy, text_at
+from ..variants import width
+from ._common import KEYS, W, set_copy
+from .recipe import Recipe, finish
 
 
 def split(H, n, rng):
-    pieces = [(0, 0, W, H)]
-    while len(pieces) < n:
+    """A title band is cut first from one corner (it stays whole), then the rest is split largest-first."""
+    tw, th = int(rng.integers(105, 125)) * 10, int(rng.integers(32, 40)) * 10
+    corner = int(rng.integers(4))
+    left, top = corner % 2 == 0, corner < 2
+    tx0 = 0 if left else W - tw
+    ty0 = 0 if top else H - th
+    title = (tx0, ty0, tx0 + tw, ty0 + th)
+    side = (tw, 0, W, H) if left else (0, 0, W - tw, H)
+    rest = (tx0, th, tx0 + tw, H) if top else (tx0, 0, tx0 + tw, H - th)
+    pieces, fixed = [side, rest], [title]
+    while len(pieces) + 1 < n:
         pieces.sort(key=lambda p: (p[2] - p[0]) * (p[3] - p[1]))
         x0, y0, x1, y1 = pieces.pop()
         f = rng.uniform(0.3, 0.7)
@@ -24,7 +35,7 @@ def split(H, n, rng):
         else:
             c = int(round((y0 + f * (y1 - y0)) / 10) * 10)
             pieces += [(x0, y0, x1, c), (x0, c, x1, y1)]
-    return pieces
+    return fixed + pieces
 
 
 def person_scale(piece, img, pb, smin=0.85):
@@ -45,12 +56,12 @@ def free_regions(img, pb):
 def plan(H, crops, persons, rng):
     n = int(rng.integers(14, 23))
     pieces = split(H, n, rng)
-    big = sorted(pieces, key=lambda p: -(p[2] - p[0]) * (p[3] - p[1]))
-    text = [p for p in big if p[2] - p[0] >= 420 and 160 <= p[3] - p[1] and (p[2] - p[0]) * (p[3] - p[1]) < 400000]
-    if len(text) < 2:
+    big = sorted(pieces[1:], key=lambda p: -(p[2] - p[0]) * (p[3] - p[1]))
+    title_p = pieces[0]
+    bodies = [p for p in big if 460 <= p[2] - p[0] <= 900 and 300 <= p[3] - p[1]]
+    if not bodies:
         return None
-    title_p = min(text[:4], key=lambda p: (p[3] - p[1]))
-    body_p = max([p for p in text if p != title_p], key=lambda p: (p[3] - p[1]) * min(p[2] - p[0], 700))
+    body_p = max(bodies, key=lambda p: (p[3] - p[1]) * min(p[2] - p[0], 700))
     rest = [p for p in pieces if p not in (title_p, body_p)]
     assign, score = {}, 0
     for k in KEYS:
@@ -70,9 +81,10 @@ def plan(H, crops, persons, rng):
 
 def render(crops, texts, L: Layer, persons, H=1231):
     st = texts.get("structure") or {}
+    R = Recipe()
     seam = tuple((st.get("seam") or {}).get("color", (248, 244, 232)))
     best = None
-    for seed in range(400):
+    for seed in range(3000):
         p = plan(H, crops, persons, np.random.default_rng(seed))
         if p and (best is None or p["fit"] > best[0]["fit"]):
             best = (p, seed)
@@ -82,6 +94,7 @@ def render(crops, texts, L: Layer, persons, H=1231):
     page = Image.new("RGB", (W, H), seam)
     d = ImageDraw.Draw(page)
     rng = np.random.default_rng(seed + 1000)
+    mirrored = 0
     inset = 3
     photos, rec = [], []
     placed = set(P["persons"])
@@ -103,7 +116,8 @@ def render(crops, texts, L: Layer, persons, H=1231):
             im = img.resize((round(img.size[0] * s), round(img.size[1] * s)), Image.LANCZOS)
             wx = int(np.clip(cx - pw / 2, 0, im.size[0] - pw))
             wy = int(np.clip(cy - ph / 2, 0, im.size[1] - ph))
-            page.paste(prep(im.crop((wx, wy, wx + pw, wy + ph)), L, hero=(k == "night")), (x0, y0))
+            cut = im.crop((wx, wy, wx + pw, wy + ph))
+            page.paste(R.hero(cut) if k == "night" else R.print_(cut), (x0, y0))
             rec.append({"piece": pc, "photo": k, "scale": round(s, 2), "person": "whole"})
         elif patches and pw >= 150 and ph >= 150:
             k = patches.pop(0)
@@ -112,26 +126,51 @@ def render(crops, texts, L: Layer, persons, H=1231):
             im, s = fit(crops[k], pw - 40, ph - 40)
             ox, oy = x0 + (pw - im.size[0]) // 2, y0 + (ph - im.size[1]) // 2
             d.rectangle((ox - inset, oy - inset, ox + im.size[0] + inset, oy + im.size[1] + inset), fill=seam)
-            page.paste(prep(im, L), (ox, oy))
+            page.paste(R.print_(im), (ox, oy))
             rec.append({"piece": pc, "photo": k, "scale": round(s, 2), "person": "whole, sewn in as a patch"})
         else:
             k, r = sources[int(rng.integers(len(sources)))]
             rw, rh = r[2] - r[0], r[3] - r[1]
             s = max(pw / rw, ph / rh, float(rng.uniform(1.0, 1.8)))
             ww, wh = pw / s, ph / s
-            sx = r[0] + float(rng.uniform(0, rw - ww))
-            sy = r[1] + float(rng.uniform(0, rh - wh))
+            sx = r[0] + float(rng.uniform(0, max(0.0, rw - ww)))
+            sy = r[1] + float(rng.uniform(0, max(0.0, rh - wh)))
             piece = crops[k].crop((round(sx), round(sy), round(sx + ww), round(sy + wh))).resize((pw, ph), Image.LANCZOS)
-            if rng.random() < 0.3:
+            if rng.random() < 0.4:      # mirrored pieces: Richter's divided/mirrored logic, sewn
                 piece = piece.transpose(Image.FLIP_LEFT_RIGHT)
-            page.paste(prep(piece, L), (x0, y0))
+                mirrored += 1
+            if rng.random() < 0.35:     # a dyed ramie piece in the photo's own mean colour
+                kk = KEYS[int(rng.integers(len(KEYS)))]          # dyed in the colour of someone's clothes
+                q = persons[kk]
+                qh = q[3] - q[1]
+                c = np.asarray(crops[kk].crop((q[0], q[1] + int(qh * 0.35), q[2], q[1] + int(qh * 0.75))),
+                               float).reshape(-1, 3).mean(0)
+                c = tuple(int(0.8 * a + 0.2 * b) for a, b in zip(c, L.paper))
+                k = kk
+                ImageDraw.Draw(page).rectangle((x0, y0, x1 - 1, y1 - 1), fill=c)
+                rec.append({"piece": pc, "dyed_from": k, "colour": c})
+                if (st.get("seam") or {}).get("double", True):
+                    d.rectangle((x0 + 6, y0 + 6, x1 - 7, y1 - 7), outline=seam, width=1)
+                continue
+            page.paste(R.print_(piece), (x0, y0))
             rec.append({"piece": pc, "photo": k, "scale": round(s, 2), "person": "none"})
         photos.append((x0, y0, x1, y1))
         if (st.get("seam") or {}).get("double", True):
             d.rectangle((x0 + 6, y0 + 6, x1 - 7, y1 - 7), outline=seam, width=1)
     tb, bb = P["title"], P["body"]
-    ft = _face(L.title_face, L.title_weight, min(96, (tb[3] - tb[1]) - 50))
-    tbox = text_at(d, (tb[0] + 36, tb[1] + 20), texts["title"], ft, L.title_color or L.ink, 6)
+    from ..variants import fnt
+    size = 300
+    while width(texts["title"], fnt("black", size), 8) > (tb[2] - tb[0]) - 90 or size * 0.78 > (tb[3] - tb[1]) - 70:
+        size -= 6
+    src = crops["night"]
+    m_box = R.strip_title(page, texts["title"], fnt("black", size), (tb[0] + 40, tb[1] + 36), src, (0.55, 0.3, 0.95),
+                          L.paper, tracking=8, toward=L.ink, mix=0.45)
     box, done = set_copy(d, (bb[0] + 36, bb[1] + 32), texts, L, min(bb[2] - bb[0] - 72, 640), size=19, head_size=24)
-    return finish(page, L, {"text_boxes": [tbox, box], "photo_boxes": photos, "texts_set": [texts["title"]] + done,
-                            "pieces": rec, "seed": seed, "persons_fitted": P["fit"]})
+    R.defamiliar = f"pieces mirrored like Richter's strips ({mirrored} of {len(P['pieces'])})"
+    pn = [r for r in rec if r.get("photo") == "night"]
+    R.note(d, (bb[0] + 36, bb[3] - 40), crops["night"].size, pn[0]["scale"] if pn else 1.0, L.camel, face="mono",
+           extra=f" · {len(P['pieces'])} pieces, seed {seed}")
+    R.frame(page, H, L.ink, None, ["The photographs cut into pieces and sewn edge to edge (jogakbo).",
+                                   "Halation · matte · mirrored pieces · title striped from the night"], face="mono")
+    return finish(page, L, {"text_boxes": [m_box, box], "photo_boxes": photos, "texts_set": [texts["title"]] + done,
+                            "pieces": rec, "seed": seed, "persons_fitted": P["fit"]}, R)

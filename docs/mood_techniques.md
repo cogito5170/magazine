@@ -188,3 +188,18 @@ Sources checked this session:
 | Palette | Sampled from the source: paper (239,232,226), blue panel (130,150,181) for shadows, floor (197,158,128) for tape, the black sleeve lifted one step for ink. |
 
 The cover figures are cropped as prints together with the paper and floor they stand on in the source (no keying). Intensity values are those of `nocturne_dandy` (matte 24/240 and 18/244, halation defaults, soft_jpeg ×1.16 at −30/+24). Draft; not approved, not in `WORKS`.
+
+## MATCH 표지 + 펼침면 — 와비사비 (wabi-sabi), 무드 머신으로 (`edas/mood/moodmachine.py`, `examples/match_wabi.py`)
+
+Two earlier drafts in this thread (an Albers colour-field version and a Tillmans "sprezzatura" version) were off: they rebuilt the layout instead of keeping the approved structure, and fell back into rejected early rounds (photo_led swatches, variants palettes). The fix is a mood machine: `nocturne_mood(crops, texts, Layer)` repeats `nocturne_dandy` exactly (pixel-identical with the DANDY layer) and only the mood layer changes. Twelve candidate layers were rendered in one sweep (`scripts/mood_brainstorm.py`); wabi-sabi was chosen for the copy ("원색보다 한 톤 낮은 색", "주변과 어우러진다").
+
+Sources checked: Leonard Koren, *Wabi-Sabi for Artists, Designers, Poets & Philosophers* (1994), via https://www.dailygood.org/story/418/the-beauty-of-wabi-sabi-leonard-koren/: "a beauty of things imperfect, impermanent, and incomplete"; colours "faded into muddy tones"; "the non-color colors, gray and black". Hiroshi Sugimoto, *Architecture* (from 1997), via https://ocula.com/magazine/spotlight/hiroshi-sugimoto-time-machine/: deliberately out of focus, "the core visions of the shape stay strong".
+
+| Component | Mood layer |
+|---|---|
+| Muddy, faded colour | Photos at 72% saturation, matte 34/232, paper (222,216,204), ink (64,58,50) |
+| Grey and black | Taupe-grey shadows (150,140,124), umber captions (120,104,84) |
+| Imperfect, incomplete | The three prints out of focus (blur 1.6 px, after Sugimoto); slit-scan kept |
+| Quiet light | Halation 196 / 18 px / (230,214,190) / 0.3 |
+
+Long copy goes into vertical columns at 20 px with the Korean head set beside them. The cover is read through the same structure: its own scene as the hero, and three details named by the quote (원단 vest, 디자인 dress form, 색감 trousers) as the prints. Draft; not approved.

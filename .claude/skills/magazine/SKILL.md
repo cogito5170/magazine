@@ -82,6 +82,11 @@ edas mood new <slug> --image <원본경로> --mood "<무드 또는 auto>"
      3. 구성 요소마다 지면 장치 하나를 정한다(4절 무드 레이어 표 형식). 팔레트, 서체, 처리, 배치.
      4. 시리즈 DNA와 강도 기준선은 그대로 지킨다. 바뀌는 것은 무드 레이어뿐이다.
      5. 새 함수로 만든다(`edas/mood/<무드>.py`). 기존 승인 함수는 고치지 않는다.
+     6. **출발점은 승인 구조다. 새 레이아웃을 짓지 않는다.** `edas/mood/moodmachine.py`의 `nocturne_mood`가 승인 구조(`nocturne_dandy`와 픽셀 동일)이고, 무드 레이어(`Layer`)만 바꿔 끼운다.
+        - 먼저 후보 무드 10여 개를 기계적으로 뽑아 한 번에 렌더한다: `python3 scripts/mood_brainstorm.py` → `output/brainstorm/contact.jpg`.
+        - 그중 하나를 골라 조사(출처 확인)하고 다듬는다.
+        - 반려된 초기 방식(`photo_led` 색 칩·ΔE, `variants` 원본 팔레트·작은 프린트 나열)으로 돌아가지 않는다.
+        - 이전 세션의 전 과정을 다시 보려면: `python3 scripts/replay_match_flow.py [new]`.
 4. **여러 페이지일 때**:
    - 시리즈 DNA는 공통으로 넣는다.
    - 무드 레이어만 페이지마다 바꾼다.

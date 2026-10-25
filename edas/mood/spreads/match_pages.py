@@ -31,3 +31,9 @@ SPREAD_TEXTS = {
             "내 색을 앞세우기보다, JAJU의 톤에 녹아들어 JAJU의 정체성이 보이게 하는 VMD가 되겠다.",
 }
 # copy note: the cover quote opens with a quotation mark that is never closed (kept as is, reported).
+
+# cover, read through the NOCTURNE structure: the hero is the cover's own scene (both figures on paper and
+# floor, cropped to the left page's 0.81 aspect); the three prints are details named by the quote:
+# 원단 (the quilted vest), 디자인 (the dress form), 색감 (trousers on the floor)
+COVER_HERO = (527, 0, 1054, 650)
+COVER_PRINTS = {"park": (770, 180, 940, 261), "shop": (505, 100, 620, 317), "rock": (775, 418, 935, 520)}  # slot aspects as the spread

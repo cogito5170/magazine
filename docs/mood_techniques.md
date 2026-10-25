@@ -171,3 +171,19 @@ Tickle-Degnen & Rosenthal (1990) define rapport by three components: mutual atte
 The title is filled with stripes taken from the smoothie stall's light, divided, mirrored and repeated (after Richter).
 
 Copy is verbatim. In the source, the body under (5.5) NEXT duplicates the body under (5.4) WHY?, so it is set once and the duplication was reported.
+
+## MATCH 두 페이지 — 어우러짐 (attuned), 시안 (`edas/mood/attune.py`, `examples/match_attune.py`)
+
+The user supplied both MATCH pages (`sources/match_pages.png`: the "DESIGN + MOOD" cover and the four-place spread with the copy "주변과 조화되는 지원자") and left the mood free. The copy names the mood itself: clothes matched to the place, and a colour one tone below the primary that "does not stand out alone but blends with what surrounds it". We called it 어우러짐 (attuned).
+
+Sources checked this session:
+- Josef Albers, *Homage to the Square* (from 1949) and *Interaction of Color* (1963): a colour is perceived through its neighbours; "any ground subtracts its own hue from the colors which it carries" (https://thegracemuseum.org/?p=3994).
+- The von Bezold spreading (assimilation) effect: "a color may appear different depending on its relation to adjacent colors" (https://en.wikipedia.org/wiki/Bezold_effect).
+
+| Component | On the page |
+|---|---|
+| Matching clothes to place | Cover: each figure (dress form = DESIGN, model = MOOD) stands in an Albers field (10/8/6/4 units) of four colours measured from itself (luminance-quantile medians). |
+| One tone lower | Every sampled colour is moved 12–22% toward the paper before it is used. |
+| Blending with the surroundings | Spread: each photo dissolves at its edges into a field of its own place colour (dominant colour outside the person); a chip of its outfit colour sits inside. The measured CIEDE2000 place/outfit difference is printed. |
+
+Series DNA kept: Richter strip titles (cover from the quilted vest, spread from the night coat), source size and enlargement on the page. The cover figures are cut-outs on flat paper in the source; they were recovered by flooding the paper in from the crop edges (no pixel of the figures is changed). Draft, not approved: not registered in `WORKS`.

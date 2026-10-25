@@ -1,0 +1,11 @@
+{
+ "proposal": "022-kruger-bars",
+ "name": "red bars",
+ "status": "USER-LIKED (cover)",
+ "user": "이건 좋아",
+ "at": "2026-10-25T09:48:18Z",
+ "code": "edas/mood/kinds/bars_v1.py (= kinds/bars.py at fda3f55)",
+ "render": "cover",
+ "pixels_sha256": "e176038dc2c58f92e2c17b55ba0b3e6d5d3dbc1b663ec6b43eb7cc4b1017a071",
+ "note": "pre-recipe render; keep as is, recipe re-renders must not replace it"
+}

@@ -287,6 +287,55 @@ STRUCTURE_CARDS = [
                 "body_face": "sans", "body_weight": "Bold", "caption_face": "mono", "shadow": "none",
                 "halation": OFF, "slit_amp": 0}),
 ]
+
+# Round 3 (user: "넓혀", widen the family of the liked 022 red bars): black-and-white photograph, one loud colour,
+# the copy set like a statement.  Composers written by the writer: edas/mood/kinds/{monochrome,intertitle,poster,
+# diagonal}.py (shared pieces in _declare.py), each calling the approved recipe.
+BW = {"saturation": 0.0, "shadow": "none", "slit_amp": 0, "title_face": "inter", "title_mode": "solid",
+      "body_face": "sans", "body_weight": "Regular", "caption_face": "mono"}
+DECLARE_CARDS = [
+    dict(round=3, slug="klein-field", name="IKB field", mood="클라인: 한 면은 울트라마린뿐, 다른 면은 흑백 사진. 제목이 접지선에서 잘린다",
+         technique="Yves Klein, International Klein Blue (IKB process registered 19 May 1960)",
+         sources=["https://www.centrepompidou.fr/en/pompidou-plus/magazine/article/the-untold-story-of-the-international-klein-blue-ikb-of-yves-klein"],
+         quote="The resin held the pigment in place without altering its brilliance (Rhodopas M); envelope Soleau no. 63471",
+         structure={"kind": "monochrome", "field": [0, 47, 167]},
+         defamiliarize="title cut by the gutter: white on the blue, blue on a white panel over the photograph",
+         techniques=["Richter strip title", "slit-scan amp 40", "matte"],
+         familiar_strange="익숙함: 흑백 패션 사진, 잡지 펼침면. 낯섦: 한 면이 통째로 아무것도 없는 파랑",
+         bold_stable="과감함: 페이지 절반을 단색 하나로. 안정: 좌우 반반 대칭, 색은 파랑 하나",
+         layer=dict(BW, paper=[0, 47, 167], ink=[246, 246, 244], camel=[246, 246, 244])),
+    dict(round=3, slug="godard-cards", name="intertitles", mood="고다르: 검은 필름 리더 위에 제목을 두 장의 자막 카드로 끊는다. MAT 파랑, CH. 빨강",
+         technique="Jean-Luc Godard, intertitles (Masculin féminin, Le Weekend)",
+         sources=["https://walkerart.org/magazine/godards-intertitles2"],
+         quote="Blue, white and red text is a common Godardian palette ... 'Analyse,' broken into two lines, serves as the chapter title",
+         structure={"kind": "intertitle", "first": [40, 86, 230], "second": [226, 34, 40]},
+         defamiliarize="the title broken across two intertitle cards, blue then red",
+         techniques=["Richter strip title", "slit-scan amp 40", "matte", "misregister 3 px"][:3],
+         familiar_strange="익숙함: 영화 스틸과 자막. 낯섦: 단어가 두 카드로 끊겨 장면 사이에 끼어든다",
+         bold_stable="과감함: 검정 바탕에 원색 두 개. 안정: 가운데 정렬 한 축, 카드 리듬",
+         layer=dict(BW, paper=[12, 12, 12], ink=[240, 238, 232], camel=[240, 238, 232])),
+    dict(round=3, slug="yellow-poster", name="yellow poster", mood="게릴라 걸스: 노란 바탕에 흑백 인물, 큰 검정 제목, 작은 분홍 하나",
+         technique="Guerrilla Girls, Do Women Have to Be Naked to Get into the Met. Museum? (1989)",
+         sources=["https://smarthistory.org/guerrilla-girls-women-met-museum"],
+         quote="loud black text on the loud yellow ... a pink element in the lower left corner",
+         structure={"kind": "poster", "ground": [255, 212, 0]},
+         defamiliarize="the title in two weights joined at a letter: Black | Thin",
+         techniques=["Richter strip title", "slit-scan amp 40", "matte"],
+         familiar_strange="익숙함: 거리 포스터, 흑백 인물. 낯섦: 패션 지면이 선언 포스터의 목소리로 말한다",
+         bold_stable="과감함: 지면 전체가 노랑. 안정: 흑백 사진 한 장, 검정 글자, 정렬된 프린트 한 줄",
+         layer=dict(BW, paper=[255, 212, 0], ink=[14, 14, 14], camel=[14, 14, 14])),
+    dict(round=3, slug="rodchenko-wedge", name="red wedge", mood="로드첸코: 기울인 흑백 사진을 빨간 쐐기가 대각으로 가른다",
+         technique="Alexander Rodchenko, diagonal compositions and odd angles; Lengiz poster (1924)",
+         sources=["https://en.wikipedia.org/wiki/Alexander_Rodchenko"],
+         quote="emphasised dynamic diagonal composition ... often shot his subjects from odd angles",
+         structure={"kind": "diagonal", "wedge": [206, 28, 32], "angle": 8},
+         defamiliarize="title weight stepped 100→900 inside the wedge",
+         techniques=["Richter strip title", "matte", "misregister 3 px"],
+         familiar_strange="익숙함: 흑백 패션 사진, 붉은 제목. 낯섦: 사진이 수평에서 8° 기울고 지면이 대각으로 갈라진다",
+         bold_stable="과감함: 빨간 삼각형이 양면을 가로지른다. 안정: 모든 요소가 같은 축, 카피는 흰 띠 위에 정돈",
+         layer=dict(BW, paper=[240, 238, 232], ink=[14, 14, 14], camel=[206, 28, 32])),
+]
+
 DROPPED = {"pixel sort (Asendorf)": "looks like the dandy's slit-scan streaks"}
 
 SIGNATURE = {"title_mode": "strip", "shadow": "soft_jpeg"}   # the dandy's own levers; a card may not use them
@@ -330,7 +379,7 @@ def main():
     a = ap.parse_args()
     sent = {m.group(1) for d in os.listdir(a.relay) if (m := re.match(r"\d{3}-(.+)$", d))} if os.path.isdir(a.relay) else set()
     n = next_no(a.relay)
-    for c in CARDS + STRUCTURE_CARDS:
+    for c in CARDS + STRUCTURE_CARDS + DECLARE_CARDS:
         bad = lint(c)
         if a.list or bad or c["slug"] in sent:
             print(f"{'skip' if (bad or c['slug'] in sent) else '    '} {c['slug']:24s} {c['mood']}  {'; '.join(bad)}")

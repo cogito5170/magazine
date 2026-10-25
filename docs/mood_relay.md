@@ -24,13 +24,23 @@ gentleMonster 의 compose ↔ judge 구조를 옮긴 것. **작가는 스스로 
 - 그 밖: `shadow` soft_jpeg|ruff|threshold|none, `marks` true|false, `saturation`, `tone` [lo, hi, amount],
   `halation` [thr, radius, tint, strength], `hero_matte` / `print_matte` [black, white], `slit_amp`, `print_blur`,
   `strip_key` night|park|shop|rock, `strip_col` [x, y0, y1], `strip_mix`, `stages`, `grain`
-- 구조(주인공 풀블리드, 세로 Richter 제목, 프린트 3장, 세로쓰기)는 승인 구조라 바꿀 수 없다. 무드는 위 레버로만.
+- `structure` 블록이 없으면 승인 NOCTURNE 구조에 위 레버만 얹는다(`layer.structure` 로 lineup|wild|eyeline 도 고를 수 있다).
+
+### structure 블록 = 무드마다 배치까지 새로 짠다
+무드를 바꾸면 레이아웃·서체·처리 전부 바뀐다. `"structure": {"kind": "<kind>", ...}` 를 쓰면
+`edas/mood/kinds/<kind>.py` 의 `render(crops, texts, layer, persons, H) -> (page, spec)` 가 그린다
+(spec: `text_boxes`, `photo_boxes`, `texts_set`, 사진 위 글자는 `panels`). 현재 kind:
+splice · jogakbo · joiner · panel · stencil_title · dots · nogrid · bars. 새 kind 는 새 파일로만 추가한다.
+표지에도 같은 kind 를 쓴다(`texts["cover"]` 가 참). 사진은 자르기·확대·회전·반전·톤만 한다.
 
 ## 편집(이 스레드)이 하는 일
 `python3 scripts/mood_editor.py` 가 응답 없는 폴더를 렌더(표지+펼침면)하고 재서 `response.json` · `preview.jpg` 를 쓴다.
 
 ### 심판 (edas/mood/judge.py)
-- V 불변조건(하나라도 실패하면 REJECT): 승인 구조 기계가 match-dandy 와 픽셀 동일 · 카피가 지면 안·프린트 밖 · 본문 대비 ≥ 4.5, 캡션 ≥ 3
+- V 불변조건(하나라도 실패하면 REJECT): 승인작 3장이 각자의 함수로 픽셀 동일 · 카피가 지면 안·사진 밖
+  (사진 위라면 측정된 단색 띠 위, 띠와 글자 대비 ≥ 4.5) · 카피 원문 그대로 · 본문 대비 ≥ 4.5, 캡션 ≥ 3
+- J 레버에 `layout` 추가: 사진 면적이 match-dandy 배치와 겹치는 비율(IoU) ≤ 0.55 이면 레버 하나로 센다.
+- 얼굴을 가리는 등 규칙상 사용자 확인이 필요한 kind 는 통과해도 HOLD.
 - J: 승인 무드(댄디·검정·라포)와의 지면 평균 색차 최소값 ≥ 20 (사용자가 "댄디랑 똑같다"고 한 와비사비 = 4.2, 승인작끼리 최소 33.4),
   팔레트 말고 바꾼 레버 ≥ 2
 - 거절된 이유를 읽고 다음 제안에서 같은 실수를 반복하지 않는다. 원장: 저장소 `docs/mood_ledger.jsonl`.

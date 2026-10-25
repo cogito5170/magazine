@@ -80,10 +80,10 @@ edas mood new <slug> --image <원본경로> --mood "<무드 또는 auto>"
      1. 무드 이름을 정하고 해석을 한 줄로 밝힌다. 예: 라포틱 → rapport.
      2. 3절대로 조사한다. 그 무드의 구성 요소를 나눈 출처 하나와 맞는 현대 예술 기법 하나를 찾는다.
      3. 구성 요소마다 지면 장치 하나를 정한다(4절 무드 레이어 표 형식). 팔레트, 서체, 처리, 배치.
-     4. 시리즈 DNA와 강도 기준선은 그대로 지킨다. 바뀌는 것은 무드 레이어뿐이다.
-     5. 새 함수로 만든다(`edas/mood/<무드>.py`). 기존 승인 함수는 고치지 않는다.
-     6. **출발점은 승인 구조다. 새 레이아웃을 짓지 않는다.** `edas/mood/moodmachine.py`의 `nocturne_mood`가 승인 구조(`nocturne_dandy`와 픽셀 동일)이고, 무드 레이어(`Layer`)만 바꿔 끼운다.
-        - 먼저 후보 무드 10여 개를 기계적으로 뽑아 한 번에 렌더한다: `python3 scripts/mood_brainstorm.py` → `output/brainstorm/contact.jpg`.
+     4. **무드를 바꾸면 지면 전체를 다시 짠다**: 레이아웃, 서체, 처리, 색 모두. 고정되는 것은 승인작 3장의 픽셀 동일뿐이다(사용자: "지난 세션에서는 무드 바꾸면 다 바꿨는데"). 시리즈 공통 요소(원본 크기·확대율 표기 등)는 무드에 맞으면 넣는다.
+     5. 새 함수로 만든다(`edas/mood/<무드>.py` 또는 구조별 `edas/mood/kinds/<kind>.py`). 기존 승인 함수는 고치지 않는다.
+     6. **무드 작가 ↔ 편집 구조로 돌린다** (`docs/mood_relay.md`). 작가는 무드마다 `structure` 블록(배치 자체)까지 쓰고, 구조별 렌더러가 그 배치를 그리고, 심판(`edas/mood/judge.py`)이 판정한다.
+        - 먼저 후보 무드 여러 개를 기계적으로 뽑아 한 번에 렌더한다(`python3 scripts/mood_editor.py` → 각 폴더 `preview.jpg`).
         - 그중 하나를 골라 조사(출처 확인)하고 다듬는다.
         - 반려된 초기 방식(`photo_led` 색 칩·ΔE, `variants` 원본 팔레트·작은 프린트 나열)으로 돌아가지 않는다.
         - 이전 세션의 전 과정을 다시 보려면: `python3 scripts/replay_match_flow.py [new]`.

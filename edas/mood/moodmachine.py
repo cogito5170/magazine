@@ -60,6 +60,7 @@ class Layer:
     title_color: tuple | None = None
     caption_face: str = "serif_it"          # serif_it | mono
     marks: bool = False                     # registration marks and crop marks
+    structure: str = "nocturne"             # nocturne (approved) | lineup | wild | eyeline  (edas/mood/layouts.py)
 
 
 DANDY = Layer("soft dandy (approved values)")

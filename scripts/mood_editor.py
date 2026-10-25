@@ -1,4 +1,8 @@
-"""Editor: take mood specs written by the mood writer, render them in the approved structure, judge, reply.
+"""Editor: take mood specs written by the mood writer, render each with its own structure, judge, reply.
+
+A mood is a whole-page redesign (layout, type, treatments).  A spec with a "structure" block is drawn by
+edas/mood/kinds/<kind>.py; without one, by the layout family named in its layer (default: the approved
+NOCTURNE structure).  Fixed for every mood: the three approved spreads stay pixel-identical.
 
 Mailbox (shared project folder, one folder per proposal; the writer only writes spec.json):
     /mnt/project-files/mood-relay/<NNN-name>/spec.json      {"name", "mood", "sources": [...], "layer": {...}}
@@ -18,9 +22,11 @@ from dataclasses import fields, replace
 from PIL import Image
 
 from edas.mood.judge import judge, machine_check
-from edas.mood.moodmachine import DANDY, Layer, nocturne_mood
+import importlib
+
+from edas.mood.layouts import render as layout_render
+from edas.mood.moodmachine import DANDY, Layer
 from edas.mood.spreads import match_pages as mp
-from edas.mood.spreads.match import TEXTS
 
 ap = argparse.ArgumentParser()
 ap.add_argument("--relay", default="/mnt/project-files/mood-relay")
@@ -41,9 +47,21 @@ ccrops = {"night": cv.crop(mp.COVER_HERO), **{k: cv.crop(b) for k, b in mp.COVER
 t = mp.SPREAD_TEXTS
 stext = {"title": t["title"], "head": t["head"], "body": t["body"]}
 c = mp.COVER_TEXTS
-ctext = {"title": c["title"], "kicker": c["kicker"], "body": " ".join(c["quote"])}
-machine_ok = machine_check(crops, TEXTS)
-print("machine (DANDY == approved):", machine_ok)
+ctext = {"title": c["title"], "kicker": c["kicker"], "body": " ".join(c["quote"]), "cover": True}
+machine_ok = machine_check()
+print("approved spreads pixel-identical:", machine_ok)
+sp_persons, cv_persons = mp.spread_persons(), mp.COVER_PERSONS
+copy_spread = [t["title"], t["head"], t["body"]]
+copy_cover = [c["title"], c["kicker"], " ".join(c["quote"])]
+
+
+def compose(kind, crops_, texts_, L, persons, H):
+    """A spec with a structure block is drawn by its own composer (edas/mood/kinds/<kind>.py, written by the
+    mood writer); otherwise by the layout family named in the layer."""
+    if kind:
+        mod = importlib.import_module(f"edas.mood.kinds.{kind.replace('-', '_')}")
+        return mod.render(crops_, texts_, L, persons, H=H)
+    return layout_render(crops_, texts_, L, persons, H=H)
 for d in sorted(glob.glob(os.path.join(args.relay, "*", "spec.json"))):
     folder = os.path.dirname(d)
     if os.path.exists(os.path.join(folder, "response.json")) and not args.all:
@@ -55,13 +73,21 @@ for d in sorted(glob.glob(os.path.join(args.relay, "*", "spec.json"))):
     else:
         L = replace(DANDY, name=spec.get("name", os.path.basename(folder)),
                     **{k: tup(v) for k, v in spec.get("layer", {}).items()})
-        note = (f"Mood layer: {L.name} · structure and methods as approved (slit-scan, divided/mirrored/repeated "
-                "title, shadow copies)",)
+        note = (f"Mood: {L.name}",)
         stext["notes"] = ctext["notes"] = note
         try:
-            page, s = nocturne_mood(crops, stext, L)
-            res = judge(page, s, L, machine_ok)
-            cover_page, _ = nocturne_mood(ccrops, ctext, replace(L, strip_key="park", strip_col=(0.5, 0.1, 0.95)), H=1233)
+            kind = (spec.get("structure") or {}).get("kind")
+            page, s = compose(kind, crops, dict(stext, structure=spec.get("structure")), L, sp_persons, 1231)
+            res = judge(page, s, L, machine_ok, copy_spread)
+            cover_page, s2 = compose(kind, ccrops, dict(ctext, structure=spec.get("structure")),
+                                     replace(L, strip_key="park", strip_col=(0.5, 0.1, 0.95)), cv_persons, 1233)
+            rc = judge(cover_page, s2, L, machine_ok, copy_cover)
+            if res["verdict"] == "ACCEPT" and rc["verdict"] != "ACCEPT":
+                res = dict(rc, why="cover: " + rc["why"], spread={"verdict": res["verdict"], "why": res["why"],
+                                                                  "V": res["V"]})
+            if s.get("needs_user_ok") and res["verdict"] == "ACCEPT":
+                res = dict(res, verdict="HOLD", why="passes the judge; needs the user's OK: " + s["needs_user_ok"])
+            res["cover"] = {"verdict": rc["verdict"], "why": rc["why"], "V": rc["V"]}
             prev = Image.new("RGB", (1200, 1500), (245, 243, 238))
             prev.paste(cover_page.resize((1200, 740)), (0, 0))
             prev.paste(page.resize((1200, 739)), (0, 760))

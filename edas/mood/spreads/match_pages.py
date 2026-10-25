@@ -37,3 +37,12 @@ SPREAD_TEXTS = {
 # 원단 (the quilted vest), 디자인 (the dress form), 색감 (trousers on the floor)
 COVER_HERO = (527, 0, 1054, 650)
 COVER_PRINTS = {"park": (770, 180, 940, 261), "shop": (505, 100, 620, 317), "rock": (775, 418, 935, 520)}  # slot aspects as the spread
+
+# person boxes in each crop's own coordinates (for layouts that align or centre people)
+COVER_PERSONS = {"night": (248, 95, 401, 517), "park": (0, 0, 170, 81), "shop": (0, 0, 115, 217),
+                 "rock": (0, 0, 160, 102)}
+
+
+def spread_persons(inset=3):
+    return {p.key: (p.person[0] - p.crop[0] - inset, p.person[1] - p.crop[1] - inset,
+                    p.person[2] - p.crop[0] - inset, p.person[3] - p.crop[1] - inset) for p in PHOTOS}

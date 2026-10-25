@@ -60,6 +60,7 @@ class Layer:
     title_color: tuple | None = None
     caption_face: str = "serif_it"          # serif_it | mono
     marks: bool = False                     # registration marks and crop marks
+    structure: str = "nocturne"             # nocturne (approved) | lineup | wild | eyeline  (edas/mood/layouts.py)
 
 
 DANDY = Layer("soft dandy (approved values)")
@@ -137,7 +138,10 @@ def nocturne_mood(crops, texts, L: Layer = DANDY, H=H):
     left, info = cover(crops["night"], (GUT, H), focus=(0.47, 0.52))
     left = slit_scan(left, 640, GUT, amp=L.slit_amp, period=22)
     thr, rad, tint, st = L.halation
-    left = matte(halation(_grade(left, L), thr, rad, tint, st), black=L.hero_matte[0], white=L.hero_matte[1])
+    graded = _grade(left, L)
+    if thr < 255 and st > 0:                 # threshold 255 means "no halation" (the formula would divide by 0)
+        graded = halation(graded, thr, rad, tint, st)
+    left = matte(graded, black=L.hero_matte[0], white=L.hero_matte[1])
     if L.hero_fx:
         left = _fx(left, L.hero_fx, paper, ink)
     page.paste(left, (0, 0))
